@@ -5,7 +5,7 @@ cognoms VARCHAR (50) NOT NULL,
 correu_upv VARCHAR (25) NOT NULL
 );
 
-CREATE TABLE Tutor(
+CREATE TABLE AlumneTutor(
 nif VARCHAR (8) PRIMARY KEY,
 nom VARCHAR (30) NOT NULL,
 cognoms VARCHAR (50) NOT NULL,

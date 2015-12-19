@@ -9,7 +9,7 @@ import POJO.Persona;
 /*
  * Com les taules TUTOR i PROFESSOR tenen la mateix info
  * creem una sola classe DAO, que usara una taula o altra
- * en cada metode hi ha una ternaria que triará la taula adecuada
+ * en cada metode hi ha una ternaria que triarï¿½ la taula adecuada
  */
 import POJO.EXCEPTIONS.ArgumentErroniException;
 
@@ -22,7 +22,7 @@ public class TutorDAO {
 	}
 
 	public boolean add(Persona p) throws ArgumentErroniException {
-		if (!(p instanceof POJO.Tutor || p instanceof POJO.Tutelat))
+		if (!(p instanceof POJO.AlumneTutor || p instanceof POJO.Tutelat))
 			throw new ArgumentErroniException();
 
 		try {
@@ -31,7 +31,7 @@ public class TutorDAO {
 			c.setAutoCommit(false);
 
 			// aci trie la taula que toca
-			String sql = "INSERT INTO " + (p instanceof POJO.Tutor ? "Tutor" : "Tutelat")
+			String sql = "INSERT INTO " + (p instanceof POJO.AlumneTutor ? "Tutor" : "Tutelat")
 					+ "(nif, nom, cognoms, correu_upv)" + "VALUES(?,?,?,?)";
 
 			// prepara els tokens
@@ -59,7 +59,7 @@ public class TutorDAO {
 		try {
 			c.close();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

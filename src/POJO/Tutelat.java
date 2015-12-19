@@ -5,7 +5,7 @@ public class Tutelat extends Persona {
 	private String correu_personal;
 	private Grup grup_patu;
 	private String grup_matricula;
-	public long mobil;
+	private long mobil;
 
 	public Tutelat(String nif, String nom, String cognoms, String correu_upv, String correu_personal, Grup grup_patu,
 			String grup_matricula, long mobil) {

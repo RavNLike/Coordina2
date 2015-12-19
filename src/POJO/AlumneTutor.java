@@ -1,0 +1,9 @@
+package POJO;
+
+public class AlumneTutor extends Persona{
+
+	public AlumneTutor(String nif, String nom, String cognoms, String correu_upv) {
+		super(nif, nom, cognoms, correu_upv);
+	}
+
+}
