@@ -5,10 +5,10 @@ public class Tutelat extends Persona {
 	private String correu_personal;
 	private Grup grup_patu;
 	private String grup_matricula;
-	private long mobil;
+	private String mobil;
 
 	public Tutelat(String nif, String nom, String cognoms, String correu_upv, String correu_personal, Grup grup_patu,
-			String grup_matricula, long mobil) {
+			String grup_matricula, String mobil) {
 
 		super(nif, nom, cognoms, correu_upv);
 		this.correu_personal = correu_personal;
@@ -43,11 +43,11 @@ public class Tutelat extends Persona {
 		this.grup_matricula = grup_matricula;
 	}
 
-	public long getMobil() {
+	public String getMobil() {
 		return mobil;
 	}
 
-	public void setMobil(long mobil) {
+	public void setMobil(String mobil) {
 		this.mobil = mobil;
 	}
 	

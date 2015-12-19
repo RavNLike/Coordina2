@@ -1,16 +1,23 @@
 package POJO;
 
-import java.util.ArrayList;
-
 public class Grup {
+	private String nom;
 	private Professor professor;
 	private AlumneTutor alumne1;
 	private AlumneTutor alumne2;
-	ArrayList<Tutelat> tutelas;
-	
-	public Grup(Professor p, AlumneTutor al1){
+
+	public Grup(String nom, Professor p, AlumneTutor al1) {
+		this.nom = nom;
 		this.professor = p;
 		this.alumne1 = al1;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public Professor getProfessor() {
@@ -37,13 +44,4 @@ public class Grup {
 		this.alumne2 = alumne2;
 	}
 
-	public ArrayList<Tutelat> getTutelas() {
-		return tutelas;
-	}
-
-	public void setTutelas(ArrayList<Tutelat> tutelas) {
-		this.tutelas = tutelas;
-	}
-	
-	
 }

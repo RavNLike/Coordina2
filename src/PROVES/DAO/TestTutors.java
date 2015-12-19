@@ -16,7 +16,7 @@ public class TestTutors {
 		TutorDAO dao = new TutorDAO();
 		AlumneTutor a1 = new AlumneTutor("73659660K", "Vicent", "Blanes", "viblasel@inf.upv.es");
 		Professor p1 = new Professor("99999999K", "Silvia", "Terrasa", "sterrasa@disc.upv.es");
-		System.out.println(dao.esborrar(p1));
+		System.out.println(dao.afegir(p1));
 		ArrayList<AlumneTutor> pers = dao.llistarAlumnesTutors();
 		for(AlumneTutor a: pers){
 			System.out.println(a);
