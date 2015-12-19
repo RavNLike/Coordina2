@@ -42,5 +42,11 @@ public abstract class Persona {
 		this.correu_upv = correu_upv;
 	}
 	
+	@Override
+	public String toString() {
+		return "Persona [nif=" + nif + ", nom=" + nom + ", cognoms=" + cognoms + ", correu_upv=" + correu_upv + "]";
+	}
+	
+	
 	
 }
