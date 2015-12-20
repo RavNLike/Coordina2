@@ -1,9 +1,12 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import DAO.DTO.TutelatDTO;
 import POJO.Tutelat;
 
 public class TutelatDAO {
@@ -38,5 +41,21 @@ public class TutelatDAO {
 			return false;
 		}
 		return true;
+	}
+	
+	public ArrayList<TutelatDTO> llistarTutelats() throws SQLException{
+		ArrayList<TutelatDTO> llista = new ArrayList<>();
+		
+		String sql = "select * from tutelat";
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		while(rs.next()){
+			llista.add(new TutelatDTO(rs.getString("nif"), rs.getString("nom"), rs.getString("cognoms"), 
+					rs.getString("correu_upv"),rs.getString("correu_personal"), rs.getString("grup_patu"),
+					rs.getString("grup_matricula"), rs.getString("mobil")));
+					
+		}
+		return llista;
 	}
 }

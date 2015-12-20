@@ -7,9 +7,11 @@ import DAO.GrupDAO;
 import DAO.TutelatDAO;
 import DAO.TutorDAO;
 import DAO.DTO.GrupDTO;
+import DAO.DTO.TutelatDTO;
 import POJO.AlumneTutor;
 import POJO.Grup;
 import POJO.Professor;
+import POJO.Tutelat;
 import POJO.EXCEPTIONS.ArgumentErroniException;
 
 public class Coordina2 {
@@ -61,6 +63,7 @@ public class Coordina2 {
 		//grup depen del anteriors
 		carregarGrups();
 		//tutelat depen de grup
+		carregarTutelats();
 	}
 	
 	private void carregarProfessors() throws SQLException{
@@ -75,6 +78,13 @@ public class Coordina2 {
 		grups = new ArrayList<>();
 		for(GrupDTO dto : daogrup.llistarGrups()){
 			grups.add(dtoAgrup(dto));
+		}
+	}
+	
+	private void carregarTutelats() throws SQLException{
+		tutelats = new ArrayList<>();
+		for(TutelatDTO dto : daotutelat.llistarTutelats()){
+			tutelats.add(dtoAtutelat(dto));
 		}
 	}
 	
@@ -151,6 +161,24 @@ public class Coordina2 {
 	/****************************
 	 * OPERACIONS SOBRE TUTELATS
 	 ***************************/
+	public void afegirTutelat(Tutelat t){
+		boolean bandera = daotutelat.afegir(t);
+		if(bandera) tutelats.add(t);
+	}
+	
+	public ArrayList<Tutelat> llistarTutelats(){
+		return tutelats;
+	}
+	
+	public Tutelat buscarTutelat(String nif){
+		for(Tutelat t : tutelats){
+			if(t.getNif().trim().equalsIgnoreCase(nif)){
+				return t;
+			}
+		}
+		return null;
+	}
+	
 	
 	/************************
 	 * TRADUCCIONS DTO-NORMAL
@@ -176,5 +204,25 @@ public class Coordina2 {
 		}
 		
 		return new Grup(nom, pAux, aux1, aux2);
+	}
+	
+	public Tutelat dtoAtutelat(TutelatDTO dto){
+		
+		 String nif = dto.getNif();
+		 String nom = dto.getNom();
+		 String cognoms = dto.getCognoms();
+		 String correu_upv = dto.getCorreu_upv();
+		 String correu_personal = dto.getCorreu_personal();
+		 Grup grup_patu = null;
+		 String grup_matricula = dto.getGrup_matricula();
+		 String mobil = dto.getMobil();
+		 
+		 for(Grup g : grups){
+			 if(g.getNom().trim().equalsIgnoreCase(dto.getGrup_patu())){
+				 grup_patu = g;
+			 }
+		 }
+		 
+		 return new Tutelat(nif, nom, cognoms, correu_upv, correu_personal, grup_patu, grup_matricula, mobil);
 	}
 }
