@@ -1,9 +1,13 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import BLL.Coordina2;
+import DAO.DTO.GrupDTO;
 import POJO.Grup;
 
 public class GrupDAO {
@@ -38,5 +42,24 @@ public class GrupDAO {
 			return false;
 		}
 		return true;
+	}
+	
+	public ArrayList<GrupDTO> llistarGrups() throws SQLException{
+		String sql = "select * from Grup";
+		ArrayList <GrupDTO> llista = new ArrayList<>();
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		
+		/*UTILITZEM DTO PER A RESOLDRE DEPENDENCIES*/
+		while(rs.next()){
+			llista.add(new GrupDTO(rs.getString("grup"),
+					rs.getString("professor"),
+					rs.getString("alumne1"),
+					rs.getString("alumne2")));
+		}
+		return llista;
+		
 	}
 }

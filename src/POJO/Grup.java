@@ -11,6 +11,13 @@ public class Grup {
 		this.professor = p;
 		this.alumne1 = al1;
 	}
+	
+	public Grup(String nom, Professor p, AlumneTutor al1, AlumneTutor al2) {
+		this.nom = nom;
+		this.professor = p;
+		this.alumne1 = al1;
+		this.alumne2 = al2;
+	}
 
 	public String getNom() {
 		return nom;
@@ -43,5 +50,12 @@ public class Grup {
 	public void setAlumne2(AlumneTutor alumne2) {
 		this.alumne2 = alumne2;
 	}
+
+	@Override
+	public String toString() {
+		return "Grup [nom=" + nom + ", professor=" + professor + ", alumne1=" + alumne1 + ", alumne2=" + alumne2 + "]";
+	}
+	
+	
 
 }
