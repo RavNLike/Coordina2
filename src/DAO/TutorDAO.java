@@ -50,13 +50,13 @@ public class TutorDAO {
 			return false;
 		}
 	}
-	
+
 	public ArrayList<Professor> llistarProfessors() throws SQLException {
 		ArrayList<Professor> llista = new ArrayList<>();
 		String sql = "select * from " + professor;
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
+		while (rs.next()) {
 			String nif = rs.getString("nif");
 			String nom = rs.getString("nom");
 			String cognoms = rs.getString("cognoms");
@@ -71,7 +71,7 @@ public class TutorDAO {
 		String sql = "select * from " + alumneTutor;
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
+		while (rs.next()) {
 			String nif = rs.getString("nif");
 			String nom = rs.getString("nom");
 			String cognoms = rs.getString("cognoms");
@@ -80,14 +80,14 @@ public class TutorDAO {
 		}
 		return llista;
 	}
-	
-	public boolean esborrar(Persona p) throws ArgumentErroniException{
+
+	public boolean esborrar(Persona p) throws ArgumentErroniException {
 		if (!(p instanceof POJO.AlumneTutor || p instanceof POJO.Professor))
 			throw new ArgumentErroniException();
-		
-		String sql = "delete from "+ (p instanceof POJO.AlumneTutor ? alumneTutor : professor)
-				+" where nif = '"+p.getNif()+"'";
-		
+
+		String sql = "delete from " + (p instanceof POJO.AlumneTutor ? alumneTutor : professor) + " where nif = '"
+				+ p.getNif() + "'";
+
 		Statement stmt;
 		try {
 			stmt = c.createStatement();
@@ -96,6 +96,28 @@ public class TutorDAO {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean editar(Persona p) throws ArgumentErroniException {
+		if (!(p instanceof POJO.AlumneTutor || p instanceof POJO.Professor))
+			throw new ArgumentErroniException();
+
+		
+		String sql = "update " + (p instanceof POJO.AlumneTutor ? alumneTutor : professor) + " set nom = '" + p.getNom()
+				+ "', cognoms = '" + p.getCognoms() + "', correu_upv = '" + p.getCorreu_upv() + "' where nif = '"
+				+ p.getNif()+"'";
+		Statement stmt;
+		try {
+			stmt = c.createStatement();
+			stmt = c.createStatement();
+			stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+		
 	}
 
 }

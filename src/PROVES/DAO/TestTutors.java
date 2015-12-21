@@ -15,8 +15,8 @@ public class TestTutors {
 		//afig un professoior i un tutor
 		TutorDAO dao = new TutorDAO();
 		AlumneTutor a1 = new AlumneTutor("73659660K", "Vicent", "Blanes", "viblasel@inf.upv.es");
-		Professor p1 = new Professor("99999999K", "Silvia", "Terrasa", "sterrasa@disc.upv.es");
-		System.out.println(dao.afegir(p1));
+		Professor p1 = new Professor("99999999K", "Silvia Maria", "Terrasa", "sterrasa@disc.upv.es");
+		System.out.println(dao.editar(p1));
 		ArrayList<AlumneTutor> pers = dao.llistarAlumnesTutors();
 		for(AlumneTutor a: pers){
 			System.out.println(a);
