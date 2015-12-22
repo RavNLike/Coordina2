@@ -18,8 +18,7 @@ public class TutelatDAO {
 	}
 
 	/*
-	 * nif nom cognoms correu_upv  correu_personal grup_patu 
-	 * grup_matricula mobil
+	 * nif nom cognoms correu_upv correu_personal grup_patu grup_matricula mobil
 	 */
 	public boolean afegir(Tutelat t) {
 		try {
@@ -31,9 +30,9 @@ public class TutelatDAO {
 			String grupPatu = t.getGrup_patu().getNom();
 			String grupMat = t.getGrup_matricula();
 			String mobil = t.getMobil();
-			
-			String sql = "Insert into Tutelat values('"+nif+"','"+nom+"','"+cog+"','"+corr
-					+"','"+corrPers+"','"+grupPatu+"','"+grupMat+"','"+mobil+"')";
+
+			String sql = "Insert into Tutelat values('" + nif + "','" + nom + "','" + cog + "','" + corr + "','"
+					+ corrPers + "','" + grupPatu + "','" + grupMat + "','" + mobil + "')";
 			Statement stmt = c.createStatement();
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -42,20 +41,48 @@ public class TutelatDAO {
 		}
 		return true;
 	}
-	
-	public ArrayList<TutelatDTO> llistarTutelats() throws SQLException{
+
+	public ArrayList<TutelatDTO> llistarTutelats() throws SQLException {
 		ArrayList<TutelatDTO> llista = new ArrayList<>();
-		
+
 		String sql = "select * from tutelat";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		
-		while(rs.next()){
-			llista.add(new TutelatDTO(rs.getString("nif"), rs.getString("nom"), rs.getString("cognoms"), 
-					rs.getString("correu_upv"),rs.getString("correu_personal"), rs.getString("grup_patu"),
+
+		while (rs.next()) {
+			llista.add(new TutelatDTO(rs.getString("nif"), rs.getString("nom"), rs.getString("cognoms"),
+					rs.getString("correu_upv"), rs.getString("correu_personal"), rs.getString("grup_patu"),
 					rs.getString("grup_matricula"), rs.getString("mobil")));
-					
+
 		}
 		return llista;
+	}
+
+	public boolean esborrar(Tutelat t) {
+		String sql = "delete from Tutelat where nif = '" + t.getNif() + "'";
+		try {
+			Statement stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean editar(Tutelat t) {
+		String sql = "update Tutelat set nom ='" + t.getNom() + "', cognoms ='" + t.getCognoms() + "', correu_upv ='"
+				+ t.getCorreu_upv() + "', correu_personal ='" + t.getCorreu_personal() + "', grup_patu ='"
+				+ t.getGrup_patu().getNom() + "', grup_matricula ='" + t.getGrup_matricula() + "', mobil = '"
+				+ t.getMobil() + "' where nif = '" + t.getNif() + "'";
+		
+		try {
+			Statement stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
