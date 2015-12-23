@@ -3,6 +3,7 @@ package BLL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import BLL.MAIL.EnviarCorreu;
 import DAO.GrupDAO;
 import DAO.TutelatDAO;
 import DAO.TutorDAO;
@@ -276,6 +277,16 @@ public class Coordina2 {
 			}
 		}
 	}
+	
+	public ArrayList<Tutelat> llistarTutelatsPerGrup(Grup g){
+		ArrayList<Tutelat> llista = new ArrayList<>();
+		for(Tutelat aux : tutelats){
+			if(aux.getGrup_patu().equals(g)){
+				llista.add(aux);
+			}
+		}
+		return llista;
+	}
 
 	/************************
 	 * TRADUCCIONS DTO-NORMAL
@@ -355,6 +366,45 @@ public class Coordina2 {
 			}
 		}
 		return llista;
+	}
+	
+	/*********************
+	 * MAILING
+	 *******************/
+	public void enviarCorreu(Persona desti, String tema, String cosMissatge){
+		EnviarCorreu env = new EnviarCorreu();
+		env.enviar(desti, tema, cosMissatge);
+	}
+	
+	/*
+	 * Donat un professor construeix un missatge amb els seus tutors i els seus tutelats 
+	 * es importan el format: cognoms, nom -- correu_upv
+	 */
+	public String obtindreLlistaPerProfessor(Professor profe){
+		String res = "";
+		for(Grup aux : grups){
+			if(aux.getProfessor().getNif().equalsIgnoreCase(profe.getNif())){
+				//trobe un grup d'eixe profe
+				Grup grup = aux;
+				res += "GRUP - "+grup.getNom()+"\n";
+				res+= "TUTOR(S)\n-------\n";
+				if(grup.getAlumne1()!=null){
+					res+=grup.getAlumne1().getCognoms()+", "+grup.getAlumne1().getNom()+" -- "
+							+grup.getAlumne1().getCorreu_upv()+"\n";
+				}
+				if(grup.getAlumne2()!=null){
+					res+=grup.getAlumne2().getCognoms()+", "+grup.getAlumne2().getNom()+" -- "
+							+grup.getAlumne2().getCorreu_upv()+"\n";
+				}
+				res+="TUTELATS\n-------\n";
+				for(Tutelat t : llistarTutelatsPerGrup(grup)){
+					res+=t.getCognoms()+", "+t.getNom()+" -- "+t.getCorreu_upv()+"\n";
+				}
+				res+="-------\n";
+				
+			}
+		}
+		return res;
 	}
 	
 	

@@ -1,4 +1,4 @@
-Programa dissenyat i implementat per Vicent Blanes Selva amb la colaboració de 
+Programa dissenyat i implementat per Vicent Blanes Selva amb la colaboració de Jahel Carmona Vila
 
 Aquest software ha sigut creat amb l'intenció de facilitar el treball de l'alumne INTEGRA ja que conté les ferramentes bàsiques per a automatitzar algues de les tasques mes pesades i que poden presentar mes errors humans.
 
