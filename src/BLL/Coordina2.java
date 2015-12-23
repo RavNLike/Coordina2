@@ -357,4 +357,6 @@ public class Coordina2 {
 		return llista;
 	}
 	
+	
+	
 }
