@@ -18,7 +18,7 @@ nom VARCHAR (30) NOT NULL,
 cognoms VARCHAR (50) NOT NULL,
 correu_upv VARCHAR (25) NOT NULL,
 correu_personal VARCHAR (25) NOT NULL,
-grup_patu VARCHAR (3) NOT NULL,
+grup_patu VARCHAR (3),
 grup_matricula VARCHAR (6),
 mobil VARCHAR (9),
 FOREIGN KEY (grup_patu) references Grups(grup)

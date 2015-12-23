@@ -56,6 +56,12 @@ public class Grup {
 		return "Grup [nom=" + nom + ", professor=" + professor + ", alumne1=" + alumne1 + ", alumne2=" + alumne2 + "]";
 	}
 	
-	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Grup){
+			return this.nom.equalsIgnoreCase(((Grup)o).getNom());
+		}
+		return false;
+	}
 
 }

@@ -1,11 +1,6 @@
 package PROVES.DAO;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
-
 import BLL.Coordina2;
-import DAO.GrupDAO;
-import DAO.TutelatDAO;
-import POJO.*;
 
 public class TestTutelats {
 
