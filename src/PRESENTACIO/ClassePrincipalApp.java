@@ -16,7 +16,7 @@ public class ClassePrincipalApp extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("FinestraPrincipal.fxml"));
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("Informació sobre AENA");
+			primaryStage.setTitle("Informaciï¿½ sobre AENA");
 	        primaryStage.setScene(scene);
 	        //primaryStage.getIcons().add(new Image("icon.png"));
 	        primaryStage.show();
