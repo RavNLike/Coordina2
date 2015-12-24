@@ -1,6 +1,8 @@
 package DAO.DTO;
 
 public class TutelatDTO {
+	public static String noAsignat = "no_assignat";
+	
 	private String nif;
 	private String nom;
 	private String cognoms;
