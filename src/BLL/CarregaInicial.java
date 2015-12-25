@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import DAO.DTO.TutelatDTO;
 import POJO.AlumneTutor;
 import POJO.Professor;
-import POJO.Tutelat;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;

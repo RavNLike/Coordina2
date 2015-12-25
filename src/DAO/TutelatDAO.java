@@ -62,7 +62,7 @@ public class TutelatDAO {
 		String sql = "delete from Tutelat where nif = '" + t.getNif() + "'";
 		try {
 			Statement stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -78,7 +78,7 @@ public class TutelatDAO {
 		
 		try {
 			Statement stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

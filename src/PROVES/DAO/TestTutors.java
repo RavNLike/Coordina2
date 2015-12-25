@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import DAO.TutorDAO;
 import POJO.AlumneTutor;
-import POJO.Persona;
 import POJO.Professor;
 import POJO.EXCEPTIONS.ArgumentErroniException;
 

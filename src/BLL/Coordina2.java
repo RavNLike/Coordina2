@@ -368,6 +368,26 @@ public class Coordina2 {
 		return llista;
 	}
 	
+	
+	/*****************
+	 * CARDINALITATS
+	 *****************/
+	public int nProfessors(){
+		return professors.size();
+	}
+	
+	public int nAlumnesTutors(){
+		return alumnesTutors.size();
+	}
+	
+	public int nGrups(){
+		return grups.size();
+	}
+	
+	public int nTutelats(){
+		return tutelats.size();
+	}
+	
 	/*********************
 	 * MAILING
 	 *******************/
