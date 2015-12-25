@@ -13,3 +13,7 @@
 #Coses a fer
 
 1) Hi ha que estar atent amb el detall de que els tutelats tinguen que tindre un grup assignat -> possible problema en el volcat de dades incial
+
+#Important
+
+1) Està programada la carrega incial dels alumnes tutors, els professors i tutelats. A banda s'ha creat per comoditat un algoritme en BLL.Carrega inicial per a assignar cada alumne tutor a un grup. L'ASSIGNACIO DELS PROFESSORS I ELS TUTORS ALS GRUPS ES FA A MA.
