@@ -18,6 +18,10 @@ public class Grup {
 		this.alumne1 = al1;
 		this.alumne2 = al2;
 	}
+	
+	public Grup(String nom){
+		this.nom=nom;
+	}
 
 	public String getNom() {
 		return nom;
