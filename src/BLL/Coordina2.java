@@ -416,7 +416,7 @@ public class Coordina2 {
 					res+=grup.getAlumne2().getCognoms()+", "+grup.getAlumne2().getNom()+" -- "
 							+grup.getAlumne2().getCorreu_upv()+"\n";
 				}
-				res+="TUTELATS\n-------\n";
+				res+="\nTUTELATS\n-------\n";
 				for(Tutelat t : llistarTutelatsPerGrup(grup)){
 					res+=t.getCognoms()+", "+t.getNom()+" -- "+t.getCorreu_upv()+"\n";
 				}
