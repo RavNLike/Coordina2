@@ -14,6 +14,12 @@
 
 1) Hi ha que estar atent amb el detall de que els tutelats tinguen que tindre un grup assignat -> possible problema en el volcat de dades incial
 
+2) Hi ha que implementar encriptació per a les dades personals en la bd
+
+3) Hi ha que buscar la manera de crear les acreditacions en correspondencia
+
 #Important
 
 1) Està programada la carrega incial dels alumnes tutors, els professors i tutelats. A banda s'ha creat per comoditat un algoritme en BLL.Carrega inicial per a assignar cada alumne tutor a un grup. L'ASSIGNACIO DELS PROFESSORS I ELS TUTORS ALS GRUPS ES FA A MA.
+
+2) La versió del programa funcional amb INTERFICIE PER CONSOLA serà la 0.1. La interficie gràfica ens farà alcançar la 1.0.
