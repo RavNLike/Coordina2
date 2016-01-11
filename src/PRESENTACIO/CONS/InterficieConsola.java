@@ -276,6 +276,7 @@ public class InterficieConsola {
 	public static void operacionsLlistar(){
 		System.out.println("1. llistar tutelats per grup");
 		System.out.println("2. llistar per professor");
+		System.out.println("3. llistat per alumne tutor");
 		
 		int opcio = Integer.parseInt(tec.nextLine());
 		switch(opcio){
@@ -291,8 +292,31 @@ public class InterficieConsola {
 			String nif = tec.nextLine();
 			System.out.println(bll.obtindreLlistaPerProfessor(bll.buscarProfessor(nif)));
 			break;
+		case 3:
+			System.out.println("Introdueix el nif del alumne tutor");
+			String dni = tec.nextLine();
+			System.out.println(bll.obtindreMembresPerAlumneTutor(bll.buscarAlumneTutor(dni)));
 		}
 		
+	}
+	
+	private static void operacionsMailing(){
+		System.out.println("1. Enviar a cada professor la llista de tutelats");
+		System.out.println("2. Enviar a cada tutor la llista del grup");
+		
+		int opcio = Integer.parseInt(tec.nextLine());
+		
+		switch(opcio){
+		case 1:
+			for(Professor aux : bll.llistarProfessors()){
+				bll.enviarCorreu(aux, "Llista de tutelats", bll.obtindreLlistaPerProfessor(aux));
+			}
+			break;
+		case 2:
+			for(AlumneTutor aux : bll.llistarAlumnesTutors()){
+				bll.enviarCorreu(aux, "llista PATU", bll.obtindreMembresPerAlumneTutor(aux));
+			}
+		}
 	}
 	
 }

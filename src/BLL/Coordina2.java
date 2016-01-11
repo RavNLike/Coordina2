@@ -277,11 +277,11 @@ public class Coordina2 {
 			}
 		}
 	}
-	
-	public ArrayList<Tutelat> llistarTutelatsPerGrup(Grup g){
+
+	public ArrayList<Tutelat> llistarTutelatsPerGrup(Grup g) {
 		ArrayList<Tutelat> llista = new ArrayList<>();
-		for(Tutelat aux : tutelats){
-			if(aux.getGrup_patu().equals(g)){
+		for (Tutelat aux : tutelats) {
+			if (aux.getGrup_patu().equals(g)) {
 				llista.add(aux);
 			}
 		}
@@ -340,93 +340,123 @@ public class Coordina2 {
 	/*
 	 * Retorna un arraylist amb les persones que pertanyen al grup indicat
 	 */
-	public ArrayList<Persona> obtindreMembresGrup(String nomGrup){
-		//crea la llista de persones
+	public ArrayList<Persona> obtindreMembresGrup(String nomGrup) {
+		// crea la llista de persones
 		ArrayList<Persona> llista = new ArrayList<>();
-		//busca el grup en questió
+		// busca el grup en questió
 		Grup aux = buscarGrup(nomGrup);
-		if(aux!=null){
-			//obtenir el professor
-			if(aux.getProfessor()!=null){
+		if (aux != null) {
+			// obtenir el professor
+			if (aux.getProfessor() != null) {
 				llista.add(aux.getProfessor());
 			}
-			//obtenir l'alumne 1
-			if(aux.getAlumne1()!=null){
+			// obtenir l'alumne 1
+			if (aux.getAlumne1() != null) {
 				llista.add(aux.getAlumne1());
 			}
-			//obtenir l'alumne 2
-			if(aux.getAlumne2()!=null){
+			// obtenir l'alumne 2
+			if (aux.getAlumne2() != null) {
 				llista.add(aux.getAlumne2());
 			}
-			//buscar els alumnes d'este grup
-			for(Tutelat tut : tutelats){
-				if(tut.getGrup_patu().equals(aux)){
+			// buscar els alumnes d'este grup
+			for (Tutelat tut : tutelats) {
+				if (tut.getGrup_patu().equals(aux)) {
 					llista.add(tut);
 				}
 			}
 		}
 		return llista;
 	}
-	
-	
+
+	public ArrayList<Grup> grupsPerAlumne(AlumneTutor al) {
+		ArrayList<Grup> llista = new ArrayList<>();
+		for (Grup aux : grups) {
+			if (aux.getAlumne1().equals(al) || aux.getAlumne2().equals(al)) {
+				llista.add(aux);
+			}
+		}
+		return llista;
+	}
+
 	/*****************
 	 * CARDINALITATS
 	 *****************/
-	public int nProfessors(){
+	public int nProfessors() {
 		return professors.size();
 	}
-	
-	public int nAlumnesTutors(){
+
+	public int nAlumnesTutors() {
 		return alumnesTutors.size();
 	}
-	
-	public int nGrups(){
+
+	public int nGrups() {
 		return grups.size();
 	}
-	
-	public int nTutelats(){
+
+	public int nTutelats() {
 		return tutelats.size();
 	}
-	
+
 	/*********************
 	 * MAILING
 	 *******************/
-	public void enviarCorreu(Persona desti, String tema, String cosMissatge){
+	public void enviarCorreu(Persona desti, String tema, String cosMissatge) {
 		EnviarCorreu env = new EnviarCorreu();
 		env.enviar(desti, tema, cosMissatge);
 	}
-	
+
 	/*
-	 * Donat un professor construeix un missatge amb els seus tutors i els seus tutelats 
-	 * es importan el format: cognoms, nom -- correu_upv
+	 * Donat un professor construeix un missatge amb els seus tutors i els seus
+	 * tutelats es importan el format: cognoms, nom -- correu_upv
 	 */
-	public String obtindreLlistaPerProfessor(Professor profe){
+	public String obtindreLlistaPerProfessor(Professor profe) {
 		String res = "";
-		for(Grup aux : grups){
-			if(aux.getProfessor().getNif().equalsIgnoreCase(profe.getNif())){
-				//trobe un grup d'eixe profe
+		for (Grup aux : grups) {
+			if (aux.getProfessor().getNif().equalsIgnoreCase(profe.getNif())) {
+				// trobe un grup d'eixe profe
 				Grup grup = aux;
-				res += "GRUP - "+grup.getNom()+"\n";
-				res+= "TUTOR(S)\n-------\n";
-				if(grup.getAlumne1()!=null){
-					res+=grup.getAlumne1().getCognoms()+", "+grup.getAlumne1().getNom()+" -- "
-							+grup.getAlumne1().getCorreu_upv()+"\n";
+				res += "GRUP - " + grup.getNom() + "\n";
+				res += "TUTOR(S)\n-------\n";
+				if (grup.getAlumne1() != null) {
+					res += grup.getAlumne1().toString() + "\n";
 				}
-				if(grup.getAlumne2()!=null){
-					res+=grup.getAlumne2().getCognoms()+", "+grup.getAlumne2().getNom()+" -- "
-							+grup.getAlumne2().getCorreu_upv()+"\n";
+				if (grup.getAlumne2() != null) {
+					res += grup.getAlumne2().toString() + "\n";
 				}
-				res+="\nTUTELATS\n-------\n";
-				for(Tutelat t : llistarTutelatsPerGrup(grup)){
-					res+=t.getCognoms()+", "+t.getNom()+" -- "+t.getCorreu_upv()+"\n";
+				res += "\nTUTELATS\n-------\n";
+				for (Tutelat t : llistarTutelatsPerGrup(grup)) {
+					res += t.toString() + "\n";
 				}
-				res+="-------\n";
-				
+				res += "-------\n";
+
 			}
 		}
 		return res;
 	}
-	
-	
-	
+
+	public String obtindreMembresPerAlumneTutor(AlumneTutor tut) {
+		ArrayList<Grup> llistat = grupsPerAlumne(tut);
+		String res = "";
+		for (Grup aux : llistat) {
+			res += "GRUP - " + aux.getNom() + "\n------\n";
+			res += "PROFESSOR\n------\n";
+			res += aux.getProfessor().toString() + "\n";
+			res += "\nTUTOR(S)\n-------\n";
+			if (aux.getAlumne1() != null) {
+				res += aux.getAlumne1().toString() + "\n";
+			}
+			if (aux.getAlumne2() != null) {
+				res += aux.getAlumne2().toString() + "\n";
+			}
+			res += "\nTUTELATS\n-------\n";
+			for (Tutelat t : llistarTutelatsPerGrup(aux)) {
+				res += t.toString() + "\n";
+			}
+			res += "-------\n";
+
+		}
+		return res;
+
+	}
+
 }
