@@ -47,6 +47,10 @@ public abstract class Persona {
 		return this.cognoms+", "+this.nom+" - "+this.nif +" - "+this.correu_upv;
 	}
 	
+	public boolean equals(Persona o){
+		return this.nif.equalsIgnoreCase(o.nif);
+	}
+	
 	
 	
 }

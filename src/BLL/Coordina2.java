@@ -131,11 +131,12 @@ public class Coordina2 {
 		// busca el objecte antic (aux)
 		for (Professor aux : professors) {
 			if (aux.getNif().equalsIgnoreCase(p.getNif())) {
-				// si conseguisc editarlo en la bd, lleve el vell i fique el nou
+				// si conseguisc editarlo en la bd, edite els valors
 				boolean bandera = daotutor.editar(p);
 				if (bandera) {
-					professors.remove(aux);
-					professors.add(p);
+					aux.setNom(p.getNom());
+					aux.setCognoms(p.getCognoms());
+					aux.setCorreu_upv(p.getCorreu_upv());
 				}
 			}
 		}
@@ -180,11 +181,12 @@ public class Coordina2 {
 
 	public void editarAlumneTutor(AlumneTutor a) throws ArgumentErroniException {
 		for (AlumneTutor aux : alumnesTutors) {
-			if (aux.getNif().equalsIgnoreCase(a.getNif())) {
+			if (aux.equals(a)) {
 				boolean bandera = daotutor.editar(a);
-				if (bandera) {
-					alumnesTutors.remove(aux);
-					alumnesTutors.add(a);
+				if (bandera) {		
+					aux.setNom(a.getNom());
+					aux.setCognoms(a.getCognoms());
+					aux.setCorreu_upv(a.getCorreu_upv());
 				}
 			}
 		}
@@ -227,8 +229,9 @@ public class Coordina2 {
 			if (g.getNom().equalsIgnoreCase(aux.getNom())) {
 				boolean bandera = daogrup.editar(g);
 				if (bandera) {
-					grups.remove(aux);
-					grups.add(g);
+					aux.setAlumne1(g.getAlumne1());
+					aux.setAlumne2(g.getAlumne2());
+					aux.setProfessor(g.getProfessor());
 				}
 			}
 		}
@@ -371,7 +374,7 @@ public class Coordina2 {
 	public ArrayList<Grup> grupsPerAlumne(AlumneTutor al) {
 		ArrayList<Grup> llista = new ArrayList<>();
 		for (Grup aux : grups) {
-			if (aux.getAlumne1().equals(al) || aux.getAlumne2().equals(al)) {
+			if (aux.getAlumne1().equals(al) || (aux.getAlumne2()!= null && aux.getAlumne2().equals(al))) {
 				llista.add(aux);
 			}
 		}

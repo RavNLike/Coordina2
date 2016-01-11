@@ -108,7 +108,7 @@ public class CarregaInicial {
 			return;
 		// agafem el primer grup per a començar l'algorisme
 		String grupMatActual = tutelats.get(0).getGrup_matricula();
-		// numero de tutelats assignats; cadinalitat 1er, 2n...
+		// numero de tutelats assignats cadinalitat 1er, 2n...
 		int numero = 1;
 		//mante el grup actual
 		Grup actual = new Grup("G01");

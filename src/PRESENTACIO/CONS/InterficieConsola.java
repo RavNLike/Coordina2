@@ -46,8 +46,7 @@ public class InterficieConsola {
 				crudGrups();
 				break;
 			case 5:
-				//mailing TODO
-				System.err.println("No implementat encara");
+				operacionsMailing();
 				break;
 			case 6: 
 				//llistats
