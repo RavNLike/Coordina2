@@ -44,7 +44,11 @@ public abstract class Persona {
 	
 	@Override
 	public String toString() {
-		return "Persona [nif=" + nif + ", nom=" + nom + ", cognoms=" + cognoms + ", correu_upv=" + correu_upv + "]";
+		return this.cognoms+", "+this.nom+" - "+this.nif +" - "+this.correu_upv;
+	}
+	
+	public boolean equals(Persona o){
+		return this.nif.equalsIgnoreCase(o.nif);
 	}
 	
 	

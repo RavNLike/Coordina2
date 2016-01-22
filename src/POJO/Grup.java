@@ -63,7 +63,7 @@ public class Grup {
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof Grup){
-			return this.nom.equalsIgnoreCase(((Grup)o).getNom());
+			return this.nom.trim().equalsIgnoreCase(((Grup)o).getNom().trim());
 		}
 		return false;
 	}
