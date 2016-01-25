@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="base" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.VistaInicialController">
+    <children>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#eixir" text="Sortir" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Label text="Grups tutorials" />
+            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="500.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#apretarTutelats" text="Tutelats" />
+                  <Button mnemonicParsing="false" onAction="#apretarTutorsAlumnes" text="Alumnes tutors" />
+                  <Button mnemonicParsing="false" onAction="#apretarProfessors" text="Professors tutors" />
+               </children>
+            </HBox>
+            <HBox fx:id="boxInvisible" alignment="CENTER" spacing="20.0" />
+            <Line endX="100.0" startX="-100.0" />
+            <Label text="Altres opcions" />
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="500.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Mailing" />
+                  <Button mnemonicParsing="false" text="Acreditacions" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>
