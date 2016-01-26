@@ -77,8 +77,8 @@ public class GrupDAO {
 	public boolean editar(Grup g) {
 		String sql = "update Grup set professor = '" + g.getProfessor().getNif() + "', " + "alumne1 = '"
 				+ g.getAlumne1().getNif() + "', "
-				+ (g.getAlumne2() == null ? "" : "alumne2 = '" + g.getAlumne2().getNif() + "'") + " where Grup = "
-				+ g.getNom();
+				+ (g.getAlumne2() == null ? "" : "alumne2 = '" + g.getAlumne2().getNif() + "'") + " where Grup = '"
+				+ g.getNom()+"'";
 		
 		try {
 			Statement stmt = c.createStatement();

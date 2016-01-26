@@ -5,5 +5,17 @@
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.6.jar"/>
 	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
 	<classpathentry kind="lib" path="lib/jxl.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.5.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.5.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.5.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.5.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.5.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.5.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/xmlworker-5.5.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/xmlworker-5.5.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/xmlworker-5.5.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
