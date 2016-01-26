@@ -1,10 +1,4 @@
-package presentacio;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package presentacio.control;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,11 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-/**
- * FXML Controller class
- *
- * @author Jahel
- */
+
 public class VistaInicialController implements Initializable {
     @FXML private HBox boxInvisible;
     

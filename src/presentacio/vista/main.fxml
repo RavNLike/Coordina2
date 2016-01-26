@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet vista.css?>
 
-<VBox prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.MainController">
+<VBox prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.MainController">
   <children>
     <StackPane fx:id="vistaHolder" VBox.vgrow="ALWAYS" />
   </children>

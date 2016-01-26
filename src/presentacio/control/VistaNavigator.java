@@ -1,15 +1,15 @@
-package presentacio;
+package presentacio.control;
 
-import presentacio.MainController;
+import presentacio.control.MainController;
 import java.io.File;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class VistaNavigator {
 
-    public static final String MAIN    = "/vista/main.fxml";
-    public static final String VISTAINI = "/vista/VistaInicial.fxml";
-    public static final String VISTASEG = "/vista/VistaSegona.fxml";
+    public static final String MAIN    = "/presentacio/vista/main.fxml";
+    public static final String VISTAINI = "/presentacio/vista/VistaInicial.fxml";
+    public static final String VISTASEG = "/presentacio/vista/VistaSegona.fxml";
     private static MainController mainController;
 
     public static void setMainController(MainController mainController) {

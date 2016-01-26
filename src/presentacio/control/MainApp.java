@@ -1,4 +1,4 @@
-package presentacio;
+package presentacio.control;
 
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        stage.setTitle("Vista Viewer");
+        stage.setTitle("Coordina2");
         Scene sc = new Scene(loadMainPane());
         stage.setScene(sc);
         stage.show();
