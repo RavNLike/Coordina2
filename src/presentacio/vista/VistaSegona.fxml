@@ -38,8 +38,12 @@
                 <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
                 <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
                   <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
-                  <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="Correu UPV" />
-                  <TableColumn fx:id="taulaCorreuPersonal" prefWidth="75.0" text="Correu personal" />
+                  <TableColumn prefWidth="75.0" text="Correu">
+                     <columns>
+                        <TableColumn fx:id="taulaCorreuPersonal" prefWidth="75.0" text="Personal" />
+                        <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="UPV" />
+                     </columns>
+                  </TableColumn>
                   <TableColumn fx:id="taulaGrupPATU" prefWidth="75.0" text="Grup PATU" />
                   <TableColumn fx:id="taulaGrupMatricula" prefWidth="75.0" text="Grup de Matricula" />
               </columns>
