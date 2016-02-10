@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaController">
+<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerTutelat">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -22,9 +22,9 @@
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#llistarTutelats" text="Tutelats" />
-                  <Button mnemonicParsing="false" onAction="#llistarAlumnesTutors" text="Alumnes tutors" textAlignment="CENTER" wrapText="true" />
-                  <Button mnemonicParsing="false" onAction="#llistarProfessors" text="Professors" />
+                  <Button mnemonicParsing="false" onAction="#afegirTutelat" text="Afegir tutelat" />
+                  <Button mnemonicParsing="false" onAction="#editarTutelat" text="Editar tutelat" textAlignment="CENTER" wrapText="true" />
+                  <Button mnemonicParsing="false" onAction="#esborrarTutelat" text="Esborrar tutelat" />
                   <Line endX="100.0" />
                   <Button mnemonicParsing="false" text="Mailing" />
                   <Button mnemonicParsing="false" text="Acreditacions" textAlignment="CENTER" wrapText="true" />

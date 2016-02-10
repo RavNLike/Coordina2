@@ -26,6 +26,7 @@
                   <Button mnemonicParsing="false" onAction="#apretarTutelats" text="Tutelats" />
                   <Button mnemonicParsing="false" onAction="#apretarTutorsAlumnes" text="Alumnes tutors" />
                   <Button mnemonicParsing="false" onAction="#apretarProfessors" text="Professors tutors" />
+                  <Button mnemonicParsing="false" onAction="#apretarGrups" text="Grups" />
                </children>
             </HBox>
             <HBox fx:id="boxInvisible" alignment="CENTER" spacing="20.0" />

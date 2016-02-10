@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerProfessor">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="38.0" layoutY="138.0" prefHeight="200.0" prefWidth="176.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#afegirProfessor" text="Afegir professor" />
+                  <Button mnemonicParsing="false" onAction="#editarProfessor" text="Editar professor" textAlignment="CENTER" wrapText="true" />
+                  <Button mnemonicParsing="false" onAction="#esborrarProfessor" text="Esborrar professor" />
+                  <Line endX="100.0" />
+                  <Button mnemonicParsing="false" text="Mailing" />
+                  <Button mnemonicParsing="false" text="Acreditacions" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <TableView fx:id="taula" layoutX="193.0" layoutY="65.0" prefHeight="398.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
+                <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
+                  <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
+                  <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="Correu UPV" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

@@ -1,0 +1,176 @@
+package presentacio.control;
+
+import presentacio.control.VistaNavigator;
+import java.net.URL;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import bll.Coordina2;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.layout.GridPane;
+import javafx.util.Callback;
+import pojo.AlumneTutor;
+import pojo.exceptions.ArgumentErroniException;
+
+public class VistaSegonaControllerAlumneTutor implements Initializable {
+    
+	@FXML private TableColumn<AlumneTutor, String> taulaDNI;
+    @FXML private TableColumn<AlumneTutor, String> taulaNom;
+    @FXML private TableColumn<AlumneTutor, String> taulaCognoms;
+    @FXML private TableColumn<AlumneTutor, String> taulaCorreuUPV;
+    @FXML private TableView<AlumneTutor> taula;
+	Coordina2 cd2 = Coordina2.getInstancia();
+	
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    	//Singleton 
+    	List<AlumneTutor> listProfessors = cd2.llistarAlumnesTutors();
+    	ObservableList<AlumneTutor> altuts = FXCollections.observableArrayList(listProfessors);
+    	
+    	//Ara plenar columnes
+    	taulaDNI.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getNif()));
+    	taulaNom.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> ((param.getValue()).getNom()));
+    	taulaCognoms.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> ((param.getValue()).getCognoms()));
+    	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
+    	taula.setItems(altuts);
+
+    }
+        
+    @FXML public void enrere(){VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
+    
+    @FXML public void afegirAlumneTutor(){
+    	Dialog<AlumneTutor> dialog = new Dialog<>();
+    	dialog.setTitle("Afegir Alumne Tutors");
+    	dialog.setHeaderText("Diàleg per a afegir un alumne tutor nou. Emplene tots els camps.");
+    	dialog.setResizable(true);
+    	Label lb1 = new Label("DNI:");
+    	Label lb2 = new Label("Nom:");
+    	Label lb3 = new Label("Cognoms:");
+    	Label lb4 = new Label("Correu UPV:");
+    	TextField tx1 = new TextField();
+    	TextField tx2 = new TextField();
+    	TextField tx3 = new TextField();
+    	TextField tx4 = new TextField();
+    	GridPane grid = new GridPane();
+    	grid.add(lb1, 1, 1);
+    	grid.add(lb2, 1, 2);
+    	grid.add(lb3, 1, 3);
+    	grid.add(lb4, 1, 4);
+    	grid.add(tx1, 2, 1);
+    	grid.add(tx2, 2, 2);
+    	grid.add(tx3, 2, 3);
+    	grid.add(tx4, 2, 4);
+    	dialog.getDialogPane().setContent(grid);
+    	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
+    	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+    	dialog.setResultConverter(new Callback<ButtonType, AlumneTutor>() {
+    		@Override
+    		public AlumneTutor call(ButtonType b){
+    			if(b == buttonTypeOk){
+    				return new AlumneTutor(tx1.getText(), tx2.getText(), 
+    						tx3.getText(), tx4.getText());
+    			}
+    			return null;
+    		} 	
+    	});    	
+    	Optional<AlumneTutor> result = dialog.showAndWait();
+    	if(result.isPresent()){
+    		try {
+				cd2.afegirAlumneTutor(result.get());
+			} catch (ArgumentErroniException e) {
+				e.printStackTrace();
+			}
+    	}
+
+    }
+    
+    @FXML public void editarAlumneTutor(){
+    	if(taula.getSelectionModel().getSelectedItem() == null){
+    		Alert al = new Alert (AlertType.WARNING);
+    		al.setTitle("Atenció!");
+    		al.setHeaderText("Seleccione un element a esborrar");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	} else {
+    		Dialog<AlumneTutor> dialog = new Dialog<>();
+        	dialog.setTitle("Afegir Alumne Tutors");
+        	dialog.setHeaderText("Diàleg per a afegir un alumne tutor nou. Emplene tots els camps.");
+        	dialog.setResizable(true);
+        	Label lb1 = new Label("DNI:");
+        	Label lb2 = new Label("Nom:");
+        	Label lb3 = new Label("Cognoms:");
+        	Label lb4 = new Label("Correu UPV:");
+        	TextField tx1 = new TextField();
+        	TextField tx2 = new TextField();
+        	TextField tx3 = new TextField();
+        	TextField tx4 = new TextField();
+        	GridPane grid = new GridPane();
+        	grid.add(lb1, 1, 1);
+        	grid.add(lb2, 1, 2);
+        	grid.add(lb3, 1, 3);
+        	grid.add(lb4, 1, 4);
+        	grid.add(tx1, 2, 1);
+        	grid.add(tx2, 2, 2);
+        	grid.add(tx3, 2, 3);
+        	grid.add(tx4, 2, 4);
+        	dialog.getDialogPane().setContent(grid);
+        	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
+        	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        	dialog.setResultConverter(new Callback<ButtonType, AlumneTutor>() {
+        		@Override
+        		public AlumneTutor call(ButtonType b){
+        			if(b == buttonTypeOk){
+        				return new AlumneTutor(tx1.getText(), tx2.getText(), 
+        						tx3.getText(), tx4.getText());
+        			}
+        			return null;
+        		} 	
+        	});    	
+        	Optional<AlumneTutor> result = dialog.showAndWait();
+        	if(result.isPresent()){
+        		try {
+    				cd2.afegirAlumneTutor(result.get());
+    			} catch (ArgumentErroniException e) {
+    				e.printStackTrace();
+    			}
+        	}
+    	}
+    }
+    
+    @FXML public void esborrarAlumneTutor(){
+    	if(taula.getSelectionModel().getSelectedItem() == null){
+    		Alert al = new Alert (AlertType.WARNING);
+    		al.setTitle("Atenció!");
+    		al.setHeaderText("Seleccione un element a esborrar");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	} else {
+    		Alert al = new Alert (AlertType.WARNING);
+    		al.setTitle("Atenció!");
+    		al.setHeaderText("Està segur que vol esborrar l'element?");
+    		al.setContentText(null);
+    		Optional<ButtonType> result = al.showAndWait();
+    		if(result.isPresent() && result.get() == ButtonType.OK){
+    			try{
+    				cd2.borrarAlumneTutor(taula.getSelectionModel().getSelectedItem());
+    			} catch (ArgumentErroniException e){
+    				e.printStackTrace();
+    			}
+    			
+    		}
+    	}
+    }
+}

@@ -129,14 +129,15 @@ public class Coordina2 {
 
 	public void editarProfessor(Professor p) throws ArgumentErroniException {
 		// busca el objecte antic (aux)
-		for (Professor aux : professors) {
-			if (aux.getNif().equalsIgnoreCase(p.getNif())) {
+		for (int i = 0; i < professors.size(); i++) {
+			//if (aux.getNif().equalsIgnoreCase(p.getNif())) {
+			if(professors.get(i).getNif().equalsIgnoreCase(p.getNif())){
 				// si conseguisc editarlo en la bd, edite els valors
 				boolean bandera = daotutor.editar(p);
 				if (bandera) {
-					aux.setNom(p.getNom());
-					aux.setCognoms(p.getCognoms());
-					aux.setCorreu_upv(p.getCorreu_upv());
+					professors.get(i).setNom(p.getNom());
+					professors.get(i).setCognoms(p.getCognoms());
+					professors.get(i).setCorreu_upv(p.getCorreu_upv());
 				}
 			}
 		}
@@ -180,13 +181,13 @@ public class Coordina2 {
 	}
 
 	public void editarAlumneTutor(AlumneTutor a) throws ArgumentErroniException {
-		for (AlumneTutor aux : alumnesTutors) {
-			if (aux.equals(a)) {
+		for (int i = 0; i< alumnesTutors.size();i++) {
+			if (alumnesTutors.get(i).equals(a)) {
 				boolean bandera = daotutor.editar(a);
 				if (bandera) {		
-					aux.setNom(a.getNom());
-					aux.setCognoms(a.getCognoms());
-					aux.setCorreu_upv(a.getCorreu_upv());
+					alumnesTutors.get(i).setNom(a.getNom());
+					alumnesTutors.get(i).setCognoms(a.getCognoms());
+					alumnesTutors.get(i).setCorreu_upv(a.getCorreu_upv());
 				}
 			}
 		}
@@ -225,13 +226,13 @@ public class Coordina2 {
 	}
 
 	public void editarGrup(Grup g) {
-		for (Grup aux : grups) {
-			if (g.getNom().equalsIgnoreCase(aux.getNom())) {
+		for (int i = 0; i<grups.size();i++) {
+			if (g.getNom().equalsIgnoreCase(grups.get(i).getNom())) {
 				boolean bandera = daogrup.editar(g);
 				if (bandera) {
-					aux.setAlumne1(g.getAlumne1());
-					aux.setAlumne2(g.getAlumne2());
-					aux.setProfessor(g.getProfessor());
+					grups.get(i).setAlumne1(g.getAlumne1());
+					grups.get(i).setAlumne2(g.getAlumne2());
+					grups.get(i).setProfessor(g.getProfessor());
 				}
 			}
 		}
@@ -270,12 +271,12 @@ public class Coordina2 {
 	}
 
 	public void editarTutelat(Tutelat t) {
-		for (Tutelat aux : tutelats) {
-			if (aux.getNif().equalsIgnoreCase(t.getNif())) {
+		for (int i = 0; i<tutelats.size();i++) {
+			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
 				boolean bandera = daotutelat.esborrar(t);
 				if (bandera) {
-					tutelats.remove(aux);
-					tutelats.add(t);
+					tutelats.remove(tutelats.get(i));
+					tutelats.add(tutelats.get(i));
 				}
 			}
 		}
