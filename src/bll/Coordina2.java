@@ -118,11 +118,11 @@ public class Coordina2 {
 
 	public void borrarProfessor(Professor p) throws ArgumentErroniException {
 		// busqueda i borrat a ma
-		for (Professor aux : professors) {
-			if (aux.getNif().equalsIgnoreCase(p.getNif())) {
+		for (int i = 0; i<professors.size();i++) {
+			if (professors.get(i).getNif().equalsIgnoreCase(p.getNif())) {
 				boolean bandera = daotutor.esborrar(p);
 				if (bandera)
-					professors.remove(aux);
+					professors.remove(i);
 			}
 		}
 	}
@@ -170,11 +170,11 @@ public class Coordina2 {
 	}
 
 	public void borrarAlumneTutor(AlumneTutor a) throws ArgumentErroniException {
-		for (AlumneTutor aux : alumnesTutors) {
-			if (aux.getNif().equalsIgnoreCase(a.getNif())) {
+		for (int i = 0; i< alumnesTutors.size();i++) {
+			if (alumnesTutors.get(i).getNif().equalsIgnoreCase(a.getNif())) {
 				boolean bandera = daotutor.esborrar(a);
 				if (bandera)
-					alumnesTutors.remove(aux);
+					alumnesTutors.remove(i);
 			}
 		}
 	}
@@ -215,11 +215,11 @@ public class Coordina2 {
 	}
 
 	public void borrarGrup(Grup g) {
-		for (Grup aux : grups) {
-			if (g.getNom().equalsIgnoreCase(aux.getNom())) {
+		for (int i = 0; i<grups.size();i++) {
+			if (g.getNom().equalsIgnoreCase(grups.get(i).getNom())) {
 				boolean bandera = daogrup.esborrar(g);
 				if (bandera)
-					grups.remove(aux);
+					grups.remove(i);
 			}
 		}
 	}
@@ -260,11 +260,11 @@ public class Coordina2 {
 	}
 
 	public void borrarTutelat(Tutelat t) {
-		for (Tutelat aux : tutelats) {
-			if (aux.getNif().equalsIgnoreCase(t.getNif())) {
+		for (int i = 0; i<tutelats.size();i++) {
+			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
 				boolean bandera = daotutelat.esborrar(t);
 				if (bandera)
-					tutelats.remove(aux);
+					tutelats.remove(i);
 			}
 		}
 	}

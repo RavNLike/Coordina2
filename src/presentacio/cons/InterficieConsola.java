@@ -89,7 +89,8 @@ public class InterficieConsola {
 		case 4:
 			System.out.println("Nif del tutelat a esborrar");
 			String nif = tec.nextLine();
-			bll.borrarTutelat(bll.buscarTutelat(nif));
+			Tutelat aux = bll.buscarTutelat(nif);
+			bll.borrarTutelat(aux);
 			break;
 		}
 
