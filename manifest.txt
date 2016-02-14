@@ -1,9 +1,0 @@
-Programa dissenyat i implementat per Vicent Blanes Selva amb la colaboració de Jahel Carmona Vila
-
-Aquest software ha sigut creat amb l'intenció de facilitar el treball de l'alumne INTEGRA ja que conté les ferramentes bàsiques per a automatitzar algues de les tasques mes pesades i que poden presentar mes errors humans.
-
-Tant la interficie com el codi (en la mesura de lo posible) està en valencià.
-
-Autors i colaboradors no ens fem responsables del mal us o de posibles errors que no siguen detectats per nosaltres; la nostra intenció es crear programari util i que ajude a complir la tasca de forma eficient. El codi es lliure i autoritzem futus canvis realitzats per tercers i redistribucions. 
-
-El programa ha sigut creat originalment per a l'ETSINF (UPV). 

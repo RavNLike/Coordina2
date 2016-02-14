@@ -22,6 +22,6 @@ public class TestMail {
 	
 	public static void main (String args[]) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, SQLException{
 		EnviarCorreu env = new EnviarCorreu();
-		env.enviar(new AlumneTutor("1", "Jahel", "Carmona", "jacarvi@inf.upv.es"), "provando", "Tinc les pilotes com un egipci");
+		//env.enviar(new AlumneTutor("1", "Jahel", "Carmona", "jacarvi@inf.upv.es"), "provando", "Tinc les pilotes com un egipci");
 	}
 }

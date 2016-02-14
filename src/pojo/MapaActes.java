@@ -3,33 +3,41 @@ package pojo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+public class MapaActes {
 
-public class MapaActes{
+	private HashMap<Persona, Integer> mapa;
 
-	private HashMap <Persona, Integer> mapa;
-	
-	public MapaActes(){
+	public MapaActes() {
 		mapa = new HashMap<Persona, Integer>();
 	}
-	
-	public void sumarAssistencia(Persona p){
-		//obtin el nombre de voltes que apareix 
+
+	public void sumarAssistencia(Persona p) {
+		// obtin el nombre de voltes que apareix
 		Integer n = mapa.get(p);
-		if(n==null)
-			n=0;
+		if (n == null)
+			n = 0;
 		mapa.put(p, ++n);
 	}
-	
-	public ArrayList<Persona> claus(){
+
+	public ArrayList<Persona> claus() {
 		ArrayList<Persona> llista = new ArrayList<>();
-		for(Persona aux : mapa.keySet()){
+		for (Persona aux : mapa.keySet()) {
 			llista.add(aux);
 		}
 		return llista;
 	}
-	
+
+	public int valorDe(Persona p) {
+		Integer i = mapa.get(p);
+		if (p == null)
+			return 0;
+		else
+			return i;
+
+	}
+
 	/*
-	 * TODO obtindre la infor per les distintes categories de persona
-	 * esperar a saber el format d'entrega de les actes
+	 * TODO obtindre la infor per les distintes categories de persona esperar a
+	 * saber el format d'entrega de les actes
 	 */
 }

@@ -1,5 +1,9 @@
 package bll;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -15,8 +19,10 @@ import dao.TutelatDAO;
 import dao.TutorDAO;
 import dao.dto.GrupDTO;
 import dao.dto.TutelatDTO;
+import jxl.read.biff.BiffException;
 import pojo.AlumneTutor;
 import pojo.Grup;
+import pojo.MapaActes;
 import pojo.Persona;
 import pojo.Professor;
 import pojo.Tutelat;
@@ -124,7 +130,7 @@ public class Coordina2 {
 
 	public void borrarProfessor(Professor p) throws ArgumentErroniException {
 		// busqueda i borrat a ma
-		for (int i = 0; i<professors.size();i++) {
+		for (int i = 0; i < professors.size(); i++) {
 			if (professors.get(i).getNif().equalsIgnoreCase(p.getNif())) {
 				boolean bandera = daotutor.esborrar(p);
 				if (bandera)
@@ -136,8 +142,8 @@ public class Coordina2 {
 	public void editarProfessor(Professor p) throws ArgumentErroniException {
 		// busca el objecte antic (aux)
 		for (int i = 0; i < professors.size(); i++) {
-			//if (aux.getNif().equalsIgnoreCase(p.getNif())) {
-			if(professors.get(i).getNif().equalsIgnoreCase(p.getNif())){
+			// if (aux.getNif().equalsIgnoreCase(p.getNif())) {
+			if (professors.get(i).getNif().equalsIgnoreCase(p.getNif())) {
 				// si conseguisc editarlo en la bd, edite els valors
 				boolean bandera = daotutor.editar(p);
 				if (bandera) {
@@ -178,7 +184,7 @@ public class Coordina2 {
 	}
 
 	public void borrarAlumneTutor(AlumneTutor a) throws ArgumentErroniException {
-		for (int i = 0; i< alumnesTutors.size();i++) {
+		for (int i = 0; i < alumnesTutors.size(); i++) {
 			if (alumnesTutors.get(i).getNif().equalsIgnoreCase(a.getNif())) {
 				boolean bandera = daotutor.esborrar(a);
 				if (bandera)
@@ -188,10 +194,10 @@ public class Coordina2 {
 	}
 
 	public void editarAlumneTutor(AlumneTutor a) throws ArgumentErroniException {
-		for (int i = 0; i< alumnesTutors.size();i++) {
+		for (int i = 0; i < alumnesTutors.size(); i++) {
 			if (alumnesTutors.get(i).equals(a)) {
 				boolean bandera = daotutor.editar(a);
-				if (bandera) {		
+				if (bandera) {
 					alumnesTutors.get(i).setNif(a.getNif());
 					alumnesTutors.get(i).setNom(a.getNom());
 					alumnesTutors.get(i).setCognoms(a.getCognoms());
@@ -224,7 +230,7 @@ public class Coordina2 {
 	}
 
 	public void borrarGrup(Grup g) {
-		for (int i = 0; i<grups.size();i++) {
+		for (int i = 0; i < grups.size(); i++) {
 			if (g.getNom().equalsIgnoreCase(grups.get(i).getNom())) {
 				boolean bandera = daogrup.esborrar(g);
 				if (bandera)
@@ -234,7 +240,7 @@ public class Coordina2 {
 	}
 
 	public void editarGrup(Grup g) {
-		for (int i = 0; i<grups.size();i++) {
+		for (int i = 0; i < grups.size(); i++) {
 			if (g.getNom().equalsIgnoreCase(grups.get(i).getNom())) {
 				boolean bandera = daogrup.editar(g);
 				if (bandera) {
@@ -269,7 +275,7 @@ public class Coordina2 {
 	}
 
 	public void borrarTutelat(Tutelat t) {
-		for (int i = 0; i<tutelats.size();i++) {
+		for (int i = 0; i < tutelats.size(); i++) {
 			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
 				boolean bandera = daotutelat.esborrar(t);
 				if (bandera)
@@ -279,7 +285,7 @@ public class Coordina2 {
 	}
 
 	public void editarTutelat(Tutelat t) {
-		for (int i = 0; i<tutelats.size();i++) {
+		for (int i = 0; i < tutelats.size(); i++) {
 			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
 				boolean bandera = daotutelat.editar(t);
 				if (bandera) {
@@ -389,7 +395,7 @@ public class Coordina2 {
 	public ArrayList<Grup> grupsPerAlumne(AlumneTutor al) {
 		ArrayList<Grup> llista = new ArrayList<>();
 		for (Grup aux : grups) {
-			if (aux.getAlumne1().equals(al) || (aux.getAlumne2()!= null && aux.getAlumne2().equals(al))) {
+			if (aux.getAlumne1().equals(al) || (aux.getAlumne2() != null && aux.getAlumne2().equals(al))) {
 				llista.add(aux);
 			}
 		}
@@ -404,7 +410,7 @@ public class Coordina2 {
 	}
 
 	public int nAlumnesTutors() {
-			return alumnesTutors.size();
+		return alumnesTutors.size();
 	}
 
 	public int nGrups() {
@@ -417,14 +423,17 @@ public class Coordina2 {
 
 	/*********************
 	 * MAILING
-	 * @throws SQLException 
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException 
-	 * @throws NoSuchPaddingException 
-	 * @throws NoSuchAlgorithmException 
-	 * @throws InvalidKeyException 
+	 * 
+	 * @throws SQLException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 * @throws NoSuchPaddingException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException
 	 *******************/
-	public void enviarCorreu(Persona desti, String tema, String cosMissatge) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, SQLException {
+	public void enviarCorreu(Persona desti, String tema, String cosMissatge)
+			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException,
+			BadPaddingException, SQLException {
 		EnviarCorreu env = new EnviarCorreu();
 		env.enviar(desti, tema, cosMissatge);
 	}
@@ -481,6 +490,63 @@ public class Coordina2 {
 		}
 		return res;
 
+	}
+
+	/*******************
+	 * Comptador de dni's
+	 * 
+	 * @throws IOException
+	 * @throws BiffException
+	 ******************/
+	// donats un fitxares d'entrada, ompli lo mapa
+	private MapaActes obtindreMapaAssistencies(String[] entrades) throws BiffException, IOException {
+		ComptadorActes comptador = new ComptadorActes();
+		// per cada entrada aplica l'agoritme comptador
+		for (int i = 0; i < entrades.length; i++) {
+			comptador.comptarActesMes(entrades[i]);
+		}
+		return comptador.obtindreMapa();
+	}
+
+	private void escriureMapaActes(String eixida, MapaActes mapa) throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(new File(eixida));
+		// separem per a ordenar despres en l'arxiu
+		ArrayList<Persona> profes = new ArrayList<>();
+		ArrayList<Persona> tutelats = new ArrayList<>();
+		ArrayList<Persona> alumnes = new ArrayList<>();
+		// recorrem el mapa per classificar
+		for (Persona p : mapa.claus()) {
+			if (p instanceof Professor) {
+				profes.add(p);
+			} else {
+				if (p instanceof Tutelat) {
+					tutelats.add(p);
+				} else {
+					alumnes.add(p);
+				}
+			}
+		}
+		// ara escribim les dades en el fitxer de forma ordenada
+		pw.write("PROFESSORS \n-----------\n\n");
+		for (Persona p : profes) {
+			pw.write(p.getCognoms() + ", " + p.getNom() + " - " + p.getNif() + " - " + mapa.valorDe(p) + "\n");
+		}
+		pw.write("\nALUMNES TUTORS \n-----------\n\n");
+		for (Persona p : alumnes) {
+			pw.write(p.getCognoms() + ", " + p.getNom() + " - " + p.getNif() + " - " + mapa.valorDe(p) + "\n");
+		}
+		pw.write("\nTUTELATS \n-----------\n\n");
+		for (Persona p : tutelats) {
+			pw.write(p.getCognoms() + ", " + p.getNom() + " - " + p.getNif() + " - " + mapa.valorDe(p) + "\n");
+		}
+
+	}
+
+	/*
+	 * Métode public que compta i escriu en el fitxer
+	 */
+	public void comptaDNIs(String[] entrades, String eixida) throws FileNotFoundException, BiffException, IOException {
+		escriureMapaActes(eixida, obtindreMapaAssistencies(entrades));
 	}
 
 }
