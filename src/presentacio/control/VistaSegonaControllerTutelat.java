@@ -10,6 +10,8 @@ import bll.Coordina2;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +23,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -37,6 +40,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML private TableColumn<Tutelat, String> taulaDNI;
     @FXML private TableColumn<Tutelat, String> taulaGrupPATU;
     @FXML private TableView<Tutelat> taula;
+    @FXML private TextArea barraBuscadora;
     private Coordina2 cd2 = Coordina2.getInstancia();
     
     @Override
@@ -54,6 +58,26 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	taulaCorreuPersonal.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_personal()));
     	taulaGrupPATU.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getGrup_patu().getNom()));
     	taula.setItems(tutelats);
+    	
+    	/****************FILTRATGE***********************/
+    	FilteredList<Tutelat> filteredData = new FilteredList<>(tutelats,p -> true);
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
+    		filteredData.setPredicate(tutelat -> {
+				if (nou == null || nou.isEmpty()) {
+					return true;
+				}
+				String minuscules = nou.toLowerCase();
+
+				if (tutelat.getNom().toLowerCase().contains(minuscules)
+						|| tutelat.getNif().toLowerCase().contains(minuscules)) {
+					return true;
+				}	
+				return false;
+			});
+    	}); // de listener
+    	SortedList<Tutelat> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
     }
         
     @FXML public void enrere(){VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
