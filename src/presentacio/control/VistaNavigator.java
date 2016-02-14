@@ -12,6 +12,7 @@ public class VistaNavigator {
     public static final String VISTASEGTUTELAT = "/presentacio/vista/VistaSegonaTutelat.fxml";
     public static final String VISTASEGALTUT = "/presentacio/vista/VistaSegonaAlumneTutor.fxml";
     public static final String VISTASEGPROF = "/presentacio/vista/VistaSegonaProfessor.fxml";
+    public static final String VISTASEGRUP = "/presentacio/vista/VistaSegonaGrup.fxml";
     
     private static MainController mainController;
     

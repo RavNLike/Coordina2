@@ -12,22 +12,26 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <VBox alignment="CENTER" layoutX="38.0" layoutY="138.0" prefHeight="200.0" prefWidth="176.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER" layoutX="38.0" layoutY="138.0" prefHeight="200.0" prefWidth="176.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
-                     </children>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
+                     </children>
                   </HBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="147.0" text="Introduisca en el requadre el dni o el nom a cercar." wrapText="true" />
+                        <TextArea fx:id="barraBuscadora" maxHeight="25.0" />
+                     </children>
+                  </VBox>
+                  <Line endX="100.0" />
                   <Button mnemonicParsing="false" onAction="#afegirTutelat" text="Afegir tutelat" />
                   <Button mnemonicParsing="false" onAction="#editarTutelat" text="Editar tutelat" textAlignment="CENTER" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#esborrarTutelat" text="Esborrar tutelat" />
-                  <Line endX="100.0" />
-                  <Button mnemonicParsing="false" text="Mailing" />
-                  <Button mnemonicParsing="false" text="Acreditacions" textAlignment="CENTER" wrapText="true" />
                </children>
             </VBox>
          </children></AnchorPane>
