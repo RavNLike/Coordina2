@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import utils.LectorFitxers;
+import bll.io.LectorFitxers;
 
 public class ManagerDAO {
 	private static ManagerDAO INSTANCIA = new ManagerDAO(LectorFitxers.rutabd());

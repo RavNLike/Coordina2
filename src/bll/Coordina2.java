@@ -1,7 +1,13 @@
 package bll;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import bll.mail.EnviarCorreu;
 import dao.GrupDAO;
@@ -186,8 +192,10 @@ public class Coordina2 {
 			if (alumnesTutors.get(i).equals(a)) {
 				boolean bandera = daotutor.editar(a);
 				if (bandera) {		
-					alumnesTutors.remove(alumnesTutors.get(i));
-					alumnesTutors.add(a);
+					alumnesTutors.get(i).setNif(a.getNif());
+					alumnesTutors.get(i).setNom(a.getNom());
+					alumnesTutors.get(i).setCognoms(a.getCognoms());
+					alumnesTutors.get(i).setCorreu_upv(a.getCorreu_upv());
 				}
 			}
 		}
@@ -275,8 +283,14 @@ public class Coordina2 {
 			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
 				boolean bandera = daotutelat.editar(t);
 				if (bandera) {
-					tutelats.remove(tutelats.get(i));
-					tutelats.add(t); //tutelats.get(i)
+					tutelats.get(i).setNif(t.getNif());
+					tutelats.get(i).setNom(t.getNom());
+					tutelats.get(i).setCognoms(t.getCognoms());
+					tutelats.get(i).setCorreu_upv(t.getCorreu_upv());
+					tutelats.get(i).setGrup_matricula(t.getGrup_matricula());
+					tutelats.get(i).setCorreu_personal(t.getCorreu_personal());
+					tutelats.get(i).setGrup_patu(t.getGrup_patu());
+					tutelats.get(i).setMobil(t.getMobil());
 				}
 			}
 		}
@@ -403,8 +417,14 @@ public class Coordina2 {
 
 	/*********************
 	 * MAILING
+	 * @throws SQLException 
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 * @throws NoSuchPaddingException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws InvalidKeyException 
 	 *******************/
-	public void enviarCorreu(Persona desti, String tema, String cosMissatge) {
+	public void enviarCorreu(Persona desti, String tema, String cosMissatge) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, SQLException {
 		EnviarCorreu env = new EnviarCorreu();
 		env.enviar(desti, tema, cosMissatge);
 	}

@@ -1,6 +1,13 @@
 package presentacio.cons;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import bll.Coordina2;
 import pojo.AlumneTutor;
@@ -20,7 +27,7 @@ public class InterficieConsola {
 	private static Coordina2 bll;
 	static Scanner tec;
 
-	public static void main(String args[]) throws ArgumentErroniException {
+	public static void main(String args[]) throws ArgumentErroniException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, SQLException {
 		// el primer que fas es inicialitzar la instancia
 		bll = Coordina2.getInstancia();
 		// crea scanner
@@ -301,7 +308,7 @@ public class InterficieConsola {
 		
 	}
 	
-	private static void operacionsMailing(){
+	private static void operacionsMailing() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, SQLException{
 		System.out.println("1. Enviar a cada professor la llista de tutelats");
 		System.out.println("2. Enviar a cada tutor la llista del grup");
 		
