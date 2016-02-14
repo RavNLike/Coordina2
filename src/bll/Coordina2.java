@@ -97,7 +97,7 @@ public class Coordina2 {
 	 ************************/
 	public void afegirProfessor(Professor p) throws ArgumentErroniException {
 		// maxima coherencia bd-memoria
-		// afig primer a la bd, si entra afig també a l'array
+		// afig primer a la bd, si entra afig tambe a l'array
 		boolean bandera = daotutor.afegir(p);
 		if (bandera)
 			professors.add(p);
@@ -135,6 +135,7 @@ public class Coordina2 {
 				// si conseguisc editarlo en la bd, edite els valors
 				boolean bandera = daotutor.editar(p);
 				if (bandera) {
+					professors.get(i).setNif(p.getNif());
 					professors.get(i).setNom(p.getNom());
 					professors.get(i).setCognoms(p.getCognoms());
 					professors.get(i).setCorreu_upv(p.getCorreu_upv());
@@ -185,9 +186,8 @@ public class Coordina2 {
 			if (alumnesTutors.get(i).equals(a)) {
 				boolean bandera = daotutor.editar(a);
 				if (bandera) {		
-					alumnesTutors.get(i).setNom(a.getNom());
-					alumnesTutors.get(i).setCognoms(a.getCognoms());
-					alumnesTutors.get(i).setCorreu_upv(a.getCorreu_upv());
+					alumnesTutors.remove(alumnesTutors.get(i));
+					alumnesTutors.add(a);
 				}
 			}
 		}
@@ -273,10 +273,10 @@ public class Coordina2 {
 	public void editarTutelat(Tutelat t) {
 		for (int i = 0; i<tutelats.size();i++) {
 			if (tutelats.get(i).getNif().equalsIgnoreCase(t.getNif())) {
-				boolean bandera = daotutelat.esborrar(t);
+				boolean bandera = daotutelat.editar(t);
 				if (bandera) {
 					tutelats.remove(tutelats.get(i));
-					tutelats.add(tutelats.get(i));
+					tutelats.add(t); //tutelats.get(i)
 				}
 			}
 		}

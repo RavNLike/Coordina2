@@ -89,6 +89,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	if(result.isPresent()){
     		try {
 				cd2.afegirProfessor(result.get());
+				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+				taula.setItems(profe);
 			} catch (ArgumentErroniException e) {
 				e.printStackTrace();
 			}
@@ -101,10 +103,11 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
     		al.setTitle("Atenció!");
-    		al.setHeaderText("Seleccione un element a esborrar");
+    		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
+    		//construim el diàleg
     		Dialog<Professor> dialog = new Dialog<>();
     		Professor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar professor");
@@ -130,6 +133,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        	//Li donarem format al resultat	
         	dialog.setResultConverter(new Callback<ButtonType, Professor>() {
         		@Override
         		public Professor call(ButtonType b){
@@ -144,6 +148,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         	if(result.isPresent()){
         		try {
 					cd2.editarProfessor(result.get());
+    				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+    				taula.setItems(profe);
 				} catch (ArgumentErroniException e) {
 					e.printStackTrace();
 				}
@@ -168,6 +174,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			try{
     				cd2.borrarProfessor(taula.getSelectionModel().getSelectedItem());
+    				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+    				taula.setItems(profe);
     			} catch (ArgumentErroniException e){
     				e.printStackTrace();
     			}

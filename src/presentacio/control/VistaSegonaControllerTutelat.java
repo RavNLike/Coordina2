@@ -114,6 +114,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	Optional<Tutelat> result = dialog.showAndWait();
     	if(result.isPresent()){
     		cd2.afegirTutelat(result.get());
+			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+			taula.setItems(tutel);
     	}
     }
 
@@ -121,7 +123,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
     		al.setTitle("Atenció!");
-    		al.setHeaderText("Seleccione un element a esborrar");
+    		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
@@ -166,6 +168,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        	//converteix el resultat en un tutelat
         	dialog.setResultConverter(new Callback<ButtonType, Tutelat>() {
         		@Override
         		public Tutelat call(ButtonType b){
@@ -180,6 +183,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	Optional<Tutelat> result = dialog.showAndWait(); //llançament
         	if(result.isPresent()){
         		cd2.editarTutelat(result.get());
+        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+        		taula.setItems(tutel);
         	}
     	} // de else (si seleccionat)
     }
@@ -200,6 +205,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			cd2.borrarTutelat(aux);
+    			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+    			taula.setItems(tutel);
     		}
     	}
     }

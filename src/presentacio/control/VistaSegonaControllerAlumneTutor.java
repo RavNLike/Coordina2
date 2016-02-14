@@ -90,6 +90,9 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	if(result.isPresent()){
     		try {
 				cd2.afegirAlumneTutor(result.get());
+				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+				taula.setItems(altu);
+				
 			} catch (ArgumentErroniException e) {
 				e.printStackTrace();
 			}
@@ -101,22 +104,23 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
     		al.setTitle("Atenció!");
-    		al.setHeaderText("Seleccione un element a esborrar");
+    		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Dialog<AlumneTutor> dialog = new Dialog<>();
+    		AlumneTutor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Afegir Alumne Tutors");
-        	dialog.setHeaderText("Diàleg per a afegir un alumne tutor nou. Emplene tots els camps.");
+        	dialog.setHeaderText("Diàleg per a editar un alumne tutor. Emplene tots els camps.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
         	Label lb3 = new Label("Cognoms:");
         	Label lb4 = new Label("Correu UPV:");
-        	TextField tx1 = new TextField();
-        	TextField tx2 = new TextField();
-        	TextField tx3 = new TextField();
-        	TextField tx4 = new TextField();
+        	TextField tx1 = new TextField(aux.getNif());
+        	TextField tx2 = new TextField(aux.getNom());
+        	TextField tx3 = new TextField(aux.getCognoms());
+        	TextField tx4 = new TextField(aux.getCorreu_upv());
         	GridPane grid = new GridPane();
         	grid.add(lb1, 1, 1);
         	grid.add(lb2, 1, 2);
@@ -142,7 +146,9 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         	Optional<AlumneTutor> result = dialog.showAndWait();
         	if(result.isPresent()){
         		try {
-    				cd2.afegirAlumneTutor(result.get());
+    				cd2.editarAlumneTutor(result.get());
+    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+    				taula.setItems(altu);
     			} catch (ArgumentErroniException e) {
     				e.printStackTrace();
     			}
@@ -166,6 +172,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			try{
     				cd2.borrarAlumneTutor(taula.getSelectionModel().getSelectedItem());
+    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+    				taula.setItems(altu);
     			} catch (ArgumentErroniException e){
     				e.printStackTrace();
     			}
