@@ -391,6 +391,17 @@ public class Coordina2 {
 		}
 		return llista;
 	}
+	
+	public ArrayList<Tutelat> ObtindreTutelatsPerGrup(String nomGrup){
+		ArrayList<Tutelat> res = new ArrayList<>();
+		ArrayList<Persona> llista = obtindreMembresGrup(nomGrup);
+		for(Persona p : llista){
+			if (p instanceof Tutelat){
+				res.add((Tutelat)p);
+			}
+		}
+		return res;
+	}
 
 	public ArrayList<Grup> grupsPerAlumne(AlumneTutor al) {
 		ArrayList<Grup> llista = new ArrayList<>();
