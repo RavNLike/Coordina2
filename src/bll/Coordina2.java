@@ -392,13 +392,18 @@ public class Coordina2 {
 		return llista;
 	}
 	
-	public ArrayList<Tutelat> ObtindreTutelatsPerGrup(String nomGrup){
+	public ArrayList<Tutelat> obtindreTutelatsPerGrup(String nomGrup){
 		ArrayList<Tutelat> res = new ArrayList<>();
-		ArrayList<Persona> llista = obtindreMembresGrup(nomGrup);
-		for(Persona p : llista){
-			if (p instanceof Tutelat){
-				res.add((Tutelat)p);
+		for(Tutelat t : tutelats){
+			try{
+				System.out.println("El grup que s'esta comparant: " + t.getGrup_patu().getNom());
+				if(t != null && t.getGrup_patu().getNom().equals(nomGrup)){
+					res.add(t);
+				}
+			} catch (NullPointerException e){
+				System.out.println("Ha saltat nullpointer");
 			}
+			
 		}
 		return res;
 	}
