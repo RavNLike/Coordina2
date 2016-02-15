@@ -395,15 +395,10 @@ public class Coordina2 {
 	public ArrayList<Tutelat> obtindreTutelatsPerGrup(String nomGrup){
 		ArrayList<Tutelat> res = new ArrayList<>();
 		for(Tutelat t : tutelats){
-			try{
 				System.out.println("El grup que s'esta comparant: " + t.getGrup_patu().getNom());
 				if(t != null && t.getGrup_patu().getNom().equals(nomGrup)){
 					res.add(t);
 				}
-			} catch (NullPointerException e){
-				System.out.println("Ha saltat nullpointer");
-			}
-			
 		}
 		return res;
 	}
