@@ -19,7 +19,7 @@
                      </children>
                   </HBox>
                   <Label text="Introduisca el nom del grup que desitge cercar." wrapText="true" />
-                  <TextArea fx:id="barraBuscadora" prefHeight="25.0" prefWidth="70.0" promptText="G00, per exemple" wrapText="true" />
+                  <TextField fx:id="barraBuscadora" promptText="G00, per exemple" />
                   <Line endX="100.0" />
                   <Button mnemonicParsing="false" onAction="#afegirGrup" text="Afegir grup" />
                   <Button mnemonicParsing="false" onAction="#editarGrup" text="Editar grup" />

@@ -40,7 +40,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML private TableColumn<Tutelat, String> taulaDNI;
     @FXML private TableColumn<Tutelat, String> taulaGrupPATU;
     @FXML private TableView<Tutelat> taula;
-    @FXML private TextArea barraBuscadora;
+    @FXML private TextField barraBuscadora;
     private Coordina2 cd2 = Coordina2.getInstancia();
     
     @Override
@@ -70,7 +70,6 @@ public class VistaSegonaControllerTutelat implements Initializable {
 					return true;
 				}
 				String minuscules = nou.toLowerCase();
-
 				if (tutelat.getNom().toLowerCase().contains(minuscules)
 						|| tutelat.getNif().toLowerCase().contains(minuscules)) {
 					return true;

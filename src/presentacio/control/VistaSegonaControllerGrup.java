@@ -21,7 +21,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -31,7 +30,6 @@ import pojo.AlumneTutor;
 import pojo.Grup;
 import pojo.Professor;
 import pojo.Tutelat;
-import pojo.exceptions.ArgumentErroniException;
 
 public class VistaSegonaControllerGrup implements Initializable{
 
@@ -42,7 +40,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     @FXML private TableColumn<Grup, String> columnaProfessor;
     @FXML private TableView<Tutelat> taulaTutelats;
     @FXML private TableColumn<Tutelat, String> columnaTutelats;
-    @FXML private TextArea barraBuscadora;
+    @FXML private TextField barraBuscadora;
     private Coordina2 cd2 = Coordina2.getInstancia();
 	
     @Override

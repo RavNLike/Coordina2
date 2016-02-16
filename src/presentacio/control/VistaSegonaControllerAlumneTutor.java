@@ -35,7 +35,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML private TableColumn<AlumneTutor, String> taulaCognoms;
     @FXML private TableColumn<AlumneTutor, String> taulaCorreuUPV;
     @FXML private TableView<AlumneTutor> taula;
-    @FXML private TextArea barraBuscadora;
+    @FXML private TextField barraBuscadora;
 	Coordina2 cd2 = Coordina2.getInstancia();
 	
     @Override

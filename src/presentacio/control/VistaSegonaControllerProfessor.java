@@ -36,7 +36,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
 	@FXML private TableColumn<Professor, String> taulaCognoms;
 	@FXML private TableColumn<Professor, String> taulaDNI;
 	@FXML private TableView<Professor> taula;
-	@FXML private TextArea barraBuscadora;
+	@FXML private TextField barraBuscadora;
 	private Coordina2 cd2 = Coordina2.getInstancia();
 	
     @Override
