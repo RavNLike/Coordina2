@@ -10,6 +10,8 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,6 +72,25 @@ public class VistaSegonaControllerGrup implements Initializable{
 				taulaTutelats.setItems(personesgrup);
 			}
     	});
+    	
+    	/********FILTRATGE*******************/
+    	FilteredList<Grup> filteredData = new FilteredList<>(grups,p -> true);
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
+    		filteredData.setPredicate(grup -> {
+				if (nou == null || nou.isEmpty()) {
+					return true;
+				}
+				String minuscules = nou.toLowerCase();
+
+				if (grup.getNom().toLowerCase().contains(minuscules)) {
+					return true;
+				}	
+				return false;
+			});
+    	}); // de listener
+    	SortedList<Grup> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
     }
     
     @FXML void enrere(ActionEvent event) {VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
@@ -140,6 +161,7 @@ public class VistaSegonaControllerGrup implements Initializable{
         	Label lb3 = new Label("Alumne Tutor 1:");
         	Label lb4 = new Label("Alumne Tutor 2:");
         	TextField tx1 = new TextField(aux.getNom());
+        	tx1.setEditable(false);
         	TextField tx2 = new TextField(aux.getProfessor().getNif());
         	TextField tx3 = new TextField(aux.getAlumne1().getNif());
         	TextField tx4 = new TextField();
