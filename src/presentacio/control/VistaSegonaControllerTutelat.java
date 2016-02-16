@@ -47,6 +47,9 @@ public class VistaSegonaControllerTutelat implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	//Singleton
     	List<Tutelat> listTutelats = cd2.llistarTutelats();
+    	for(Tutelat t : listTutelats){
+    		System.out.println("Tutelat de dni: " + t.getNif() + " i nom: " + t.getNom() + " i de grup patu: " + t.getGrup_patu());
+    	}
     	ObservableList<Tutelat> tutelats = FXCollections.observableArrayList(listTutelats);
     	
     	//Ara plenar columnes
