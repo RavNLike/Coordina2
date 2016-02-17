@@ -183,7 +183,8 @@ public class VistaSegonaControllerGrup implements Initializable{
         		public Grup call(ButtonType b){
         			Professor p = cd2.buscarProfessor(tx2.getText());
         			AlumneTutor al1 = cd2.buscarAlumneTutor(tx3.getText());
-        			AlumneTutor al2 = (tx4.getText() == null) ? cd2.buscarAlumneTutor(tx4.getText()) : null;
+        			//no cal ternaria, si es alguna cosa que nop toca no el trobarà i tornarà null
+        			AlumneTutor al2 = cd2.buscarAlumneTutor(tx4.getText());
         			if(b == buttonTypeOk){
         				return new Grup(tx1.getText(), p, al1, al2);
         			}

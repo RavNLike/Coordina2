@@ -25,11 +25,10 @@ FOREIGN KEY (grup_patu) references Grups(grup)
 );
 
 CREATE TABLE Grup(
-grup VARCHAR(3),
-professor VARCHAR(8),
-alumne1 VARCHAR(8),
+grup VARCHAR(3) PRIMARY KEY,
+professor VARCHAR(8) NOT NULL,
+alumne1 VARCHAR(8) NOT NULL,
 alumne2 VARCHAR(8),
-PRIMARY KEY (grup, professor, alumne1),
 FOREIGN KEY (professor) references Professors(nif),
 FOREIGN KEY (alumne1) references Tutors(nif),
 FOREIGN KEY (alumne2) references Tutors(nif)
