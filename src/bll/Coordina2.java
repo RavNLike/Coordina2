@@ -13,6 +13,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import bll.io.LectorFitxers;
 import bll.mail.EnviarCorreu;
 import dao.GrupDAO;
 import dao.TutelatDAO;
@@ -27,6 +28,7 @@ import pojo.Persona;
 import pojo.Professor;
 import pojo.Tutelat;
 import pojo.exceptions.ArgumentErroniException;
+import pojo.exceptions.InicialitzatException;
 
 public class Coordina2 {
 
@@ -558,6 +560,32 @@ public class Coordina2 {
 	 */
 	public void comptaDNIs(String[] entrades, String eixida) throws FileNotFoundException, BiffException, IOException {
 		escriureMapaActes(eixida, obtindreMapaAssistencies(entrades));
+	}
+	
+	/****************************************
+	 * METODE PER A FER LA CARREGA INICIAL
+	 * @throws InicialitzatException 
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * @throws BiffException 
+	 ****************************************/
+	
+	public  void inicialitzarSistema(String profs, String tutors, String alumnes) throws InicialitzatException, SQLException, BiffException, IOException{
+		if (LectorFitxers.estaInicialitzat()){
+			throw new InicialitzatException();
+		}else{
+			CarregaInicial inst = CarregaInicial.getInstancia();
+			professors = inst.carregaInicialProfessors(profs);
+			alumnesTutors = inst.carregaInicialAlumnesTutors(tutors);
+			//ESTOS ALUMNES TINDRÀN EL CAMP GRUP EN NULL
+			//MOLT DE COMPTE
+			tutelats = new ArrayList<>();
+			for (TutelatDTO dto : inst.carrgeaInicialTutelats(alumnes)){
+				tutelats.add(dtoAtutelat(dto));
+			}
+			//FEM L'ASSIGNACIO DE GRUPS, MOLT IMPORTANT
+			inst.assignarTutelatsGrup();	
+		}
 	}
 
 }

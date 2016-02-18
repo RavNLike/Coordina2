@@ -26,7 +26,7 @@ public class CarregaInicial {
 
 	}
 
-	public CarregaInicial getInstancia() {
+	public static CarregaInicial getInstancia() {
 		return INSTANCIA;
 	}
 
@@ -133,6 +133,8 @@ public class CarregaInicial {
 			aux.setGrup_patu(actual);
 		}
 	}
+	
+	
 	/*
 	 * ELS GRUPS NO ES LLIGEN, SOLS ELS CREEN
 	 */
