@@ -2,7 +2,7 @@ package presentacio.control;
 
 import presentacio.control.VistaNavigator;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -23,7 +23,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -39,18 +38,15 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML private TableColumn<Tutelat, String> taulaCorreuPersonal;
     @FXML private TableColumn<Tutelat, String> taulaDNI;
     @FXML private TableColumn<Tutelat, String> taulaGrupPATU;
+    @FXML private TableColumn<Tutelat, String> taulaTelefon;
     @FXML private TableView<Tutelat> taula;
     @FXML private TextField barraBuscadora;
     private Coordina2 cd2 = Coordina2.getInstancia();
+    private ArrayList<Tutelat> tutelat = cd2.llistarTutelats();
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	//Singleton
-    	List<Tutelat> listTutelats = cd2.llistarTutelats();
-    	for(Tutelat t : listTutelats){
-    		System.out.println("Tutelat de dni: " + t.getNif() + " i nom: " + t.getNom() + " i de grup patu: " + t.getGrup_patu());
-    	}
-    	ObservableList<Tutelat> tutelats = FXCollections.observableArrayList(listTutelats);
     	
     	//Ara plenar columnes
     	taulaDNI.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getNif()));
@@ -60,10 +56,12 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
     	taulaCorreuPersonal.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_personal()));
     	taulaGrupPATU.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getGrup_patu().getNom()));
-    	taula.setItems(tutelats);
+    	taulaTelefon.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getMobil()));
+    	ObservableList<Tutelat> tutelatsObs = FXCollections.observableArrayList(tutelat);
+    	taula.setItems(tutelatsObs);
     	
     	/****************FILTRATGE***********************/
-    	FilteredList<Tutelat> filteredData = new FilteredList<>(tutelats,p -> true);
+    	FilteredList<Tutelat> filteredData = new FilteredList<>(tutelatsObs,p -> true);
     	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
     		filteredData.setPredicate(tutelat -> {
 				if (nou == null || nou.isEmpty()) {
@@ -167,6 +165,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	Label lb7 = new Label("Grup de PATU");
         	Label lb8 = new Label("Nombre de telèfon:");
         	TextField tx1 = new TextField(aux.getNif());
+        	tx1.setEditable(false);
+        	tx1.setDisable(true);
         	TextField tx2 = new TextField(aux.getNom());
         	TextField tx3 = new TextField(aux.getCognoms());
         	TextField tx4 = new TextField(aux.getGrup_matricula());
@@ -207,9 +207,16 @@ public class VistaSegonaControllerTutelat implements Initializable {
         		} 	
         	});    	
         	Optional<Tutelat> result = dialog.showAndWait(); //llançament
-        	if(result.isPresent()){
+        	if(result.isPresent()){  
+        		tutelat = cd2.llistarTutelats();
+        		for(int i = 0; i < tutelat.size(); i++){
+        			if(tutelat.get(i).getNif().equals(result.get().getNif())){ //si el troba
+        				tutelat.remove(i);
+        			}
+        		}
+        		tutelat.add(result.get());
         		cd2.editarTutelat(result.get());
-        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(tutelat);
         		taula.setItems(tutel);
         	}
     	} // de else (si seleccionat)
@@ -236,4 +243,6 @@ public class VistaSegonaControllerTutelat implements Initializable {
     		}
     	}
     }
+    
+    
 }

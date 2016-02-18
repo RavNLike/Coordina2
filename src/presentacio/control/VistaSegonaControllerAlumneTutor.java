@@ -2,7 +2,7 @@ package presentacio.control;
 
 import presentacio.control.VistaNavigator;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import bll.Coordina2;
@@ -19,7 +19,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -37,12 +36,11 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML private TableView<AlumneTutor> taula;
     @FXML private TextField barraBuscadora;
 	Coordina2 cd2 = Coordina2.getInstancia();
+	private ArrayList<AlumneTutor> alumnetutor = cd2.llistarAlumnesTutors();
 	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	//Singleton 
-    	List<AlumneTutor> listProfessors = cd2.llistarAlumnesTutors();
-    	ObservableList<AlumneTutor> altuts = FXCollections.observableArrayList(listProfessors);
+    	ObservableList<AlumneTutor> altuts = FXCollections.observableArrayList(alumnetutor);
     	
     	//Ara plenar columnes
     	taulaDNI.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getNif()));
@@ -140,6 +138,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         	Label lb3 = new Label("Cognoms:");
         	Label lb4 = new Label("Correu UPV:");
         	TextField tx1 = new TextField(aux.getNif());
+        	tx1.setEditable(false);
+        	tx1.setDisable(true);
         	TextField tx2 = new TextField(aux.getNom());
         	TextField tx3 = new TextField(aux.getCognoms());
         	TextField tx4 = new TextField(aux.getCorreu_upv());
@@ -167,9 +167,16 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         	});    	
         	Optional<AlumneTutor> result = dialog.showAndWait();
         	if(result.isPresent()){
+        		alumnetutor = cd2.llistarAlumnesTutors();
+        		for(int i = 0; i < alumnetutor.size(); i++){
+        			if(alumnetutor.get(i).getNif().equals(result.get().getNif())){ //si el troba
+        				alumnetutor.remove(i);
+        			}
+        		}
+        		alumnetutor.add(result.get());
         		try {
     				cd2.editarAlumneTutor(result.get());
-    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
     				taula.setItems(altu);
     			} catch (ArgumentErroniException e) {
     				e.printStackTrace();

@@ -1,10 +1,10 @@
 package presentacio.control;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import bll.Coordina2;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -42,11 +42,11 @@ public class VistaSegonaControllerGrup implements Initializable{
     @FXML private TableColumn<Tutelat, String> columnaTutelats;
     @FXML private TextField barraBuscadora;
     private Coordina2 cd2 = Coordina2.getInstancia();
-	
+	private ArrayList<Grup> grup = cd2.llistarGrups();
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	List<Grup> listGrups = cd2.llistarGrups();
-    	ObservableList<Grup> grups = FXCollections.observableArrayList(listGrups);
+    	ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
     	columnaNomGrup.setCellValueFactory(param -> new SimpleStringProperty((param.getValue()).getNom()));
     	columnaProfessor.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getProfessor().getNif()));
     	columnaPrimerAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne1()));
@@ -160,6 +160,7 @@ public class VistaSegonaControllerGrup implements Initializable{
         	Label lb4 = new Label("Alumne Tutor 2:");
         	TextField tx1 = new TextField(aux.getNom());
         	tx1.setEditable(false);
+        	tx1.setDisable(true);
         	TextField tx2 = new TextField(aux.getProfessor().getNif());
         	TextField tx3 = new TextField(aux.getAlumne1().getNif());
         	TextField tx4 = new TextField();
@@ -193,8 +194,15 @@ public class VistaSegonaControllerGrup implements Initializable{
         	});    	
         	Optional<Grup> result = dialog.showAndWait();
 			if(result.isPresent()){
+				grup = cd2.llistarGrups();
+        		for(int i = 0; i < grup.size(); i++){
+        			if(grup.get(i).getNom().equals(result.get().getNom())){ //si el troba
+        				grup.remove(i);
+        			}
+        		}
+        		grup.add(result.get());
 				cd2.editarGrup(result.get());
-				ObservableList<Grup> altu = FXCollections.observableArrayList(cd2.llistarGrups());
+				ObservableList<Grup> altu = FXCollections.observableArrayList(grup);
 				taula.setItems(altu);
         	}
     	}
