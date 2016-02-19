@@ -44,7 +44,11 @@ public abstract class Persona {
 	
 	@Override
 	public String toString() {
-		return this.cognoms+", "+this.nom+" - "+this.nif +" - "+this.correu_upv;
+		return this.cognoms+", "+this.nom;
+	}
+	
+	public String infoCompleta(){
+		return toString()+" - "+this.nif+" - "+this.correu_upv;
 	}
 	
 	public boolean equals(Persona o){
