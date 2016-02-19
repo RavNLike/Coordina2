@@ -13,7 +13,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import bll.io.LectorFitxers;
 import bll.mail.EnviarCorreu;
 import dao.GrupDAO;
 import dao.TutelatDAO;
@@ -393,14 +392,14 @@ public class Coordina2 {
 		}
 		return llista;
 	}
-	
-	public ArrayList<Tutelat> obtindreTutelatsPerGrup(String nomGrup){
+
+	public ArrayList<Tutelat> obtindreTutelatsPerGrup(String nomGrup) {
 		ArrayList<Tutelat> res = new ArrayList<>();
-		for(Tutelat t : tutelats){
-				System.out.println("El grup que s'esta comparant: " + t.getGrup_patu().getNom());
-				if(t != null && t.getGrup_patu().getNom().equals(nomGrup)){
-					res.add(t);
-				}
+		for (Tutelat t : tutelats) {
+			System.out.println("El grup que s'esta comparant: " + t.getGrup_patu().getNom());
+			if (t != null && t.getGrup_patu().getNom().equals(nomGrup)) {
+				res.add(t);
+			}
 		}
 		return res;
 	}
@@ -561,31 +560,39 @@ public class Coordina2 {
 	public void comptaDNIs(String[] entrades, String eixida) throws FileNotFoundException, BiffException, IOException {
 		escriureMapaActes(eixida, obtindreMapaAssistencies(entrades));
 	}
-	
+
 	/****************************************
 	 * METODE PER A FER LA CARREGA INICIAL
-	 * @throws InicialitzatException 
-	 * @throws SQLException 
-	 * @throws IOException 
-	 * @throws BiffException 
+	 * 
+	 * @throws ArgumentErroniException
+	 * @throws InicialitzatException
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws BiffException
 	 ****************************************/
-	
-	public  void inicialitzarSistema(String profs, String tutors, String alumnes) throws InicialitzatException, SQLException, BiffException, IOException{
-		if (LectorFitxers.estaInicialitzat()){
-			throw new InicialitzatException();
-		}else{
-			CarregaInicial inst = CarregaInicial.getInstancia();
-			professors = inst.carregaInicialProfessors(profs);
-			alumnesTutors = inst.carregaInicialAlumnesTutors(tutors);
-			//ESTOS ALUMNES TINDRÀN EL CAMP GRUP EN NULL
-			//MOLT DE COMPTE
-			tutelats = new ArrayList<>();
-			for (TutelatDTO dto : inst.carrgeaInicialTutelats(alumnes)){
-				tutelats.add(dtoAtutelat(dto));
-			}
-			//FEM L'ASSIGNACIO DE GRUPS, MOLT IMPORTANT
-			inst.assignarTutelatsGrup();	
+
+	private void guardaEstatInicial() throws ArgumentErroniException {
+		// 1) professors i tutors 2) grups 3) tutelats
+		for (Professor p : professors) {
+			daotutor.afegir(p);
 		}
+		for (AlumneTutor t : alumnesTutors) {
+			daotutor.afegir(t);
+		}
+		for (Grup g : grups) {
+			daogrup.afegir(g);
+		}
+
+		for (Tutelat t : tutelats) {
+			daotutelat.afegir(t);
+		}
+	}
+
+	public void inicialitzarSistema(String profs, String tutors, String alumnes)
+			throws InicialitzatException, SQLException, BiffException, IOException, ArgumentErroniException {
+		CarregaInicial carrega = CarregaInicial.getInstancia();
+		carrega.inicialitzaTOT(profs, tutors, alumnes);
+		guardaEstatInicial();
 	}
 
 }

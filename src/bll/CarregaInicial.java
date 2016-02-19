@@ -2,8 +2,10 @@ package bll;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bll.io.LectorFitxers;
 import dao.dto.TutelatDTO;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -12,7 +14,7 @@ import pojo.AlumneTutor;
 import pojo.Grup;
 import pojo.Professor;
 import pojo.Tutelat;
-
+import pojo.exceptions.InicialitzatException;
 
 /*
  * AQUESTA CLASSE S'USA EXCLUSIVAMENT
@@ -36,7 +38,7 @@ public class CarregaInicial {
 	 * @throws IOException
 	 * @throws BiffException
 	 *****************************************/
-	public ArrayList<Professor> carregaInicialProfessors(String path) throws BiffException, IOException {
+	private ArrayList<Professor> carregaInicialProfessors(String path) throws BiffException, IOException {
 		ArrayList<Professor> llista = new ArrayList<>();
 		Workbook workbook = Workbook.getWorkbook(new File(path));
 		Sheet sheet = workbook.getSheet(0);
@@ -53,7 +55,7 @@ public class CarregaInicial {
 		return llista;
 	}
 
-	public ArrayList<AlumneTutor> carregaInicialAlumnesTutors(String path) throws BiffException, IOException {
+	private ArrayList<AlumneTutor> carregaInicialAlumnesTutors(String path) throws BiffException, IOException {
 		ArrayList<AlumneTutor> llista = new ArrayList<>();
 		Workbook workbook = Workbook.getWorkbook(new File(path));
 		Sheet sheet = workbook.getSheet(0);
@@ -70,7 +72,7 @@ public class CarregaInicial {
 		return llista;
 	}
 
-	public ArrayList<TutelatDTO> carrgeaInicialTutelats(String path) throws BiffException, IOException {
+	private ArrayList<TutelatDTO> carrgeaInicialTutelats(String path) throws BiffException, IOException {
 		ArrayList<TutelatDTO> llista = new ArrayList<>();
 		// obrim el excell
 		Workbook workbook = Workbook.getWorkbook(new File(path));
@@ -85,7 +87,7 @@ public class CarregaInicial {
 			String mobil = sheet.getCell(i, 2).getContents();
 			String correu_upv = sheet.getCell(i, 3).getContents();
 			String correu_personal = sheet.getCell(i, 4).getContents();
-			//hi han alumnes amb diversos grups, sols volem el primer
+			// hi han alumnes amb diversos grups, sols volem el primer
 			String grupo = sheet.getCell(i, 5).getContents().trim().substring(0, 3);
 			// crea l'objecte
 			TutelatDTO tutelat = new TutelatDTO(nif, nomCognoms[1].trim(), nomCognoms[0].trim(), correu_upv,
@@ -95,7 +97,7 @@ public class CarregaInicial {
 		return llista;
 	}
 
-	public void assignarTutelatsGrup() {
+	private void assignarTutelatsGrup() {
 		// tot el llistat dels grups
 		ArrayList<Grup> grups = Coordina2.getInstancia().llistarGrups();
 		// is no està inicialitzat ho fem
@@ -110,32 +112,72 @@ public class CarregaInicial {
 		String grupMatActual = tutelats.get(0).getGrup_matricula();
 		// numero de tutelats assignats; cadinalitat 1er, 2n...
 		int numero = 1;
-		//mante el grup actual
+		// mante el grup actual
 		Grup actual = new Grup("G01");
 		grups.add(actual);
 		// bucle que recorre tots els tutelats
-		for (Tutelat aux : tutelats) {
-			//detectem si ja tenim un grup "complet"
-			if(numero>maximTutelatsGrup || (!aux.getGrup_matricula().equals(grupMatActual))){
-				//tornem a agafar el primer...
+		for (Tutelat tutelat : tutelats) {
+			// detectem si ja tenim un grup "complet"
+			if (numero > maximTutelatsGrup || (!tutelat.getGrup_matricula().equals(grupMatActual))) {
+				// tornem a agafar el primer...
 				numero = 1;
-				//crea un grup nou
-				if(grups.size()<9){
-					actual = new Grup("G0"+grups.size());
-				}else{
-					actual = new Grup("G"+grups.size());
+				// crea un grup nou
+				if (grups.size() < 9) {
+					actual = new Grup("G0" + grups.size());
+				} else {
+					actual = new Grup("G" + grups.size());
 				}
-				//afeig eixe grup a l'array
+				// afeig eixe grup a l'array
 				grups.add(actual);
-				//pilla el grup de matricula
-				grupMatActual=aux.getGrup_matricula();
+				// pilla el grup de matricula
+				grupMatActual = tutelat.getGrup_matricula();
 			}
-			aux.setGrup_patu(actual);
+			tutelat.setGrup_patu(actual);
+			// ELS GRUPS NO ES LLIGEN, SOLS ELS CREEN
 		}
 	}
-	
-	
+
 	/*
-	 * ELS GRUPS NO ES LLIGEN, SOLS ELS CREEN
+	 * La inicialització carrega en memoria es necessita possar tot en un estat
+	 * coherent i guardar-ho a la bd
 	 */
+
+	/*
+	 * Métode que organitza tota la festa
+	 */
+	public void inicialitzaTOT(String profes, String tutors, String tutelats)
+			throws BiffException, IOException, InicialitzatException, SQLException {
+		if (LectorFitxers.estaInicialitzat())
+			throw new InicialitzatException();
+		// obté l'instancia de coordinado
+		Coordina2 inst = Coordina2.getInstancia();
+		// passa els elements als array del controlador
+		// com es per referencia les puc modificar aci
+		ArrayList<Professor> professors = inst.llistarProfessors();
+		ArrayList<AlumneTutor> alumnesTutors = inst.llistarAlumnesTutors();
+		ArrayList<Tutelat> alumnesTutelats = inst.llistarTutelats();
+		// afig els elements
+		for (Professor prof : carregaInicialProfessors(profes)) {
+			professors.add(prof);
+		}
+		for (AlumneTutor al : carregaInicialAlumnesTutors(tutors)) {
+			alumnesTutors.add(al);
+		}
+		for (TutelatDTO dto : carrgeaInicialTutelats(tutors)) {
+			alumnesTutelats.add(inst.dtoAtutelat(dto));
+		}
+		// crea els grups i assigna als tutelats
+		assignarTutelatsGrup();
+		// els grups no tenen professor ni tutor, cal que estiguen en un estat
+		// coherent
+		Professor profeDefault = professors.get(0);
+		AlumneTutor tutorDefault = alumnesTutors.get(0);
+		// per a tots els grups lo mateix en ordre de deixar un estat coherent
+		for (Grup g : inst.llistarGrups()) {
+			g.setProfessor(profeDefault);
+			g.setAlumne1(tutorDefault);
+		}
+
+	}
+
 }
