@@ -34,7 +34,7 @@
             <Label text="Altres opcions" />
             <HBox alignment="CENTER" prefHeight="69.0" prefWidth="500.0" spacing="40.0">
                <children>
-                  <Button mnemonicParsing="false" text="Mailing" />
+                  <Button mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" />
                   <Button mnemonicParsing="false" text="Acreditacions" />
                </children>
             </HBox>

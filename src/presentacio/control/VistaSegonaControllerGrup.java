@@ -48,7 +48,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
     	ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
     	columnaNomGrup.setCellValueFactory(param -> new SimpleStringProperty((param.getValue()).getNom()));
-    	columnaProfessor.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getProfessor().getNif()));
+    	columnaProfessor.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getProfessor().toString()));
     	columnaPrimerAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne1()));
     	columnaSegonAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne2()));
     	taula.setItems(grups);
@@ -161,8 +161,15 @@ public class VistaSegonaControllerGrup implements Initializable{
         	TextField tx1 = new TextField(aux.getNom());
         	tx1.setEditable(false);
         	tx1.setDisable(true);
-        	TextField tx2 = new TextField(aux.getProfessor().getNif());
-        	TextField tx3 = new TextField(aux.getAlumne1().getNif());
+        	TextField tx2 = new TextField();
+        	if(aux.getProfessor() != null){
+            	tx2.setText(aux.getProfessor().getNif());        		
+        	}
+        	TextField tx3 = new TextField();
+        	if(aux.getAlumne1() != null){
+        		tx3.setText(aux.getAlumne1().getNif());
+        	}
+        	
         	TextField tx4 = new TextField();
         	if(aux.getAlumne2() != null){
         		tx4.setText(aux.getAlumne2().getNif());
