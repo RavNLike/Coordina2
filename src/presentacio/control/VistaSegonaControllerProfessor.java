@@ -75,7 +75,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     @FXML void afegirProfessor(ActionEvent event) {
     	Dialog<Professor> dialog = new Dialog<>();
     	dialog.setTitle("Afegir Professor");
-    	dialog.setHeaderText("Diàleg per a afegir un professor nou. Emplene tots els camps.");
+    	dialog.setHeaderText("Dialeg per a afegir un professor nou. Emplene tots els camps.");
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
@@ -124,16 +124,16 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     void editarProfessor(ActionEvent event) {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atenciï¿½!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
-    		//construim el diàleg
+    		//construim el diï¿½leg
     		Dialog<Professor> dialog = new Dialog<>();
     		Professor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar professor");
-        	dialog.setHeaderText("Diàleg per a editar un professor. \nPer a cancel·lar, prema la creu roja.");
+        	dialog.setHeaderText("Diï¿½leg per a editar un professor. \nPer a cancelï¿½lar, prema la creu roja.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -168,7 +168,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         			return null;
         		} 	
         	});    	
-        	Optional<Professor> result = dialog.showAndWait(); //llançament
+        	Optional<Professor> result = dialog.showAndWait(); //llanï¿½ament
         	//Guardar resultat
         	if(result.isPresent()){
         		professor = cd2.llistarProfessors();
@@ -193,14 +193,14 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     void esborrarProfessor(ActionEvent event) {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atenciï¿½!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
-    		al.setHeaderText("Està segur que vol esborrar l'element?");
+    		al.setTitle("Atenciï¿½!");
+    		al.setHeaderText("Estï¿½ segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
