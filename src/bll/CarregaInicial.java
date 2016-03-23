@@ -22,7 +22,7 @@ import pojo.exceptions.InicialitzatException;
  */
 public class CarregaInicial {
 	private int maximTutelatsGrup = 11;
-	private static CarregaInicial INSTANCIA;
+	private static CarregaInicial INSTANCIA = new CarregaInicial();
 
 	private CarregaInicial() {
 
@@ -43,12 +43,12 @@ public class CarregaInicial {
 		Workbook workbook = Workbook.getWorkbook(new File(path));
 		Sheet sheet = workbook.getSheet(0);
 		//
-		for (int i = 0; i < sheet.getRows(); i++) {
+		for (int i = 1; i < sheet.getRows(); i++) {
 			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(i, 0).getContents();
-			String cognoms = sheet.getCell(i, 1).getContents();
-			String nom = sheet.getCell(i, 2).getContents();
-			String correu = sheet.getCell(i, 3).getContents();
+			String nif = sheet.getCell(0, i).getContents();
+			String cognoms = sheet.getCell(1, i).getContents();
+			String nom = sheet.getCell(2, i).getContents();
+			String correu = sheet.getCell(3, i).getContents();
 
 			llista.add(new Professor(nif, nom, cognoms, correu));
 		}
@@ -60,12 +60,12 @@ public class CarregaInicial {
 		Workbook workbook = Workbook.getWorkbook(new File(path));
 		Sheet sheet = workbook.getSheet(0);
 		//
-		for (int i = 0; i < sheet.getRows(); i++) {
+		for (int i = 1; i < sheet.getRows(); i++) {
 			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(i, 0).getContents();
-			String cognoms = sheet.getCell(i, 1).getContents();
-			String nom = sheet.getCell(i, 2).getContents();
-			String correu = sheet.getCell(i, 3).getContents();
+			String nif = sheet.getCell(0, i).getContents();
+			String cognoms = sheet.getCell(1, i).getContents();
+			String nom = sheet.getCell(2, i).getContents();
+			String correu = sheet.getCell(3, i).getContents();
 
 			llista.add(new AlumneTutor(nif, nom, cognoms, correu));
 		}
@@ -79,16 +79,16 @@ public class CarregaInicial {
 		// obtenim la primera pagina
 		Sheet sheet = workbook.getSheet(0);
 		// per files
-		for (int i = 0; i < sheet.getRows(); i++) {
+		for (int i = 1; i < sheet.getRows(); i++) {
 			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(i, 0).getContents();
+			String nif = sheet.getCell(0, i).getContents();
 			// cognoms [0], nom [1]
-			String nomCognoms[] = sheet.getCell(i, 1).getContents().split(",");
-			String mobil = sheet.getCell(i, 2).getContents();
-			String correu_upv = sheet.getCell(i, 3).getContents();
-			String correu_personal = sheet.getCell(i, 4).getContents();
+			String nomCognoms[] = sheet.getCell(1, i).getContents().split(",");
+			String mobil = sheet.getCell(2, i).getContents();
+			String correu_upv = sheet.getCell(3, i).getContents();
+			String correu_personal = sheet.getCell(4, i).getContents();
 			// hi han alumnes amb diversos grups, sols volem el primer
-			String grupo = sheet.getCell(i, 5).getContents().trim().substring(0, 3);
+			String grupo = sheet.getCell(5, i).getContents().trim().substring(0, 3);
 			// crea l'objecte
 			TutelatDTO tutelat = new TutelatDTO(nif, nomCognoms[1].trim(), nomCognoms[0].trim(), correu_upv,
 					correu_personal, TutelatDTO.noAsignat, grupo, mobil);
@@ -122,16 +122,18 @@ public class CarregaInicial {
 				// tornem a agafar el primer...
 				numero = 1;
 				// crea un grup nou
-				if (grups.size() < 9) {
-					actual = new Grup("G0" + grups.size());
+				if (grups.size()+1 < 9) {
+					actual = new Grup("G0" + (grups.size()+1));
 				} else {
-					actual = new Grup("G" + grups.size());
+					actual = new Grup("G" + (grups.size()+1));
 				}
 				// afeig eixe grup a l'array
 				grups.add(actual);
 				// pilla el grup de matricula
 				grupMatActual = tutelat.getGrup_matricula();
 			}
+		
+			numero++;
 			tutelat.setGrup_patu(actual);
 			// ELS GRUPS NO ES LLIGEN, SOLS ELS CREEN
 		}
@@ -149,7 +151,7 @@ public class CarregaInicial {
 			throws BiffException, IOException, InicialitzatException, SQLException {
 		if (LectorFitxers.estaInicialitzat())
 			throw new InicialitzatException();
-		// obté l'instancia de coordinado
+		// obtin l'instancia de coordinado
 		Coordina2 inst = Coordina2.getInstancia();
 		// passa els elements als array del controlador
 		// com es per referencia les puc modificar aci
@@ -163,7 +165,7 @@ public class CarregaInicial {
 		for (AlumneTutor al : carregaInicialAlumnesTutors(tutors)) {
 			alumnesTutors.add(al);
 		}
-		for (TutelatDTO dto : carrgeaInicialTutelats(tutors)) {
+		for (TutelatDTO dto : carrgeaInicialTutelats(tutelats)) {
 			alumnesTutelats.add(inst.dtoAtutelat(dto));
 		}
 		// crea els grups i assigna als tutelats
