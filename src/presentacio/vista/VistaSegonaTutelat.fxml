@@ -19,7 +19,7 @@
                         <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
                      </children>
                   </HBox>
-                  <Label prefHeight="47.0" prefWidth="147.0" text="Introduisca en el requadre el dni o el nom a cercar." wrapText="true" />
+                  <Label prefHeight="77.0" prefWidth="140.0" text="Introduisca en el requadre el dni o el nom a cercar." wrapText="true" />
                   <TextField fx:id="barraBuscadora" />
                   <Line endX="100.0" />
                   <Button mnemonicParsing="false" onAction="#afegirTutelat" text="Afegir tutelat" />

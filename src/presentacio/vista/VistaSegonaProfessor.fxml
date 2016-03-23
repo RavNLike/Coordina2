@@ -14,12 +14,12 @@
          <children>
             <VBox alignment="CENTER" layoutX="38.0" layoutY="138.0" prefHeight="200.0" prefWidth="176.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="100.0">
+                  <HBox prefHeight="77.0" prefWidth="140.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
                      </children>
                   </HBox>
-                  <Label prefHeight="36.0" prefWidth="167.0" text="Introduisca el dni o el nom que desitge cercar." wrapText="true" />
+                  <Label prefHeight="67.0" prefWidth="140.0" text="Introduisca el dni o el nom que desitge cercar." wrapText="true" />
                   <TextField fx:id="barraBuscadora" promptText="00112233, per exemple" />
                   <Line endX="100.0" />
                   <Button mnemonicParsing="false" onAction="#afegirProfessor" text="Afegir professor" />

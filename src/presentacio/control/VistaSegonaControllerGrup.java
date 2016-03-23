@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -97,16 +98,25 @@ public class VistaSegonaControllerGrup implements Initializable{
     void afegirGrup(ActionEvent event) {
     	Dialog<Grup> dialog = new Dialog<>();
     	dialog.setTitle("Afegir grup");
-    	dialog.setHeaderText("Diàleg per a afegir un grup nou. Emplene tots els camps.");
+    	dialog.setHeaderText("Dialeg per a afegir un grup nou. Emplene tots els camps.");
     	dialog.setResizable(true);
     	Label lb1 = new Label("Nom:");
     	Label lb2 = new Label("Professor:");
     	Label lb3 = new Label("Alumne Tutor 1:");
     	Label lb4 = new Label("Alumne Tutor 2:");
     	TextField tx1 = new TextField();
-    	TextField tx2 = new TextField();
-    	TextField tx3 = new TextField();
-    	TextField tx4 = new TextField();
+    	ComboBox<String> tx2 = new ComboBox<String>();
+    	ArrayList<Professor> profes = cd2.llistarProfessors();
+    	for(Professor p : profes){
+    		tx2.getItems().add(p.getNif() + " - " + p.getNom()+ ", " + p.getCognoms());
+    	}
+    	ComboBox<String> tx3 = new ComboBox<String>();
+    	ComboBox<String> tx4 = new ComboBox<String>();
+    	ArrayList<AlumneTutor> alumnestutors = cd2.llistarAlumnesTutors();
+    	for(AlumneTutor altutor : alumnestutors){
+    		tx3.getItems().add(altutor.getNif() + " - " + altutor.getNom()+ ", " + altutor.getCognoms());
+    		tx4.getItems().add(altutor.getNif() + " - " + altutor.getNom()+ ", " + altutor.getCognoms());
+    	}
     	GridPane grid = new GridPane();
     	grid.add(lb1, 1, 1);
     	grid.add(lb2, 1, 2);
@@ -123,9 +133,9 @@ public class VistaSegonaControllerGrup implements Initializable{
     		@Override
     		public Grup call(ButtonType b){
     			if(b == buttonTypeOk){
-    				Professor p = cd2.buscarProfessor(tx2.getText());
-    				AlumneTutor at1 = cd2.buscarAlumneTutor(tx3.getText());
-    				AlumneTutor at2 = cd2.buscarAlumneTutor(tx4.getText());
+    				Professor p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				AlumneTutor at1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				AlumneTutor at2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem().split(" -")[0]);
     				return new Grup(tx1.getText(), p, at1, at2);
     			} else {
     				return null;
@@ -144,15 +154,15 @@ public class VistaSegonaControllerGrup implements Initializable{
     void editarGrup(ActionEvent event) {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Dialog<Grup> dialog = new Dialog<>();
     		Grup aux = taula.getSelectionModel().getSelectedItem();
-        	dialog.setTitle("Afegir Grup");
-        	dialog.setHeaderText("Diàleg per a editar un grup. Emplene tots els camps.");
+        	dialog.setTitle("Editar Grup");
+        	dialog.setHeaderText("Dialeg per a editar un grup. Emplene tots els camps.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("Nom:");
         	Label lb2 = new Label("Professor:");
@@ -161,19 +171,30 @@ public class VistaSegonaControllerGrup implements Initializable{
         	TextField tx1 = new TextField(aux.getNom());
         	tx1.setEditable(false);
         	tx1.setDisable(true);
-        	TextField tx2 = new TextField();
-        	if(aux.getProfessor() != null){
-            	tx2.setText(aux.getProfessor().getNif());        		
-        	}
-        	TextField tx3 = new TextField();
-        	if(aux.getAlumne1() != null){
-        		tx3.setText(aux.getAlumne1().getNif());
-        	}
         	
-        	TextField tx4 = new TextField();
-        	if(aux.getAlumne2() != null){
-        		tx4.setText(aux.getAlumne2().getNif());
+        	ComboBox<String> tx2 = new ComboBox<String>();
+        	ArrayList<Professor> listprofes = cd2.llistarProfessors();
+        	for(Professor p : listprofes){
+        		tx2.getItems().add(p.getNif() + " - " + p.getNom() + ", " + p.getCognoms());
         	}
+        	tx2.getSelectionModel().select(aux.getProfessor().getNif() + " - " + aux.getProfessor().getNom()
+        								+ ", " + aux.getProfessor().getCognoms());
+        	
+        	ComboBox<String> tx3 = new ComboBox<String>();
+        	ArrayList<AlumneTutor> listaltutors = cd2.llistarAlumnesTutors();
+        	for(AlumneTutor p : listaltutors){
+        		tx3.getItems().add(p.getNif() + " - " + p.getNom() + ", " + p.getCognoms());
+        	}
+        	tx3.getSelectionModel().select(aux.getAlumne1().getNif() + " - " + aux.getAlumne1().getNom()
+        								+ ", " + aux.getAlumne1().getCognoms());
+        	
+        	ComboBox<String> tx4 = new ComboBox<String>();
+        	for(AlumneTutor p : listaltutors){
+        		tx4.getItems().add(p.getNif() + " - " + p.getNom() + ", " + p.getCognoms());
+        	}
+        	tx4.getSelectionModel().select(aux.getAlumne2().getNif() + " - " + aux.getAlumne2().getNom()
+        								+ ", " + aux.getAlumne2().getCognoms());
+        	
         	GridPane grid = new GridPane();
         	grid.add(lb1, 1, 1);
         	grid.add(lb2, 1, 2);
@@ -189,10 +210,10 @@ public class VistaSegonaControllerGrup implements Initializable{
         	dialog.setResultConverter(new Callback<ButtonType, Grup>() {
         		@Override
         		public Grup call(ButtonType b){
-        			Professor p = cd2.buscarProfessor(tx2.getText());
-        			AlumneTutor al1 = cd2.buscarAlumneTutor(tx3.getText());
-        			//no cal ternaria, si es alguna cosa que nop toca no el trobarà i tornarà null
-        			AlumneTutor al2 = cd2.buscarAlumneTutor(tx4.getText());
+        			Professor p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem());
+        			AlumneTutor al1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem());
+        			//no cal ternaria, si es alguna cosa que nop toca no el trobara i tornara null
+        			AlumneTutor al2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem());
         			if(b == buttonTypeOk){
         				return new Grup(tx1.getText(), p, al1, al2);
         			}
@@ -220,14 +241,14 @@ public class VistaSegonaControllerGrup implements Initializable{
     	Grup aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
-    		al.setHeaderText("Està segur que vol esborrar l'element?");
+    		al.setTitle("Atencio!");
+    		al.setHeaderText("Esta segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){

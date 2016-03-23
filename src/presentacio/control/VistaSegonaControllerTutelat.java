@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -84,25 +85,30 @@ public class VistaSegonaControllerTutelat implements Initializable {
     
 
     @FXML void afegirTutelat(ActionEvent event) {
+    	//Creacio del formulari de afegir 
     	Dialog<Tutelat> dialog = new Dialog<>();
     	dialog.setTitle("Afegir tutelat");
-    	dialog.setHeaderText("Diàleg per a afegir un tutelat nou. Emplene tots els camps.");
+    	dialog.setHeaderText("Dialeg per a afegir un tutelat nou. Emplene tots els camps.");
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
     	Label lb3 = new Label("Cognoms:");
-    	Label lb4 = new Label("Grup de matrícula:");
+    	Label lb4 = new Label("Grup de matricula:");
     	Label lb5 = new Label("Correu UPV:");
     	Label lb6 = new Label("Correu personal:");
     	Label lb7 = new Label("Grup de PATU");
-    	Label lb8 = new Label("Nombre de telèfon:");
+    	Label lb8 = new Label("Nombre de telefon:");
     	TextField tx1 = new TextField();
     	TextField tx2 = new TextField();
     	TextField tx3 = new TextField();
     	TextField tx4 = new TextField();
     	TextField tx5 = new TextField();
     	TextField tx6 = new TextField();
-    	TextField tx7 = new TextField();
+    	ComboBox<String> cbGrup = new ComboBox<String>();
+    	ArrayList<Grup> listgrups = cd2.llistarGrups();
+    	for(Grup gr : listgrups){
+    		cbGrup.getItems().add(gr.getNom());	
+    	}
     	TextField tx8 = new TextField();
     	GridPane grid = new GridPane();
     	grid.add(lb1, 1, 1);
@@ -119,16 +125,17 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	grid.add(tx4, 2, 4);
     	grid.add(tx5, 2, 5);
     	grid.add(tx6, 2, 6);
-    	grid.add(tx7, 2, 7);
+    	grid.add(cbGrup, 2, 7);
     	grid.add(tx8, 2, 8);
     	dialog.getDialogPane().setContent(grid);
+    	//Fi de la creacio del dialeg
     	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
     	dialog.setResultConverter(new Callback<ButtonType, Tutelat>() {
     		@Override
     		public Tutelat call(ButtonType b){
     			if(b == buttonTypeOk){
-    				Grup aux = cd2.buscarGrup(tx7.getText());
+    				Grup aux = cd2.buscarGrup(cbGrup.getSelectionModel().getSelectedItem());
     				return new Tutelat(tx1.getText(), tx2.getText(), tx3.getText(), 
     						tx5.getText(), tx6.getText(), aux, tx4.getText(), tx8.getText());
     			}
@@ -146,7 +153,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML void editarTutelat(ActionEvent event) {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
@@ -154,16 +161,16 @@ public class VistaSegonaControllerTutelat implements Initializable {
     		Dialog<Tutelat> dialog = new Dialog<>();
     		Tutelat aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar tutelat");
-        	dialog.setHeaderText("Diàleg per a editar un tutelat. \nPer a cancel·lar, prema la creu roja.");
+        	dialog.setHeaderText("Dialeg per a editar un tutelat. \nPer a cancelar, prema la creu roja.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
         	Label lb3 = new Label("Cognoms:");
-        	Label lb4 = new Label("Grup de matrícula:");
+        	Label lb4 = new Label("Grup de matricula:");
         	Label lb5 = new Label("Correu UPV:");
         	Label lb6 = new Label("Correu personal:");
         	Label lb7 = new Label("Grup de PATU");
-        	Label lb8 = new Label("Nombre de telèfon:");
+        	Label lb8 = new Label("Nombre de telefon:");
         	TextField tx1 = new TextField(aux.getNif());
         	tx1.setEditable(false);
         	tx1.setDisable(true);
@@ -172,7 +179,12 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	TextField tx4 = new TextField(aux.getGrup_matricula());
         	TextField tx5 = new TextField(aux.getCorreu_upv());
         	TextField tx6 = new TextField(aux.getCorreu_personal());
-        	TextField tx7 = new TextField(aux.getGrup_patu().getNom());
+        	ComboBox<String> cbGrup = new ComboBox<String>();
+        	ArrayList<Grup> listgrups = cd2.llistarGrups();
+        	for(Grup gr : listgrups){
+        		cbGrup.getItems().add(gr.getNom());	
+        	}
+        	cbGrup.getSelectionModel().select(aux.getGrup_patu().getNom());
         	TextField tx8 = new TextField(aux.getMobil());
         	GridPane grid = new GridPane();
         	grid.add(lb1, 1, 1);
@@ -189,7 +201,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	grid.add(tx4, 2, 4);
         	grid.add(tx5, 2, 5);
         	grid.add(tx6, 2, 6);
-        	grid.add(tx7, 2, 7);
+        	grid.add(cbGrup, 2, 7);
         	grid.add(tx8, 2, 8);
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
@@ -199,14 +211,14 @@ public class VistaSegonaControllerTutelat implements Initializable {
         		@Override
         		public Tutelat call(ButtonType b){
         			if(b == buttonTypeOk){
-        				Grup aux = cd2.buscarGrup(tx7.getText());
+        				Grup aux = cd2.buscarGrup(cbGrup.getSelectionModel().getSelectedItem());
         				return new Tutelat(tx1.getText(), tx2.getText(), tx3.getText(), 
         						tx5.getText(), tx6.getText(), aux, tx4.getText(), tx8.getText());
         			}
         			return null;
         		} 	
         	});    	
-        	Optional<Tutelat> result = dialog.showAndWait(); //llançament
+        	Optional<Tutelat> result = dialog.showAndWait(); //llancament
         	if(result.isPresent()){  
         		tutelat = cd2.llistarTutelats();
         		for(int i = 0; i < tutelat.size(); i++){
@@ -226,14 +238,14 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	Tutelat aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
-    		al.setHeaderText("Està segur que vol esborrar l'element?");
+    		al.setTitle("Atencio!");
+    		al.setHeaderText("Esta segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){

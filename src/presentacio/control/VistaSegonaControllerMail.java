@@ -71,7 +71,6 @@ public class VistaSegonaControllerMail implements Initializable {
 		    	alert.setHeaderText(null);
 		    	alert.setContentText("No ha seleccionat destinatari");
 		    	alert.showAndWait();
-		    	enrere();
 		    	
 		    	//Si hem plenat alguna llista de destinataris
 			} else {
