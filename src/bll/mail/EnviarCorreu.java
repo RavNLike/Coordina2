@@ -29,7 +29,7 @@ public class EnviarCorreu {
 			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 		String usuari = obtindreUsuari();
 		String pass = obtindrePass();
-
+		
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.auth", "true");

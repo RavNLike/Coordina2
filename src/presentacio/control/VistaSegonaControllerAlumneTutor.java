@@ -74,7 +74,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void afegirAlumneTutor(){
     	Dialog<AlumneTutor> dialog = new Dialog<>();
     	dialog.setTitle("Afegir Alumne Tutors");
-    	dialog.setHeaderText("Diàleg per a afegir un alumne tutor nou. Emplene tots els camps.");
+    	dialog.setHeaderText("Dialeg per a afegir un alumne tutor nou. Emplene tots els camps.");
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
@@ -123,7 +123,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void editarAlumneTutor(){
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
@@ -131,7 +131,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     		Dialog<AlumneTutor> dialog = new Dialog<>();
     		AlumneTutor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Afegir Alumne Tutors");
-        	dialog.setHeaderText("Diàleg per a editar un alumne tutor. Emplene tots els camps.");
+        	dialog.setHeaderText("Diï¿½leg per a editar un alumne tutor. Emplene tots els camps.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -174,13 +174,15 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         			}
         		}
         		alumnetutor.add(result.get());
-        		try {
-    				cd2.editarAlumneTutor(result.get());
+    				try {
+						cd2.editarAlumneTutor(result.get());
+					} catch (ArgumentErroniException e) {
+						System.out.println("Entra en el catch; hi ha error en el editar alumen tutor.");
+						e.printStackTrace();
+					}
     				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
     				taula.setItems(altu);
-    			} catch (ArgumentErroniException e) {
-    				e.printStackTrace();
-    			}
+    			
         	}
     	}
     }
@@ -188,14 +190,14 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void esborrarAlumneTutor(){
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
+    		al.setTitle("Atenciï¿½!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenció!");
-    		al.setHeaderText("Està segur que vol esborrar l'element?");
+    		al.setTitle("Atenciï¿½!");
+    		al.setHeaderText("Estï¿½ segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){

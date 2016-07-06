@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -10,35 +11,30 @@
 
 <AnchorPane id="AnchorPane" fx:id="base" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaInicialController">
     <children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane alignment="CENTER" hgap="80.0" minHeight="250.0" prefHeight="500.0" prefWidth="1000.0" vgap="30.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#eixir" text="Sortir" />
-               </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </HBox>
-            <Label text="Grups tutorials" />
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="500.0" spacing="40.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#apretarTutelats" text="Tutelats" />
-                  <Button mnemonicParsing="false" onAction="#apretarTutorsAlumnes" text="Alumnes tutors" />
-                  <Button mnemonicParsing="false" onAction="#apretarProfessors" text="Professors tutors" />
-                  <Button mnemonicParsing="false" onAction="#apretarGrups" text="Grups" />
-               </children>
-            </HBox>
-            <HBox fx:id="boxInvisible" alignment="CENTER" spacing="20.0" />
-            <Line endX="100.0" startX="-100.0" />
-            <Label text="Altres opcions" />
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="500.0" spacing="40.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" />
-                  <Button mnemonicParsing="false" text="Acreditacions" />
-               </children>
-            </HBox>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#apretarTutelats" text="Tutelats" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1" />
+            <Label text="Llistats" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#apretarTutorsAlumnes" text="Alumnes Tutors" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#apretarProfessors" text="Professors tutors" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#apretarGrups" text="Grups" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Acreditacions" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ajustos" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="Altres opcions" GridPane.columnIndex="2" />
+            <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eixir" text="Sortir" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
-      </VBox>
+      </GridPane>
     </children>
 </AnchorPane>
