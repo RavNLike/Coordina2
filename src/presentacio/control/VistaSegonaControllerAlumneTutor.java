@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import bll.Coordina2;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -35,6 +37,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML private TableColumn<AlumneTutor, String> taulaCorreuUPV;
     @FXML private TableView<AlumneTutor> taula;
     @FXML private TextField barraBuscadora;
+    @FXML private Button afegirAT, editarAT, esborrarAT;
 	Coordina2 cd2 = Coordina2.getInstancia();
 	private ArrayList<AlumneTutor> alumnetutor = cd2.llistarAlumnesTutors();
 	
@@ -42,31 +45,20 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	ObservableList<AlumneTutor> altuts = FXCollections.observableArrayList(alumnetutor);
     	
-    	//Ara plenar columnes
+    	/* Plenar les columnes */
     	taulaDNI.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getNif()));
     	taulaNom.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> ((param.getValue()).getNom()));
     	taulaCognoms.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> ((param.getValue()).getCognoms()));
     	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
     	taula.setItems(altuts);
 
-    	/****************FILTRATGE***********************/
-    	FilteredList<AlumneTutor> filteredData = new FilteredList<>(altuts, p -> true);
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
-    		filteredData.setPredicate(altuu -> {
-				if (nou == null || nou.isEmpty()) {
-					return true;
-				}
-				String minuscules = nou.toLowerCase();
-				if (altuu.getNom().toLowerCase().contains(minuscules)
-						|| altuu.getNif().toLowerCase().contains(minuscules)) {
-					return true;
-				}	
-				return false;
-			});
-    	}); // de listener
-    	SortedList<AlumneTutor> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(taula.comparatorProperty());
-		taula.setItems(sortedData);
+    	/* Listener de la barra de filtratge */
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(altuts, nou);});
+    	
+		/* Listeners de les opcions CRUD */
+		afegirAT.setOnAction((event) -> {afegirAlumneTutor();});
+		editarAT.setOnAction((event) -> {editarAlumneTutor();});
+		esborrarAT.setOnAction((event) -> {esborrarAlumneTutor();});
     }
         
     @FXML public void enrere(){VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
@@ -190,14 +182,14 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void esborrarAlumneTutor(){
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenci�!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenci�!");
-    		al.setHeaderText("Est� segur que vol esborrar l'element?");
+    		al.setTitle("Atenci" + "\u00f3" + "!"); //Intent de simbols en unicode
+    		al.setHeaderText("Est" + "\00e0" + " segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
@@ -211,5 +203,23 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     			
     		}
     	}
+    }
+    
+    public void filtratge(ObservableList<AlumneTutor> at, String nou){
+    	FilteredList<AlumneTutor> filteredData = new FilteredList<>(at, p -> true);
+    	filteredData.setPredicate(altuu -> {
+			if (nou == null || nou.isEmpty()) {
+				return true;
+			}
+			String minuscules = nou.toLowerCase();
+			if (altuu.getNom().toLowerCase().contains(minuscules)
+					|| altuu.getNif().toLowerCase().contains(minuscules)) {
+				return true;
+			}	
+			return false;
+		});
+    	SortedList<AlumneTutor> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
     }
 }

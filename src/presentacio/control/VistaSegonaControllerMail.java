@@ -3,32 +3,23 @@ package presentacio.control;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
 import bll.Coordina2;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import pojo.AlumneTutor;
-import pojo.Persona;
 import pojo.Professor;
 
 public class VistaSegonaControllerMail implements Initializable {
@@ -40,9 +31,9 @@ public class VistaSegonaControllerMail implements Initializable {
 	@FXML
 	private TextArea quadreMissatge;
 	@FXML
-	private RadioButton radioAlumnestutors;
-	@FXML
-	private RadioButton radioProfessors;
+	private RadioButton radioAlumnestutors, radioProfessors;
+	@FXML 
+	private Button enviarbutton, cancelarbutton;
 	@FXML
 	private GridPane gp;
 	@FXML
@@ -51,13 +42,9 @@ public class VistaSegonaControllerMail implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// String aux = quadreMissatge.getText();
 		ToggleGroup gp = new ToggleGroup();
 		radioAlumnestutors.setToggleGroup(gp);
 		radioProfessors.setToggleGroup(gp);
-		gp.selectedToggleProperty().addListener((obser, vell, nou) -> {
-
-		});
 	}
 
 	@FXML
@@ -73,8 +60,6 @@ public class VistaSegonaControllerMail implements Initializable {
 	@FXML
 	void enviar(ActionEvent event) {
 
-		// String cosMissatge = quadreMissatge.getText();
-
 		// Si no hem seleccionat cap llista de destinataris
 		if (!radioAlumnestutors.isSelected() && !radioProfessors.isSelected()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -88,15 +73,24 @@ public class VistaSegonaControllerMail implements Initializable {
 			pb.setVisible(true);
 			pb.setProgress(0);
 			copiaWorker = creaWorker();
+			
+			/* Detalls com deshabilitar boto d'enviar i cancelar, posar cursor en espera */
+			enviarbutton.setDisable(true);
+			cancelarbutton.setDisable(true);
+			gp.getScene().setCursor(Cursor.WAIT);
+			
+			/* Lliguem ProgressProperty a la ProgressBar i s'anira actualitzant aixi
+			 * Es fa dintre del Worker amb el metode updateProgress(...) */
 			pb.progressProperty().unbind();
 			pb.progressProperty().bind(copiaWorker.progressProperty());
-			copiaWorker.messageProperty().addListener((evento) -> {
-				System.out.println("El messageProperty del Thread diu: " + evento);
-			});
+			
+			
+			/* Llancem el thread */
 			new Thread(copiaWorker).start();
 
+			/* Si hem llançat el thread i tot ha anat be */
 			copiaWorker.setOnSucceeded((valor) -> {
-				System.out.println("Pero aqui arriba o no? si apareix es que siii");
+				gp.getScene().setCursor(Cursor.DEFAULT);
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Confirmació");
 				alert.setHeaderText("S'ha enviat el seu missatge correctament");
@@ -105,6 +99,7 @@ public class VistaSegonaControllerMail implements Initializable {
 				enrere();
 			});
 
+			/* Si al acabar l'execucio del thread ha hagut algun problema */
 			copiaWorker.setOnFailed((valor) -> {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
@@ -143,7 +138,6 @@ public class VistaSegonaControllerMail implements Initializable {
 							cont++;
 							String cosMissatge = quadreMissatge.getText() + "\n"
 									+ cd2.obtindreMembresPerAlumneTutor(altutor);
-							updateMessage("Ieee que vaig pel: " + cont);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(altutor, tema, cosMissatge);
 						}
@@ -154,7 +148,6 @@ public class VistaSegonaControllerMail implements Initializable {
 						for (Professor prof : llistaP) {
 							cont++;
 							String cosMissatge = quadreMissatge.getText() + "\n" + cd2.obtindreLlistaPerProfessor(prof);
-							updateMessage("Ieee que vaig pel: " + cont);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(prof, tema, cosMissatge);
 						}

@@ -34,8 +34,8 @@
       </VBox>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <Button mnemonicParsing="false" onAction="#enviar" text="Enviar" />
-            <Button mnemonicParsing="false" onAction="#enrere" text="Cancelar" />
+            <Button fx:id="enviarbutton" mnemonicParsing="false" onAction="#enviar" text="Enviar" />
+            <Button fx:id="cancelarbutton" mnemonicParsing="false" onAction="#enrere" text="Cancelar" />
          </children>
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
