@@ -1,0 +1,16 @@
+Llistat de metodes disponibles a bll.Coordina2
+
+1* TOTES LES OPERACIONS CRUD per a ALumnesTutors, Tutelats, Professors i Grups
+2 dtoAgrup(GrupDTO dto) i dtoAtutelat(TutelatDTO dto) per a transformar els objetes simples en referenciats
+3 obtindreMembresGrup(String nomGrup) --> retorna un arraylist<Persona> amb tots els membres de un grup
+4 obtindreTutelatsPerGrup(String nomGrup) --> lo mateix però sols per als tutelats
+5 grupsPerAlumneTutor(AlumneTutor al) --> retorna un arraylist de grups als que pertany eixe alumne
+6* nProfessors/nAlumnesTutors/nGrups/nTutelats --> retornen el nombre d'elements de cada tipus al sistema
+7 enviarCorreu(Persona desti, String tema, String cosMissatge) --> Envia UN correu  
+8 obtindreLlistaPerProfessor(Professor profe) --> Obte un String amb l'informacio dels grups d'eixe professor
+9 obtindreMembresPerAlumneTutor --> El mateix per als alumnes tutors
+** obtindreMapaAssistencies(String[] entrades) --> a partir dels xls (entrades) retorna un objecte amb la info sobre les assistencies
+** escriureMapaActes(String eixida, MapaActes mapa) --> amb el path d'eixi i l'objecte anterior escriu les dades en un txt
+10 comptaDNIs(String[] entrades, String eixida) --> Metode que engloba els dos anteriors
+11 inicialitzarSistema(String profs, String tutors, String alumnes) --> Inicialitza el sistema amb els paths
+12 crearAcreditacions(String pathdesti) --> a partir de la info en el sistema crea les acreditacions

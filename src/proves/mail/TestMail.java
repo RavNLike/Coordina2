@@ -11,9 +11,9 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import bll.io.Encriptador;
-import bll.io.LectorFitxers;
-import bll.mail.EnviarCorreu;
+import bll.Encriptador;
+import bll.EnviarCorreu;
+import bll.LectorRegistres;
 import pojo.AlumneTutor;
 
 public class TestMail {

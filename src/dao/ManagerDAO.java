@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import bll.io.LectorFitxers;
+import bll.LectorRegistres;
 
 public class ManagerDAO {
-	private static ManagerDAO INSTANCIA = new ManagerDAO(LectorFitxers.rutabd());
+	private static ManagerDAO INSTANCIA = new ManagerDAO(LectorRegistres.getInstancia().getValorRegistre("rutabd"));
 	private Connection c = null;
 
 	private ManagerDAO(String path) {

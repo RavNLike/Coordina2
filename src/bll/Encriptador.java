@@ -1,4 +1,4 @@
-package bll.io;
+package bll;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -57,7 +57,8 @@ public class Encriptador {
 	 * clau serà el propi mail, ho se, soc un geni
 	 */
 	public SecretKey generarClau() throws SQLException {
-		String clau = LectorFitxers.llegirMail();
+		LectorRegistres instancia = LectorRegistres.getInstancia();
+		String clau = instancia.llegirMail();
 		clau = normalitzarClau(clau);
 		byte[] encoded = stringAEncriptat(clau);
 		SecretKey secretKey = new SecretKeySpec(encoded, "AES");

@@ -1,4 +1,4 @@
-package bll.mail;
+package bll;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +16,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import bll.io.LectorFitxers;
 import pojo.Persona;
 
 public class EnviarCorreu {
@@ -29,6 +28,8 @@ public class EnviarCorreu {
 			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 		String usuari = obtindreUsuari();
 		String pass = obtindrePass();
+		//configuracio sense canvis
+		//es necessari habilitar el permis al correu per a aplicacions poc segures
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
@@ -63,11 +64,13 @@ public class EnviarCorreu {
 	 * TODO EVITAR LA PASS EN TEXT PLA!!!!!
 	 */
 	private String obtindreUsuari() throws SQLException {
-		return LectorFitxers.llegirMail();
+		LectorRegistres instancia = LectorRegistres.getInstancia();
+		return instancia.llegirMail();
 	}
 
 	private String obtindrePass() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException,
 			IllegalBlockSizeException, BadPaddingException, SQLException {
-		return LectorFitxers.llegirPass();
+		LectorRegistres instancia = LectorRegistres.getInstancia();
+		return instancia.llegirPass();
 	}
 }

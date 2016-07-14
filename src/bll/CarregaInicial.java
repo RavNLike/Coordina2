@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import bll.io.LectorFitxers;
 import dao.dto.TutelatDTO;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -149,7 +148,8 @@ public class CarregaInicial {
 	 */
 	public void inicialitzaTOT(String profes, String tutors, String tutelats)
 			throws BiffException, IOException, InicialitzatException, SQLException {
-		if (LectorFitxers.estaInicialitzat())
+		LectorRegistres instancia = LectorRegistres.getInstancia();
+		if (instancia.estaInicialitzat())
 			throw new InicialitzatException();
 		// obtin l'instancia de coordinado
 		Coordina2 inst = Coordina2.getInstancia();

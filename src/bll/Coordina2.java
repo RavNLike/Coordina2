@@ -13,7 +13,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import bll.mail.EnviarCorreu;
 import dao.GrupDAO;
 import dao.TutelatDAO;
 import dao.TutorDAO;
@@ -404,7 +403,7 @@ public class Coordina2 {
 		return res;
 	}
 
-	public ArrayList<Grup> grupsPerAlumne(AlumneTutor al) {
+	public ArrayList<Grup> grupsPerAlumneTutor(AlumneTutor al) {
 		ArrayList<Grup> llista = new ArrayList<>();
 		for (Grup aux : grups) {
 			if (aux.getAlumne1().equals(al) || (aux.getAlumne2() != null && aux.getAlumne2().equals(al))) {
@@ -480,7 +479,7 @@ public class Coordina2 {
 	}
 
 	public String obtindreMembresPerAlumneTutor(AlumneTutor tut) {
-		ArrayList<Grup> llistat = grupsPerAlumne(tut);
+		ArrayList<Grup> llistat = grupsPerAlumneTutor(tut);
 		String res = "";
 		for (Grup aux : llistat) {
 			res += "GRUP - " + aux.getNom() + "\n------\n";
@@ -593,6 +592,14 @@ public class Coordina2 {
 		CarregaInicial carrega = CarregaInicial.getInstancia();
 		carrega.inicialitzaTOT(profs, tutors, alumnes);
 		guardaEstatInicial();
+	}
+	
+	/*************************************
+	 * MÉTODE PER A CREAR LES ACREDITACIONS
+	 **************************************/
+	//TODO
+	public void crearAcreditacions(String pathdesti){
+		
 	}
 
 }
