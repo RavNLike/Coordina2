@@ -1,0 +1,6 @@
+rutabd : coordina2015.sqlite
+col_prof : 9
+col_tutor1 : 7
+col_tutor2 : 8
+col_tutelats_ini : 11
+col_tutelats_fi : 26
