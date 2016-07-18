@@ -123,7 +123,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     		Dialog<AlumneTutor> dialog = new Dialog<>();
     		AlumneTutor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Afegir Alumne Tutors");
-        	dialog.setHeaderText("Di�leg per a editar un alumne tutor. Emplene tots els camps.");
+        	dialog.setHeaderText("Dialeg per a editar un alumne tutor. Emplene tots els camps.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
