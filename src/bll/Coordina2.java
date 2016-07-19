@@ -592,6 +592,8 @@ public class Coordina2 {
 		CarregaInicial carrega = CarregaInicial.getInstancia();
 		carrega.inicialitzaTOT(profs, tutors, alumnes);
 		guardaEstatInicial();
+		//tanca per a que no puga tornar a carregar-se
+		LectorRegistres.getInstancia().marcaInicialitzat();
 	}
 	
 	/*************************************

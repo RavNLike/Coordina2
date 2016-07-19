@@ -85,6 +85,14 @@ public class LectorRegistres {
 		return rs.getInt("inicialitzat") != 0;
 	}
 	
+	/*Este metode tanca la BD per a que no es puga tornar a inicialitzar*/
+	public void marcaInicialitzat() throws SQLException{
+		Connection c = ManagerDAO.getInstancia().getCon();
+		String sql = "UPDATE Metainfo SET inicialitzat = 1";
+		Statement stmt = c.createStatement();
+		stmt.executeQuery(sql);
+	}
+	
 
 	public String getValorRegistre(String clauRegistre){
 		return registre.get(clauRegistre);
