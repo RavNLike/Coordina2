@@ -33,7 +33,6 @@ public class ComptadorActes {
 		//obtinc el valor de les columnes
 		LectorRegistres instancia = LectorRegistres.getInstancia();
 		int col_tutor1 = Integer.valueOf(instancia.getValorRegistre("col_tutor1"));
-		int col_tutor2 = Integer.valueOf(instancia.getValorRegistre("col_tutor2"));
 		int col_prof = Integer.valueOf(instancia.getValorRegistre("col_prof"));
 		int col_tutelats_ini = Integer.valueOf(instancia.getValorRegistre("col_tutelats_ini"));
 		int col_tutelats_fi = Integer.valueOf(instancia.getValorRegistre("col_tutelats_fi"));

@@ -32,6 +32,9 @@ public class LectorRegistres {
 			//el format dels registres es clau : valor
 			while(sc.hasNext()){
 				String linea = sc.nextLine();
+				//si es un comentari passe 
+				if (linea.startsWith("#"))
+					continue;
 				String[] separador = linea.split(":");
 				registre.put(separador[0].trim(), separador[1].trim());
 			}
@@ -85,6 +88,10 @@ public class LectorRegistres {
 
 	public String getValorRegistre(String clauRegistre){
 		return registre.get(clauRegistre);
+	}
+	
+	public int getIntRegistre(String clauRegistre){
+		return Integer.parseInt(registre.get(clauRegistre));
 	}
 	
 	public static LectorRegistres getInstancia(){

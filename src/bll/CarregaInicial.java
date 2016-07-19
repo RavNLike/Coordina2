@@ -22,9 +22,10 @@ import pojo.exceptions.InicialitzatException;
 public class CarregaInicial {
 	private int maximTutelatsGrup = 11;
 	private static CarregaInicial INSTANCIA = new CarregaInicial();
+	private static LectorRegistres registres = LectorRegistres.getInstancia();
 
 	private CarregaInicial() {
-
+		
 	}
 
 	public static CarregaInicial getInstancia() {
@@ -43,11 +44,11 @@ public class CarregaInicial {
 		Sheet sheet = workbook.getSheet(0);
 		//
 		for (int i = 1; i < sheet.getRows(); i++) {
-			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(0, i).getContents();
-			String cognoms = sheet.getCell(1, i).getContents();
-			String nom = sheet.getCell(2, i).getContents();
-			String correu = sheet.getCell(3, i).getContents();
+			// utilitzant les constants del fitxer registres.txt
+			String nif = sheet.getCell(registres.getIntRegistre("ini_tutors_nif"), i).getContents();
+			String cognoms = sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents();
+			String nom = sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents();
+			String correu = sheet.getCell(registres.getIntRegistre("ini_tutors_correu"), i).getContents();
 
 			llista.add(new Professor(nif, nom, cognoms, correu));
 		}
@@ -60,11 +61,11 @@ public class CarregaInicial {
 		Sheet sheet = workbook.getSheet(0);
 		//
 		for (int i = 1; i < sheet.getRows(); i++) {
-			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(0, i).getContents();
-			String cognoms = sheet.getCell(1, i).getContents();
-			String nom = sheet.getCell(2, i).getContents();
-			String correu = sheet.getCell(3, i).getContents();
+			// utilitzant les constants del fitxer registres.txt
+			String nif = sheet.getCell(registres.getIntRegistre("ini_tutors_nif"), i).getContents();
+			String cognoms = sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents();
+			String nom = sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents();
+			String correu = sheet.getCell(registres.getIntRegistre("ini_tutors_correu"), i).getContents();;
 
 			llista.add(new AlumneTutor(nif, nom, cognoms, correu));
 		}
@@ -80,14 +81,14 @@ public class CarregaInicial {
 		// per files
 		for (int i = 1; i < sheet.getRows(); i++) {
 			// segons el format del excel dels alumnes nou ingres
-			String nif = sheet.getCell(0, i).getContents();
+			String nif = sheet.getCell(registres.getIntRegistre("ini_tutelats_nif"), i).getContents();
 			// cognoms [0], nom [1]
-			String nomCognoms[] = sheet.getCell(1, i).getContents().split(",");
-			String mobil = sheet.getCell(2, i).getContents();
-			String correu_upv = sheet.getCell(3, i).getContents();
-			String correu_personal = sheet.getCell(4, i).getContents();
+			String nomCognoms[] = sheet.getCell(registres.getIntRegistre("ini_tutelats_cognoms_nom"), i).getContents().split(",");
+			String mobil = sheet.getCell(registres.getIntRegistre("ini_tutelats_mobil"), i).getContents();
+			String correu_upv = sheet.getCell(registres.getIntRegistre("ini_tutelats_correu"), i).getContents();
+			String correu_personal = sheet.getCell(registres.getIntRegistre("ini_tutelats_correu_pers"), i).getContents();
 			// hi han alumnes amb diversos grups, sols volem el primer
-			String grupo = sheet.getCell(5, i).getContents().trim().substring(0, 3);
+			String grupo = sheet.getCell(registres.getIntRegistre("ini_tutelats_grup"), i).getContents().trim().substring(0, 3);
 			// crea l'objecte
 			TutelatDTO tutelat = new TutelatDTO(nif, nomCognoms[1].trim(), nomCognoms[0].trim(), correu_upv,
 					correu_personal, TutelatDTO.noAsignat, grupo, mobil);
