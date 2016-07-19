@@ -37,12 +37,10 @@ public class VistaSegonaControllerCarrega implements Initializable{
     private String seleccionarPath(String titol){
     	FileChooser fc = new FileChooser();
     	fc.setTitle(titol);
-    	fc.getExtensionFilters().addAll(
-    			new ExtensionFilter("Arxius de text *.txt", "*.txt"),
+    	fc.getExtensionFilters().addAll(	
     			new ExtensionFilter("Fulls de calcul Excel *.xls, *.xlsx", "*.xls", "*.xlsx"));
     	File fselected = fc.showOpenDialog(null);
     	if (fselected != null){
-    		System.out.println("Llavors el path es: " + fselected.getAbsolutePath());
     		return fselected.getAbsolutePath();
     	} 
     	return "";
@@ -62,6 +60,9 @@ public class VistaSegonaControllerCarrega implements Initializable{
 			alert.setHeaderText(null);
 			alert.setContentText("Ha fallat alguna cosa");
 			alert.showAndWait();
+			e.printStackTrace();
+    	} finally {
+    		VistaNavigator.loadVista(VistaNavigator.VISTAINI);
     	}
 
     }
