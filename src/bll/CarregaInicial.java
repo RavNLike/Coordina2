@@ -2,6 +2,7 @@ package bll;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import pojo.Grup;
 import pojo.Professor;
 import pojo.Tutelat;
 import pojo.exceptions.InicialitzatException;
+import static java.nio.charset.StandardCharsets.*;
 
 /*
  * AQUESTA CLASSE S'USA EXCLUSIVAMENT
@@ -46,8 +48,8 @@ public class CarregaInicial {
 		for (int i = 1; i < sheet.getRows(); i++) {
 			// utilitzant les constants del fitxer registres.txt
 			String nif = sheet.getCell(registres.getIntRegistre("ini_tutors_nif"), i).getContents();
-			String cognoms = sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents();
-			String nom = sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents();
+			String cognoms = toUTF8(sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents());
+			String nom = toUTF8(sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents());
 			String correu = sheet.getCell(registres.getIntRegistre("ini_tutors_correu"), i).getContents();
 
 			llista.add(new Professor(nif, nom, cognoms, correu));
@@ -63,9 +65,9 @@ public class CarregaInicial {
 		for (int i = 1; i < sheet.getRows(); i++) {
 			// utilitzant les constants del fitxer registres.txt
 			String nif = sheet.getCell(registres.getIntRegistre("ini_tutors_nif"), i).getContents();
-			String cognoms = sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents();
-			String nom = sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents();
-			String correu = sheet.getCell(registres.getIntRegistre("ini_tutors_correu"), i).getContents();;
+			String cognoms = toUTF8(sheet.getCell(registres.getIntRegistre("ini_tutors_cognoms"), i).getContents());
+			String nom = toUTF8(sheet.getCell(registres.getIntRegistre("ini_tutors_nom"), i).getContents());
+			String correu = sheet.getCell(registres.getIntRegistre("ini_tutors_correu"), i).getContents();
 
 			llista.add(new AlumneTutor(nif, nom, cognoms, correu));
 		}
@@ -83,7 +85,7 @@ public class CarregaInicial {
 			// segons el format del excel dels alumnes nou ingres
 			String nif = sheet.getCell(registres.getIntRegistre("ini_tutelats_nif"), i).getContents();
 			// cognoms [0], nom [1]
-			String nomCognoms[] = sheet.getCell(registres.getIntRegistre("ini_tutelats_cognoms_nom"), i).getContents().split(",");
+			String nomCognoms[] = toUTF8(sheet.getCell(registres.getIntRegistre("ini_tutelats_cognoms_nom"), i).getContents()).split(",");
 			String mobil = sheet.getCell(registres.getIntRegistre("ini_tutelats_mobil"), i).getContents();
 			String correu_upv = sheet.getCell(registres.getIntRegistre("ini_tutelats_correu"), i).getContents();
 			String correu_personal = sheet.getCell(registres.getIntRegistre("ini_tutelats_correu_pers"), i).getContents();
@@ -181,6 +183,10 @@ public class CarregaInicial {
 			g.setAlumne1(tutorDefault);
 		}
 
+	}
+	
+	private String toUTF8(String text){
+		return new String(text.getBytes(ISO_8859_1));
 	}
 
 }

@@ -90,7 +90,7 @@ public class LectorRegistres {
 		Connection c = ManagerDAO.getInstancia().getCon();
 		String sql = "UPDATE Metainfo SET inicialitzat = 1";
 		Statement stmt = c.createStatement();
-		stmt.executeQuery(sql);
+		stmt.execute(sql);
 	}
 	
 
@@ -104,6 +104,31 @@ public class LectorRegistres {
 	
 	public static LectorRegistres getInstancia(){
 		return INSTANCIA;
+	}
+	
+	//deixa en blanc la bd, pero originalment està bloquejat
+	public boolean deixaEnBlancBD(){
+		if (getIntRegistre("forrellat")!=0)
+			return false;
+		
+		try{
+			Connection c = ManagerDAO.getInstancia().getCon();
+			String sql1 = "UPDATE Metainfo SET inicialitzat = 0";
+			String sql2 = "DELETE FROM Tutelat"; 
+			String sql3 = "DELETE FROM Grup"; 
+			String sql4 = "DELETE FROM Professor"; 
+			String sql5 = "DELETE FROM AlumneTutor"; 
+			Statement stmt = c.createStatement();
+			stmt.execute(sql1);
+			stmt.execute(sql2);
+			stmt.execute(sql3);
+			stmt.execute(sql4);
+			stmt.execute(sql5);
+			return true;
+		}catch(SQLException jahelfea){
+			return false;
+		}
+		
 	}
 	
 }

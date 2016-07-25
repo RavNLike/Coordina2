@@ -593,7 +593,7 @@ public class Coordina2 {
 		carrega.inicialitzaTOT(profs, tutors, alumnes);
 		guardaEstatInicial();
 		//tanca per a que no puga tornar a carregar-se
-		//LectorRegistres.getInstancia().marcaInicialitzat();
+		LectorRegistres.getInstancia().marcaInicialitzat();
 	}
 	
 	/*************************************
@@ -602,6 +602,10 @@ public class Coordina2 {
 	//TODO
 	public void crearAcreditacions(String pathdesti){
 		
+	}
+	
+	public boolean borraBD(){
+		return LectorRegistres.getInstancia().deixaEnBlancBD();
 	}
 
 }
