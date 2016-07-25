@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import bll.Coordina2;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -158,23 +157,24 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         		} 	
         	});    	
         	Optional<AlumneTutor> result = dialog.showAndWait();
+        	
         	if(result.isPresent()){
-        		alumnetutor = cd2.llistarAlumnesTutors();
+        		/*alumnetutor = cd2.llistarAlumnesTutors();
         		for(int i = 0; i < alumnetutor.size(); i++){
         			if(alumnetutor.get(i).getNif().equals(result.get().getNif())){ //si el troba
         				alumnetutor.remove(i);
         			}
-        		}
-        		alumnetutor.add(result.get());
-    				try {
-						cd2.editarAlumneTutor(result.get());
-					} catch (ArgumentErroniException e) {
-						System.out.println("Entra en el catch; hi ha error en el editar alumen tutor.");
-						e.printStackTrace();
-					}
-    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
-    				taula.setItems(altu);
-    			
+        		}*/
+        		//alumnetutor.add(result.get());
+				try {
+					cd2.editarAlumneTutor(result.get());
+					ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+					taula.setItems(altu);
+					taula.getColumns().get(0).setVisible(false);
+					taula.getColumns().get(0).setVisible(true);
+				} catch (ArgumentErroniException e) {
+					e.printStackTrace();
+				}    			
         	}
     	}
     }

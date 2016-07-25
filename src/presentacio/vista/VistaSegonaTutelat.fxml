@@ -22,9 +22,9 @@
                   <Label prefHeight="77.0" prefWidth="140.0" text="Introduisca en el requadre el dni o el nom a cercar." wrapText="true" />
                   <TextField fx:id="barraBuscadora" />
                   <Line endX="100.0" />
-                  <Button mnemonicParsing="false" onAction="#afegirTutelat" text="Afegir tutelat" />
-                  <Button mnemonicParsing="false" onAction="#editarTutelat" text="Editar tutelat" textAlignment="CENTER" wrapText="true" />
-                  <Button mnemonicParsing="false" onAction="#esborrarTutelat" text="Esborrar tutelat" />
+                  <Button fx:id="afegirT" mnemonicParsing="false" text="Afegir tutelat" />
+                  <Button fx:id="editarT" mnemonicParsing="false" text="Editar tutelat" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="esborrarT" mnemonicParsing="false" text="Esborrar tutelat" />
                </children>
             </VBox>
          </children></AnchorPane>

@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -35,6 +36,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
 	@FXML private TableColumn<Professor, String> taulaDNI;
 	@FXML private TableView<Professor> taula;
 	@FXML private TextField barraBuscadora;
+	@FXML Button afegirP, editarP, esborrarP;
 	private Coordina2 cd2 = Coordina2.getInstancia();
 	private ArrayList<Professor> professor = cd2.llistarProfessors();
 	
@@ -49,30 +51,16 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
     	taula.setItems(professors);
     	
-    	/****************FILTRATGE***********************/
-    	FilteredList<Professor> filteredData = new FilteredList<>(professors,p -> true);
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
-    		filteredData.setPredicate(profe -> {
-				if (nou == null || nou.isEmpty()) {
-					return true;
-				}
-				String minuscules = nou.toLowerCase();
-
-				if (profe.getNom().toLowerCase().contains(minuscules)
-						|| profe.getNif().toLowerCase().contains(minuscules)) {
-					return true;
-				}	
-				return false;
-			});
-    	}); // de listener
-    	SortedList<Professor> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(taula.comparatorProperty());
-		taula.setItems(sortedData);
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(professors, nou);});
+		
+		afegirP.setOnAction((event) -> {afegirProfessor();});
+		editarP.setOnAction((event) -> {editarProfessor();});
+		esborrarP.setOnAction((event) -> {esborrarProfessor();});
     }
 
     @FXML void enrere(ActionEvent event) {VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
 
-    @FXML void afegirProfessor(ActionEvent event) {
+    @FXML void afegirProfessor() {
     	Dialog<Professor> dialog = new Dialog<>();
     	dialog.setTitle("Afegir Professor");
     	dialog.setHeaderText("Dialeg per a afegir un professor nou. Emplene tots els camps.");
@@ -120,11 +108,10 @@ public class VistaSegonaControllerProfessor  implements Initializable {
 
     }
 
-    @FXML
-    void editarProfessor(ActionEvent event) {
+    @FXML void editarProfessor() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenci�!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
@@ -133,7 +120,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     		Dialog<Professor> dialog = new Dialog<>();
     		Professor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar professor");
-        	dialog.setHeaderText("Di�leg per a editar un professor. \nPer a cancel�lar, prema la creu roja.");
+        	dialog.setHeaderText("Dialeg per a editar un professor. \nPer a cancelar, prema la creu roja.");
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -171,17 +158,19 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         	Optional<Professor> result = dialog.showAndWait(); //llan�ament
         	//Guardar resultat
         	if(result.isPresent()){
-        		professor = cd2.llistarProfessors();
+        		/*professor = cd2.llistarProfessors();
         		for(int i = 0; i < professor.size(); i++){
         			if(professor.get(i).getNif().equals(result.get().getNif())){ //si el troba
         				professor.remove(i);
         			}
         		}
-        		professor.add(result.get());
+        		professor.add(result.get());*/
         		try {
 					cd2.editarProfessor(result.get());
-    				ObservableList<Professor> profe = FXCollections.observableArrayList(professor);
+    				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
     				taula.setItems(profe);
+    				taula.getColumns().get(0).setVisible(false);
+					taula.getColumns().get(0).setVisible(true);
 				} catch (ArgumentErroniException e) {
 					e.printStackTrace();
 				}
@@ -189,18 +178,17 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	} // de else (si seleccionat)
     }
 
-    @FXML
-    void esborrarProfessor(ActionEvent event) {
+    @FXML void esborrarProfessor() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenci�!");
+    		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atenci�!");
-    		al.setHeaderText("Est� segur que vol esborrar l'element?");
+    		al.setTitle("Atencio!");
+    		al.setHeaderText("Esta segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
@@ -216,4 +204,22 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	}
     }
 
+    public void filtratge(ObservableList<Professor> pr, String nou){
+    	FilteredList<Professor> filteredData = new FilteredList<>(pr ,p -> true);
+    	filteredData.setPredicate(profe -> {
+			if (nou == null || nou.isEmpty()) {
+				return true;
+			}
+			String minuscules = nou.toLowerCase();
+
+			if (profe.getNom().toLowerCase().contains(minuscules)
+					|| profe.getNif().toLowerCase().contains(minuscules)) {
+				return true;
+			}	
+			return false;
+		});
+    	SortedList<Professor> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
+    }
 }

@@ -12,11 +12,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -42,6 +42,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML private TableColumn<Tutelat, String> taulaTelefon;
     @FXML private TableView<Tutelat> taula;
     @FXML private TextField barraBuscadora;
+    @FXML private Button afegirT, editarT, esborrarT;
     private Coordina2 cd2 = Coordina2.getInstancia();
     private ArrayList<Tutelat> tutelat = cd2.llistarTutelats();
     
@@ -61,30 +62,18 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	ObservableList<Tutelat> tutelatsObs = FXCollections.observableArrayList(tutelat);
     	taula.setItems(tutelatsObs);
     	
-    	/****************FILTRATGE***********************/
-    	FilteredList<Tutelat> filteredData = new FilteredList<>(tutelatsObs,p -> true);
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
-    		filteredData.setPredicate(tutelat -> {
-				if (nou == null || nou.isEmpty()) {
-					return true;
-				}
-				String minuscules = nou.toLowerCase();
-				if (tutelat.getNom().toLowerCase().contains(minuscules)
-						|| tutelat.getNif().toLowerCase().contains(minuscules)) {
-					return true;
-				}	
-				return false;
-			});
-    	}); // de listener
-    	SortedList<Tutelat> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(taula.comparatorProperty());
-		taula.setItems(sortedData);
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(tutelatsObs, nou);});
+    	
+    	afegirT.setOnAction((event) -> {afegirTutelat();});
+		editarT.setOnAction((event) -> {editarTutelat();});
+		esborrarT.setOnAction((event) -> {esborrarTutelat();});
+    	
     }
         
     @FXML public void enrere(){VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
     
 
-    @FXML void afegirTutelat(ActionEvent event) {
+    @FXML void afegirTutelat() {
     	//Creacio del formulari de afegir 
     	Dialog<Tutelat> dialog = new Dialog<>();
     	dialog.setTitle("Afegir tutelat");
@@ -150,7 +139,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	}
     }
 
-    @FXML void editarTutelat(ActionEvent event) {
+    @FXML void editarTutelat() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
     		al.setTitle("Atencio!");
@@ -220,21 +209,23 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	});    	
         	Optional<Tutelat> result = dialog.showAndWait(); //llancament
         	if(result.isPresent()){  
-        		tutelat = cd2.llistarTutelats();
+        		/*tutelat = cd2.llistarTutelats();
         		for(int i = 0; i < tutelat.size(); i++){
         			if(tutelat.get(i).getNif().equals(result.get().getNif())){ //si el troba
         				tutelat.remove(i);
         			}
         		}
-        		tutelat.add(result.get());
+        		tutelat.add(result.get());*/
         		cd2.editarTutelat(result.get());
-        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(tutelat);
+        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
         		taula.setItems(tutel);
+        		taula.getColumns().get(0).setVisible(false);
+				taula.getColumns().get(0).setVisible(true);
         	}
     	} // de else (si seleccionat)
     }
 
-    @FXML void esborrarTutelat(ActionEvent event) {
+    @FXML void esborrarTutelat() {
     	Tutelat aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);
@@ -256,5 +247,25 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	}
     }
     
+    public void filtratge(ObservableList<Tutelat> tu, String nou){
+    	
+    	FilteredList<Tutelat> filteredData = new FilteredList<>(tu, p -> true);
+	
+		filteredData.setPredicate(tutelat -> {
+			if (nou == null || nou.isEmpty()) {
+				return true;
+			}
+			String minuscules = nou.toLowerCase();
+			if (tutelat.getNom().toLowerCase().contains(minuscules)
+					|| tutelat.getNif().toLowerCase().contains(minuscules)) {
+				return true;
+			}	
+			return false;
+		});
+	
+    	SortedList<Tutelat> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
+    }
     
 }

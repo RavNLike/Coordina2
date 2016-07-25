@@ -54,42 +54,10 @@ public class VistaSegonaControllerGrup implements Initializable{
     	columnaSegonAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne2()));
     	taula.setItems(grups);
     	
-    	/********LISTENER DE LA TAULA*********/
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(grups, nou);});
+    	taula.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, 
+    			newSelection) -> {plenarTaula(newSelection);});
     	
-    	//ObservableList de Tutelats
-    	ObservableList<Tutelat> personesgrup = FXCollections.observableArrayList();
-    	//listener
-    	taula.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-			if(newSelection != null){
-				personesgrup.clear();//buidem la observableList
-	    		List<Tutelat> llistapersgrup = cd2.obtindreTutelatsPerGrup(newSelection.getNom());
-	    		for(Tutelat t : llistapersgrup){
-	    			personesgrup.add(t);
-	    		}
-				columnaTutelats.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getNif() 
-						+ " - " + param.getValue().getCognoms() + ", "+ param.getValue().getNom()));
-				taulaTutelats.setItems(personesgrup);
-			}
-    	});
-    	
-    	/********FILTRATGE*******************/
-    	FilteredList<Grup> filteredData = new FilteredList<>(grups,p -> true);
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {
-    		filteredData.setPredicate(grup -> {
-				if (nou == null || nou.isEmpty()) {
-					return true;
-				}
-				String minuscules = nou.toLowerCase();
-
-				if (grup.getNom().toLowerCase().contains(minuscules)) {
-					return true;
-				}	
-				return false;
-			});
-    	}); // de listener
-    	SortedList<Grup> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(taula.comparatorProperty());
-		taula.setItems(sortedData);
     }
     
     @FXML void enrere(ActionEvent event) {VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
@@ -134,8 +102,15 @@ public class VistaSegonaControllerGrup implements Initializable{
     		public Grup call(ButtonType b){
     			if(b == buttonTypeOk){
     				Professor p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem().split(" -")[0]);
-    				AlumneTutor at1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
-    				AlumneTutor at2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				AlumneTutor	at1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
+
+    				AlumneTutor at2 = null;
+    				if (!tx4.getSelectionModel().getSelectedItem().isEmpty() && 
+    						tx4.getSelectionModel().getSelectedItem() != null){
+    					at2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
+    				
+    				
     				return new Grup(tx1.getText(), p, at1, at2);
     			} else {
     				return null;
@@ -257,5 +232,41 @@ public class VistaSegonaControllerGrup implements Initializable{
     			taula.setItems(grups);
     		}
     	}
+    }
+
+    public void filtratge(ObservableList<Grup> grups, String nou){
+    	FilteredList<Grup> filteredData = new FilteredList<>(grups, p -> true);
+    	
+		filteredData.setPredicate(grup -> {
+			if (nou == null || nou.isEmpty()) {
+				return true;
+			}
+			String minuscules = nou.toLowerCase();
+
+			if (grup.getNom().toLowerCase().contains(minuscules)) {
+				return true;
+			}	
+			return false;
+		});
+
+    	SortedList<Grup> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(taula.comparatorProperty());
+		taula.setItems(sortedData);
+    }
+
+    public void plenarTaula(Grup g){
+    	ObservableList<Tutelat> personesgrup = FXCollections.observableArrayList();
+    	
+    	if(g != null){
+    		
+    		List<Tutelat> llistapersgrup = cd2.obtindreTutelatsPerGrup(g.getNom());
+    		
+    		for(Tutelat t : llistapersgrup){
+    			personesgrup.add(t);
+    		}
+			columnaTutelats.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getNif() 
+					+ " - " + param.getValue().getCognoms() + ", "+ param.getValue().getNom()));
+			taulaTutelats.setItems(personesgrup);
+		}
     }
 }
