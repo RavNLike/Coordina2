@@ -608,4 +608,9 @@ public class Coordina2 {
 		return LectorRegistres.getInstancia().deixaEnBlancBD();
 	}
 
+	public void crearActes(String absolutePath) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

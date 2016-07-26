@@ -23,7 +23,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Altres opcions">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#apretarAcreditacions" text="Acreditacions" />
+                  <MenuItem mnemonicParsing="false" onAction="#apretarActes" text="Descarregar actes" />
+                  <MenuItem mnemonicParsing="false" onAction="#apretarAcreditacions" text="Descarregar acreditacions" />
               <MenuItem mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" />
                   <MenuItem mnemonicParsing="false" onAction="#apretarCarregaInicial" text="Inicialitzar sistema" />
                   <MenuItem mnemonicParsing="false" onAction="#borrarBD" text="Borrar base de dades" />

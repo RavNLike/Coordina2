@@ -52,7 +52,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	taula.setItems(altuts);
 
     	/* Listener de la barra de filtratge */
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(altuts, nou);});
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
     	
 		/* Listeners de les opcions CRUD */
 		afegirAT.setOnAction((event) -> {afegirAlumneTutor();});
@@ -101,7 +101,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	if(result.isPresent()){
     		try {
 				cd2.afegirAlumneTutor(result.get());
-				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+				alumnetutor = cd2.llistarAlumnesTutors();
+				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
 				taula.setItems(altu);
 				
 			} catch (ArgumentErroniException e) {
@@ -159,16 +160,10 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         	Optional<AlumneTutor> result = dialog.showAndWait();
         	
         	if(result.isPresent()){
-        		/*alumnetutor = cd2.llistarAlumnesTutors();
-        		for(int i = 0; i < alumnetutor.size(); i++){
-        			if(alumnetutor.get(i).getNif().equals(result.get().getNif())){ //si el troba
-        				alumnetutor.remove(i);
-        			}
-        		}*/
-        		//alumnetutor.add(result.get());
 				try {
 					cd2.editarAlumneTutor(result.get());
-					ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+					alumnetutor = cd2.llistarAlumnesTutors();
+					ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
 					taula.setItems(altu);
 					taula.getColumns().get(0).setVisible(false);
 					taula.getColumns().get(0).setVisible(true);
@@ -195,7 +190,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			try{
     				cd2.borrarAlumneTutor(taula.getSelectionModel().getSelectedItem());
-    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(cd2.llistarAlumnesTutors());
+    				alumnetutor = cd2.llistarAlumnesTutors();
+    				ObservableList<AlumneTutor> altu = FXCollections.observableArrayList(alumnetutor);
     				taula.setItems(altu);
     			} catch (ArgumentErroniException e){
     				e.printStackTrace();
@@ -205,7 +201,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	}
     }
     
-    public void filtratge(ObservableList<AlumneTutor> at, String nou){
+    public void filtratge(String nou){
+    	ObservableList<AlumneTutor> at = FXCollections.observableArrayList(alumnetutor);
     	FilteredList<AlumneTutor> filteredData = new FilteredList<>(at, p -> true);
     	filteredData.setPredicate(altuu -> {
 			if (nou == null || nou.isEmpty()) {

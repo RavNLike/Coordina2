@@ -51,7 +51,7 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
     	taula.setItems(professors);
     	
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(professors, nou);});
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
 		
 		afegirP.setOnAction((event) -> {afegirProfessor();});
 		editarP.setOnAction((event) -> {editarProfessor();});
@@ -99,7 +99,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	if(result.isPresent()){
     		try {
 				cd2.afegirProfessor(result.get());
-				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+				professor = cd2.llistarProfessors();
+				ObservableList<Professor> profe = FXCollections.observableArrayList(professor);
 				taula.setItems(profe);
 			} catch (ArgumentErroniException e) {
 				e.printStackTrace();
@@ -158,16 +159,10 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         	Optional<Professor> result = dialog.showAndWait(); //llan�ament
         	//Guardar resultat
         	if(result.isPresent()){
-        		/*professor = cd2.llistarProfessors();
-        		for(int i = 0; i < professor.size(); i++){
-        			if(professor.get(i).getNif().equals(result.get().getNif())){ //si el troba
-        				professor.remove(i);
-        			}
-        		}
-        		professor.add(result.get());*/
         		try {
 					cd2.editarProfessor(result.get());
-    				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+					professor = cd2.llistarProfessors();
+    				ObservableList<Professor> profe = FXCollections.observableArrayList(professor);
     				taula.setItems(profe);
     				taula.getColumns().get(0).setVisible(false);
 					taula.getColumns().get(0).setVisible(true);
@@ -194,7 +189,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			try{
     				cd2.borrarProfessor(taula.getSelectionModel().getSelectedItem());
-    				ObservableList<Professor> profe = FXCollections.observableArrayList(cd2.llistarProfessors());
+    				professor = cd2.llistarProfessors();
+    				ObservableList<Professor> profe = FXCollections.observableArrayList(professor);
     				taula.setItems(profe);
     			} catch (ArgumentErroniException e){
     				e.printStackTrace();
@@ -204,7 +200,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	}
     }
 
-    public void filtratge(ObservableList<Professor> pr, String nou){
+    public void filtratge(String nou){
+    	ObservableList<Professor> pr = FXCollections.observableArrayList(professor);
     	FilteredList<Professor> filteredData = new FilteredList<>(pr ,p -> true);
     	filteredData.setPredicate(profe -> {
 			if (nou == null || nou.isEmpty()) {

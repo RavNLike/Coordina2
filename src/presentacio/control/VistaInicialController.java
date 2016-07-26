@@ -13,8 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.DirectoryChooser;
 
 public class VistaInicialController implements Initializable {
     @FXML private HBox boxInvisible;
@@ -31,13 +30,25 @@ public class VistaInicialController implements Initializable {
     @FXML public void apretarMailing(){VistaNavigator.loadVista(VistaNavigator.VISTAMAIL);}
     @FXML public void apretarCarregaInicial(){VistaNavigator.loadVista(VistaNavigator.VISTACARREGA);}
     @FXML public void apretarAcreditacions(){
-    	FileChooser fc = new FileChooser();
-    	fc.setTitle("Guardar les acreditacions");
-    	fc.getExtensionFilters().addAll(	
-    			new ExtensionFilter("PDF *.pdf", "*.pdf"));
-    	fc.showSaveDialog(null);
-    	cd2.crearAcreditacions(fc.getInitialDirectory().toString());
-    	System.out.println("El path es: " + fc.getInitialDirectory().toString());
+    	DirectoryChooser chooser = new DirectoryChooser();
+    	chooser.setTitle("Seleccione el directori on es guardaran les acreditacions.");
+    	chooser.setInitialDirectory(new File("/home"));
+    	File arxiu = chooser.showDialog(null);
+    	try{
+    		cd2.crearAcreditacions(arxiu.getAbsolutePath());
+    		Alert al = new Alert (AlertType.CONFIRMATION);
+    		al.setTitle("Exit!");
+    		al.setHeaderText("Les acreditacions s'han guardat correctament");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	} catch (Exception e){
+    		Alert al = new Alert (AlertType.ERROR);
+    		al.setTitle("Error!");
+    		al.setHeaderText("Ha ocorregut un error inesperat");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	}
+    	
     }
     
     @FXML public void borrarBD(){
@@ -67,5 +78,25 @@ public class VistaInicialController implements Initializable {
 			//System.out.println("Fora");
 		}
     }
-    
+    @FXML public void apretarActes(){
+    	DirectoryChooser chooser = new DirectoryChooser();
+    	chooser.setTitle("Seleccione el directori on es guardaran les actes.");
+    	chooser.setInitialDirectory(new File("/home"));
+    	File arxiu = chooser.showDialog(null);
+    	try{
+    		cd2.crearActes(arxiu.getAbsolutePath());
+    		Alert al = new Alert (AlertType.CONFIRMATION);
+    		al.setTitle("Exit!");
+    		al.setHeaderText("Les actes s'han guardat correctament");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	} catch (Exception e){
+    		Alert al = new Alert (AlertType.ERROR);
+    		al.setTitle("Error!");
+    		al.setHeaderText("Ha ocorregut un error inesperat");
+    		al.setContentText(null);
+    		al.showAndWait();
+    	}
+    	
+    }
 }

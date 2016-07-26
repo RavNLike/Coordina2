@@ -62,7 +62,7 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	ObservableList<Tutelat> tutelatsObs = FXCollections.observableArrayList(tutelat);
     	taula.setItems(tutelatsObs);
     	
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(tutelatsObs, nou);});
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
     	
     	afegirT.setOnAction((event) -> {afegirTutelat();});
 		editarT.setOnAction((event) -> {editarTutelat();});
@@ -134,7 +134,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	Optional<Tutelat> result = dialog.showAndWait();
     	if(result.isPresent()){
     		cd2.afegirTutelat(result.get());
-			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+    		tutelat = cd2.llistarTutelats();
+			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(tutelat);
 			taula.setItems(tutel);
     	}
     }
@@ -217,7 +218,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
         		}
         		tutelat.add(result.get());*/
         		cd2.editarTutelat(result.get());
-        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+        		tutelat = cd2.llistarTutelats();
+        		ObservableList<Tutelat> tutel = FXCollections.observableArrayList(tutelat);
         		taula.setItems(tutel);
         		taula.getColumns().get(0).setVisible(false);
 				taula.getColumns().get(0).setVisible(true);
@@ -241,14 +243,15 @@ public class VistaSegonaControllerTutelat implements Initializable {
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			cd2.borrarTutelat(aux);
-    			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(cd2.llistarTutelats());
+    			tutelat = cd2.llistarTutelats();
+    			ObservableList<Tutelat> tutel = FXCollections.observableArrayList(tutelat);
     			taula.setItems(tutel);
     		}
     	}
     }
     
-    public void filtratge(ObservableList<Tutelat> tu, String nou){
-    	
+    public void filtratge(String nou){
+    	ObservableList<Tutelat> tu = FXCollections.observableArrayList(tutelat);
     	FilteredList<Tutelat> filteredData = new FilteredList<>(tu, p -> true);
 	
 		filteredData.setPredicate(tutelat -> {

@@ -54,7 +54,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     	columnaSegonAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne2()));
     	taula.setItems(grups);
     	
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(grups, nou);});
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
     	taula.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, 
     			newSelection) -> {plenarTaula(newSelection);});
     	
@@ -101,17 +101,29 @@ public class VistaSegonaControllerGrup implements Initializable{
     		@Override
     		public Grup call(ButtonType b){
     			if(b == buttonTypeOk){
-    				Professor p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem().split(" -")[0]);
-    				AlumneTutor	at1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
-
+    				
+    				Professor p = null;
+    				if(tx2.getSelectionModel().getSelectedItem() != null && 
+    						!tx2.getSelectionModel().getSelectedItem().isEmpty()){
+    					p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
+    				AlumneTutor	at1 = null;
+    				if(tx3.getSelectionModel().getSelectedItem() != null && 
+    						!tx3.getSelectionModel().getSelectedItem().isEmpty()){
+    					at1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
     				AlumneTutor at2 = null;
-    				if (!tx4.getSelectionModel().getSelectedItem().isEmpty() && 
-    						tx4.getSelectionModel().getSelectedItem() != null){
+    				if (tx4.getSelectionModel().getSelectedItem() != null && 
+    						!tx4.getSelectionModel().getSelectedItem().isEmpty()){
     					at2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem().split(" -")[0]);
     				}
     				
+    				if (p == null || at1 == null){
+    					return null;
+    				} else {
+    					return new Grup(tx1.getText(), p, at1, at2);
+    				}
     				
-    				return new Grup(tx1.getText(), p, at1, at2);
     			} else {
     				return null;
     			}
@@ -120,8 +132,15 @@ public class VistaSegonaControllerGrup implements Initializable{
     	Optional<Grup> result = dialog.showAndWait();
     	if(result.isPresent()){
     		cd2.afegirGrup(result.get());
-			ObservableList<Grup> grups = FXCollections.observableArrayList(cd2.llistarGrups());
+    		grup = cd2.llistarGrups();
+			ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
 			taula.setItems(grups);
+    	} else {
+    		Alert al = new Alert (AlertType.ERROR);
+    		al.setTitle("Error!");
+    		al.setHeaderText("No s'ha creat el grup");
+    		al.setContentText("Revise tots els camps");
+    		al.showAndWait();
     	}
     }
 
@@ -185,14 +204,25 @@ public class VistaSegonaControllerGrup implements Initializable{
         	dialog.setResultConverter(new Callback<ButtonType, Grup>() {
         		@Override
         		public Grup call(ButtonType b){
-        			Professor p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem());
-        			AlumneTutor al1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem());
-        			//no cal ternaria, si es alguna cosa que nop toca no el trobara i tornara null
-        			AlumneTutor al2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem());
-        			if(b == buttonTypeOk){
+        			Professor p = null; 
+        			AlumneTutor al1 = null, al2 = null;
+        			if(tx2.getSelectionModel().getSelectedItem() != null && 
+    						!tx2.getSelectionModel().getSelectedItem().isEmpty()){
+    					p = cd2.buscarProfessor(tx2.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
+        			if(tx3.getSelectionModel().getSelectedItem() != null && 
+    						!tx3.getSelectionModel().getSelectedItem().isEmpty()){
+    					al1 = cd2.buscarAlumneTutor(tx3.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
+        			if (tx4.getSelectionModel().getSelectedItem() != null && 
+    						!tx4.getSelectionModel().getSelectedItem().isEmpty()){
+    					al2 = cd2.buscarAlumneTutor(tx4.getSelectionModel().getSelectedItem().split(" -")[0]);
+    				}
+        			if(b == buttonTypeOk && p != null && al1 != null){
         				return new Grup(tx1.getText(), p, al1, al2);
+        			} else {
+        				return null;
         			}
-        			return null;
         		} 	
         	});    	
         	Optional<Grup> result = dialog.showAndWait();
@@ -205,8 +235,15 @@ public class VistaSegonaControllerGrup implements Initializable{
         		}
         		grup.add(result.get());
 				cd2.editarGrup(result.get());
+				grup = cd2.llistarGrups();
 				ObservableList<Grup> altu = FXCollections.observableArrayList(grup);
 				taula.setItems(altu);
+        	} else {
+        		Alert al = new Alert (AlertType.ERROR);
+        		al.setTitle("Error!");
+        		al.setHeaderText("No s'ha editat el grup");
+        		al.setContentText("Revise tots els camps");
+        		al.showAndWait();
         	}
     	}
     }
@@ -228,13 +265,15 @@ public class VistaSegonaControllerGrup implements Initializable{
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
     			cd2.borrarGrup(aux);
-    			ObservableList<Grup> grups = FXCollections.observableArrayList(cd2.llistarGrups());
+    			grup = cd2.llistarGrups();
+    			ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
     			taula.setItems(grups);
     		}
     	}
     }
 
-    public void filtratge(ObservableList<Grup> grups, String nou){
+    public void filtratge(String nou){
+    	ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
     	FilteredList<Grup> filteredData = new FilteredList<>(grups, p -> true);
     	
 		filteredData.setPredicate(grup -> {
