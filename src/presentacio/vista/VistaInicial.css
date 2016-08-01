@@ -1,3 +1,9 @@
+/* AIXO S'APLICA A TOT */
+
+.root{
+	-fx-font-family: "Helvetica";
+}
+
 .menu .label {
       /*-fx-background-color:#2C2424;*/
       -fx-text-fill: #ffffff;
@@ -15,3 +21,39 @@
 .context-menu {
 	-fx-background-color: #2C2424;
 }
+
+
+/****************************************
+ ***** Aqui comenca les tableviews ******
+ ****************************************/
+
+.table-view{
+   -fx-background-color: transparent;
+   -fx-table-cell-border-color: transparent;
+}
+
+/* Canvia el color de l'interior de la cela */
+.table-view .table-cell{
+    -fx-text-fill: #2C2424;
+}
+
+/*.table-view .column-header-background{
+    -fx-background-color: #2C2424;
+}*/
+
+/* Canvia el color de les capçaleres de columna */
+.table-view .column-header-background .label{
+    -fx-text-fill: white;
+}
+
+/* Posa el color en la capçalera de la columna */
+.table-view .column-header {
+    -fx-background-color: #2C2424;
+}
+
+/* Quan selecciona una fila */
+.table-row-cell:selected {
+    -fx-background-color: #AC130D; /* Posa el fons a roig fosc */
+    -fx-table-cell-border-color: transparent; /* Lleva la barra vertical */
+}
+

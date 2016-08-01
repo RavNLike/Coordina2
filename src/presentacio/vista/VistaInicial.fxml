@@ -33,7 +33,7 @@
           <Menu mnemonicParsing="false" style="-fx-background-color: #2C2424;" text="Ajuda">
             <items>
                   <MenuItem mnemonicParsing="false" text="Sobre PATU" />
-              <MenuItem fx:id="eixir" mnemonicParsing="false" text="Sortir" />
+              <MenuItem mnemonicParsing="false" onAction="#eixir" text="Sortir" />
             </items>
           </Menu>
         </menus>

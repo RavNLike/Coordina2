@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerTutelat">
+<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerTutelat">
   <items>
     <AnchorPane maxHeight="500.0" maxWidth="160.0" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="25.0" SplitPane.resizableWithParent="false">
          <children>
@@ -32,18 +32,18 @@
          <children>
             <TableView fx:id="taula" layoutX="193.0" layoutY="65.0" prefHeight="398.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
-                <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
-                  <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
-                  <TableColumn prefWidth="75.0" text="Correu">
+                  <TableColumn prefWidth="75.0" text="TUTELAT">
                      <columns>
-                        <TableColumn fx:id="taulaCorreuPersonal" prefWidth="75.0" text="Personal" />
-                        <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="UPV" />
+                      <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
+                      <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
+                        <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
+                        <TableColumn fx:id="taulaCorreuPersonal" prefWidth="75.0" text="Correu personal" />
+                        <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="Correu UPV" />
+                        <TableColumn fx:id="taulaGrupPATU" prefWidth="75.0" text="Grup PATU" />
+                        <TableColumn fx:id="taulaGrupMatricula" prefWidth="75.0" text="Grup de Matricula" />
+                        <TableColumn fx:id="taulaTelefon" prefWidth="75.0" text="Telèfon" />
                      </columns>
                   </TableColumn>
-                  <TableColumn fx:id="taulaGrupPATU" prefWidth="75.0" text="Grup PATU" />
-                  <TableColumn fx:id="taulaGrupMatricula" prefWidth="75.0" text="Grup de Matricula" />
-                  <TableColumn fx:id="taulaTelefon" prefWidth="75.0" text="Telèfon" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

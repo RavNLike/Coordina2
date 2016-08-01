@@ -14,6 +14,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception{
         stage.setTitle("Coordina2");
         Scene sc = new Scene(loadMainPane());
+        sc.getStylesheets().add(getClass().getResource("/presentacio/vista/VistaInicial.css").toExternalForm());
         stage.setScene(sc);
         stage.show();
     }
