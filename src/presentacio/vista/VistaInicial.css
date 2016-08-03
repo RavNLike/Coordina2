@@ -1,8 +1,16 @@
 /* AIXO S'APLICA A TOT */
+@font-face {
+	font-family: "Helvetica";
+    src: url('Helvetica.otf');
+}
 
 .root{
 	-fx-font-family: "Helvetica";
 }
+
+/****************************************
+ ******* Aqui comencen els menus ********
+ ****************************************/
 
 .menu .label {
       /*-fx-background-color:#2C2424;*/
@@ -37,10 +45,6 @@
     -fx-text-fill: #2C2424;
 }
 
-/*.table-view .column-header-background{
-    -fx-background-color: #2C2424;
-}*/
-
 /* Canvia el color de les capçaleres de columna */
 .table-view .column-header-background .label{
     -fx-text-fill: white;
@@ -57,3 +61,8 @@
     -fx-table-cell-border-color: transparent; /* Lleva la barra vertical */
 }
 
+/* Per a fer desapareixer la barra del splitpane */
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: transparent;
+}

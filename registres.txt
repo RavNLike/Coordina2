@@ -21,3 +21,5 @@ ini_tutelats_mobil : 2
 ini_tutelats_correu : 3
 ini_tutelats_correu_pers : 4
 ini_tutelats_grup : 5
+#seguretat
+forrellat : 0

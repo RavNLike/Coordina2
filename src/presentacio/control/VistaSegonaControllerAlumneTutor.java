@@ -36,7 +36,7 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML private TableColumn<AlumneTutor, String> taulaCorreuUPV;
     @FXML private TableView<AlumneTutor> taula;
     @FXML private TextField barraBuscadora;
-    @FXML private Button afegirAT, editarAT, esborrarAT;
+    @FXML private Button afegirAT, editarAT, esborrarAT, botoenrere;
 	Coordina2 cd2 = Coordina2.getInstancia();
 	private ArrayList<AlumneTutor> alumnetutor = cd2.llistarAlumnesTutors();
 	
@@ -50,6 +50,10 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	taulaCognoms.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> ((param.getValue()).getCognoms()));
     	taulaCorreuUPV.setCellValueFactory(param -> new ReadOnlyObjectWrapper <> (param.getValue().getCorreu_upv()));
     	taula.setItems(altuts);
+    	
+    	botoenrere.setOnMouseEntered( ev -> {
+    		botoenrere.setVisible(true);
+    	});
 
     	/* Listener de la barra de filtratge */
     	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
@@ -210,7 +214,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
 			}
 			String minuscules = nou.toLowerCase();
 			if (altuu.getNom().toLowerCase().contains(minuscules)
-					|| altuu.getNif().toLowerCase().contains(minuscules)) {
+					|| altuu.getNif().toLowerCase().contains(minuscules) 
+					|| altuu.getCognoms().toLowerCase().contains(minuscules)) {
 				return true;
 			}	
 			return false;
