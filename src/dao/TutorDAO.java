@@ -41,7 +41,6 @@ public class TutorDAO {
 
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 	}
@@ -108,7 +107,6 @@ public class TutorDAO {
 			stmt.executeUpdate(sql);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;

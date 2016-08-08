@@ -594,6 +594,8 @@ public class Coordina2 {
 		guardaEstatInicial();
 		//tanca per a que no puga tornar a carregar-se
 		LectorRegistres.getInstancia().marcaInicialitzat();
+		//com poden haver linies en blanc, tornem a carregar
+		carregarSistema();
 	}
 	
 	/*************************************
@@ -605,7 +607,14 @@ public class Coordina2 {
 	}
 	
 	public boolean borraBD(){
-		return LectorRegistres.getInstancia().deixaEnBlancBD();
+		
+		try{
+			boolean resultat = LectorRegistres.getInstancia().deixaEnBlancBD();
+			carregarSistema();
+			return resultat;
+		}catch(SQLException ex){
+			return false;
+		}
 	}
 
 	public void crearActes(String absolutePath) {

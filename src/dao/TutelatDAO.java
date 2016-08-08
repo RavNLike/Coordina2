@@ -36,7 +36,6 @@ public class TutelatDAO {
 			Statement stmt = c.createStatement();
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;

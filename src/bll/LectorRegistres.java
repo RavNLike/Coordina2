@@ -119,13 +119,16 @@ public class LectorRegistres {
 			String sql4 = "DELETE FROM Professor"; 
 			String sql5 = "DELETE FROM AlumneTutor"; 
 			Statement stmt = c.createStatement();
-			stmt.execute(sql1);
-			stmt.execute(sql2);
-			stmt.execute(sql3);
-			stmt.execute(sql4);
-			stmt.execute(sql5);
+			stmt.addBatch(sql1);
+			stmt.addBatch(sql2);
+			stmt.addBatch(sql3);
+			stmt.addBatch(sql4);
+			stmt.addBatch(sql5);
+			//esto retorna coses pero meh
+			stmt.executeBatch();
 			return true;
 		}catch(SQLException jahelfea){
+			jahelfea.printStackTrace();
 			return false;
 		}
 		
