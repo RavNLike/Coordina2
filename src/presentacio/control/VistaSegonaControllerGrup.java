@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
@@ -42,6 +43,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     @FXML private TableView<Tutelat> taulaTutelats;
     @FXML private TableColumn<Tutelat, String> columnaTutelats;
     @FXML private TextField barraBuscadora;
+    @FXML private Button afegirG, editarG, esborrarG, botoenrere;
     private Coordina2 cd2 = Coordina2.getInstancia();
 	private ArrayList<Grup> grup = cd2.llistarGrups();
     
@@ -58,12 +60,19 @@ public class VistaSegonaControllerGrup implements Initializable{
     	taula.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, 
     			newSelection) -> {plenarTaula(newSelection);});
     	
+    	botoenrere.setOnMouseEntered( ev -> {botoenrere.setVisible(true);});
+    	
+		/* Listeners de les opcions CRUD */
+		afegirG.setOnAction((event) -> {afegirGrup();});
+		editarG.setOnAction((event) -> {editarGrup();});
+		esborrarG.setOnAction((event) -> {esborrarGrup();});
+    	
     }
     
     @FXML void enrere(ActionEvent event) {VistaNavigator.loadVista(VistaNavigator.VISTAINI);}
 
     @FXML
-    void afegirGrup(ActionEvent event) {
+    void afegirGrup() {
     	Dialog<Grup> dialog = new Dialog<>();
     	dialog.setTitle("Afegir grup");
     	dialog.setHeaderText("Dialeg per a afegir un grup nou. Emplene tots els camps.");
@@ -145,7 +154,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     }
 
     @FXML
-    void editarGrup(ActionEvent event) {
+    void editarGrup() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
     		al.setTitle("Atencio!");
@@ -249,7 +258,7 @@ public class VistaSegonaControllerGrup implements Initializable{
     }
 
     @FXML
-    void esborrarGrup(ActionEvent event) {
+    void esborrarGrup() {
     	Grup aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);

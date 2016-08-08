@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.83" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerAlumneTutor">
+<SplitPane dividerPositions="0.84" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerAlumneTutor">
    <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -38,7 +38,7 @@
                </graphic></Button>
          </children>
       </AnchorPane>
-      <GridPane alignment="CENTER" hgap="30.0" prefHeight="81.0" prefWidth="160.0" vgap="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane alignment="CENTER" hgap="30.0" maxHeight="100.0" prefHeight="81.0" prefWidth="160.0" vgap="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,9 +50,9 @@
         </rowConstraints>
          <children>
             <TextField fx:id="barraBuscadora" promptText="Cercar alumne tutor..." />
-            <Button fx:id="esborrarAT" mnemonicParsing="false" text="Esborrar alumne tutor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
+            <Button fx:id="esborrarAT" mnemonicParsing="false" text="Esborrar alumne tutor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" />
             <Button fx:id="editarAT" mnemonicParsing="false" text="Editar alumne tutor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" />
-            <Button fx:id="afegirAT" mnemonicParsing="false" text="Afegir alumne tutor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" />
+            <Button fx:id="afegirAT" mnemonicParsing="false" text="Afegir alumne tutor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

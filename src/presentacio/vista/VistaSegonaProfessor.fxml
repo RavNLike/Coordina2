@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -8,39 +9,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerProfessor">
-  <items>
-    <AnchorPane maxHeight="500.0" maxWidth="160.0" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="25.0" SplitPane.resizableWithParent="false">
-         <children>
-            <VBox alignment="CENTER" layoutX="38.0" layoutY="138.0" prefHeight="200.0" prefWidth="176.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <HBox prefHeight="77.0" prefWidth="140.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
-                     </children>
-                  </HBox>
-                  <Label prefHeight="67.0" prefWidth="140.0" text="Introduisca el dni o el nom que desitge cercar." wrapText="true" />
-                  <TextField fx:id="barraBuscadora" promptText="00112233, per exemple" />
-                  <Line endX="100.0" />
-                  <Button fx:id="afegirP" mnemonicParsing="false" text="Afegir professor" />
-                  <Button fx:id="editarP" mnemonicParsing="false" text="Editar professor" textAlignment="CENTER" wrapText="true" />
-                  <Button fx:id="esborrarP" mnemonicParsing="false" onAction="#esborrarProfessor" text="Esborrar professor" />
-               </children>
-            </VBox>
-         </children></AnchorPane>
+
+<SplitPane dividerPositions="0.84" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerProfessor">
+   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
             <TableView fx:id="taula" layoutX="193.0" layoutY="65.0" prefHeight="398.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
-                <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
-                  <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
-                  <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="Correu UPV" />
+                  <TableColumn prefWidth="75.0" text="Professor">
+                     <columns>
+                      <TableColumn fx:id="taulaDNI" prefWidth="75.0" text="DNI" />
+                      <TableColumn fx:id="taulaNom" prefWidth="75.0" text="Nom" />
+                        <TableColumn fx:id="taulaCognoms" prefWidth="75.0" text="Cognoms" />
+                        <TableColumn fx:id="taulaCorreuUPV" prefWidth="75.0" text="Correu UPV" />
+                     </columns>
+                  </TableColumn>
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-         </children></AnchorPane>
-  </items>
+            <Button fx:id="botoenrere" mnemonicParsing="false" onAction="#enrere" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../BackButton2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <GridPane alignment="CENTER" hgap="30.0" maxHeight="100.0" vgap="30.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="barraBuscadora" promptText="Cercar professor..." />
+            <Button fx:id="afegirP" mnemonicParsing="false" text="Afegir professor" GridPane.columnIndex="1" />
+            <Button fx:id="editarP" mnemonicParsing="false" text="Editar professor" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" />
+            <Button fx:id="esborrarP" mnemonicParsing="false" onAction="#esborrarProfessor" text="Esborrar professor" GridPane.columnIndex="3" />
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </GridPane>
+   </items>
 </SplitPane>

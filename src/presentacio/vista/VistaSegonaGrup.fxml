@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -7,38 +9,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.17" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
-  <items>
-    <AnchorPane maxHeight="500.0" maxWidth="160.0" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="25.0">
-         <children>
-            <VBox alignment="TOP_CENTER" layoutX="34.0" layoutY="49.0" prefHeight="498.0" prefWidth="167.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <children>
-                  <HBox prefHeight="100.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#enrere" text="&lt;" />
-                     </children>
-                  </HBox>
-                  <Label text="Introduisca el nom del grup que desitge cercar." wrapText="true" />
-                  <TextField fx:id="barraBuscadora" promptText="G00, per exemple" />
-                  <Line endX="100.0" />
-                  <Button mnemonicParsing="false" onAction="#afegirGrup" text="Afegir grup" />
-                  <Button mnemonicParsing="false" onAction="#editarGrup" text="Editar grup" />
-                  <Button mnemonicParsing="false" onAction="#esborrarGrup" text="Esborrar grup" />
-               </children>
-            </VBox>
-         </children></AnchorPane>
-      <SplitPane dividerPositions="0.65" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+<SplitPane dividerPositions="0.84" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
+   <items>
+      <SplitPane dividerPositions="0.55" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane>
                <children>
-                  <TableView fx:id="taula" layoutX="14.0" layoutY="107.0" prefHeight="321.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                  <TableView fx:id="taula" prefHeight="228.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="columnaNomGrup" prefWidth="75.0" text="Nom grup" />
-                      <TableColumn fx:id="columnaProfessor" prefWidth="75.0" text="Professor tutor" />
-                        <TableColumn prefWidth="75.0" text="Alumne tutor">
+                        <TableColumn prefWidth="75.0" text="Grup">
                            <columns>
-                              <TableColumn fx:id="columnaPrimerAL" prefWidth="75.0" text="Primer" />
-                              <TableColumn fx:id="columnaSegonAL" prefWidth="75.0" text="Segon" />
+                            <TableColumn fx:id="columnaNomGrup" prefWidth="75.0" text="Nom grup" />
+                            <TableColumn fx:id="columnaProfessor" prefWidth="75.0" text="Professor tutor" />
+                              <TableColumn fx:id="columnaPrimerAL" prefWidth="75.0" text="1r Alumne Tutor" />
+                              <TableColumn fx:id="columnaSegonAL" prefWidth="75.0" text="2n Alumne Tutor" />
                            </columns>
                         </TableColumn>
                     </columns>
@@ -46,26 +30,46 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="825.0" text="Quan seleccione una fila dels grups que hi ha mostrats, apareixerà en la taula de &quot;Tutelats&quot; els alumnes de nou ingrès que conformen el grup assenyalat." textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="271.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Button fx:id="botoenrere" mnemonicParsing="false" onAction="#enrere" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../BackButton2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <TableView fx:id="taulaTutelats" layoutX="-19.0" layoutY="-43.0" prefHeight="171.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="columnaTutelats" prefWidth="75.0" text="Tutelats" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
+            <TableView fx:id="taulaTutelats" layoutX="-19.0" layoutY="-43.0" prefHeight="171.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="columnaTutelats" prefWidth="75.0" text="Tutelats" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
         </items>
       </SplitPane>
-  </items>
+      <GridPane hgap="30.0" vgap="30.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="barraBuscadora" promptText="G01, per exemple" />
+            <Button fx:id="afegirG" mnemonicParsing="false" text="Afegir grup" GridPane.columnIndex="1" />
+            <Button fx:id="editarG" mnemonicParsing="false" text="Editar grup" GridPane.columnIndex="2" />
+            <Button fx:id="esborrarG" mnemonicParsing="false" text="Esborrar grup" GridPane.columnIndex="3" />
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </GridPane>
+   </items>
 </SplitPane>
