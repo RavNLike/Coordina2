@@ -210,7 +210,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
 			String minuscules = nou.toLowerCase();
 
 			if (profe.getNom().toLowerCase().contains(minuscules)
-					|| profe.getNif().toLowerCase().contains(minuscules)) {
+					|| profe.getNif().toLowerCase().contains(minuscules)
+					|| profe.getCognoms().toLowerCase().contains(minuscules)) {
 				return true;
 			}	
 			return false;

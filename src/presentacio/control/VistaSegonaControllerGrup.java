@@ -56,11 +56,10 @@ public class VistaSegonaControllerGrup implements Initializable{
     	columnaSegonAL.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>((param.getValue()).getAlumne2()));
     	taula.setItems(grups);
     	
-    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
     	taula.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, 
     			newSelection) -> {plenarTaula(newSelection);});
     	
-    	botoenrere.setOnMouseEntered( ev -> {botoenrere.setVisible(true);});
+    	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
     	
 		/* Listeners de les opcions CRUD */
 		afegirG.setOnAction((event) -> {afegirGrup();});
@@ -195,9 +194,11 @@ public class VistaSegonaControllerGrup implements Initializable{
         	for(AlumneTutor p : listaltutors){
         		tx4.getItems().add(p.getNif() + " - " + p.getNom() + ", " + p.getCognoms());
         	}
-        	tx4.getSelectionModel().select(aux.getAlumne2().getNif() + " - " + aux.getAlumne2().getNom()
-        								+ ", " + aux.getAlumne2().getCognoms());
-        	
+        	if (aux.getAlumne2() != null){
+        		tx4.getSelectionModel().select(aux.getAlumne2().getNif() + " - " + aux.getAlumne2().getNom()
+						+ ", " + aux.getAlumne2().getCognoms());
+        	}
+
         	GridPane grid = new GridPane();
         	grid.add(lb1, 1, 1);
         	grid.add(lb2, 1, 2);
@@ -236,17 +237,19 @@ public class VistaSegonaControllerGrup implements Initializable{
         	});    	
         	Optional<Grup> result = dialog.showAndWait();
 			if(result.isPresent()){
-				grup = cd2.llistarGrups();
+				/*grup = cd2.llistarGrups();
         		for(int i = 0; i < grup.size(); i++){
         			if(grup.get(i).getNom().equals(result.get().getNom())){ //si el troba
         				grup.remove(i);
         			}
         		}
-        		grup.add(result.get());
+        		grup.add(result.get());*/
 				cd2.editarGrup(result.get());
 				grup = cd2.llistarGrups();
 				ObservableList<Grup> altu = FXCollections.observableArrayList(grup);
 				taula.setItems(altu);
+        		taula.getColumns().get(0).setVisible(false);
+				taula.getColumns().get(0).setVisible(true);
         	} else {
         		Alert al = new Alert (AlertType.ERROR);
         		al.setTitle("Error!");

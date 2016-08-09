@@ -1,11 +1,17 @@
-/* AIXO S'APLICA A TOT */
+/* 
+ * AIXO S'APLICA A TOT
+ * Colors: #010D00 (verd fosc) #D9D7C5 (blanc trencat) #BFA77A (beige) #400101 (roig fosc) #0D0000 (negre casi)
+ */
 @font-face {
-	font-family: "Helvetica";
+	/*font-family: "Helvetica";*/
     src: url('Helvetica.otf');
 }
 
 .root{
 	-fx-font-family: "Helvetica";
+	/*-fx-shadow-highlight-color: #28EC12;*/
+	-fx-accent: #AC130D; /* En les tableviews posa quan no esta seleccionat el color roig */
+	-fx-focus-color: #010D00; /* Quan selecciones algo, la voreta es quedara gris */
 }
 
 /****************************************
@@ -14,11 +20,11 @@
 
 .menu .label {
       /*-fx-background-color:#2C2424;*/
-      -fx-text-fill: #ffffff;
+      -fx-text-fill: #D9D7C5;
       /*-fx-border-width:2;*/
     }
 .menu-item {
-	-fx-background-color: #2C2424;
+	-fx-background-color: #2C2424; /* Negre - gris */
 	-fx-border-color: #2C2424;
 }
 
@@ -47,7 +53,11 @@
 
 /* Canvia el color de les capçaleres de columna */
 .table-view .column-header-background .label{
-    -fx-text-fill: white;
+    -fx-text-fill: #D9D7C5;
+}
+
+.table-view .filler {
+	-fx-background-color: #2C2424;
 }
 
 /* Posa el color en la capçalera de la columna */

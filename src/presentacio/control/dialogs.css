@@ -1,0 +1,35 @@
+@font-face {
+	/*font-family: "Helvetica";*/
+    src: url('Helvetica.otf');
+}
+
+.dialog-pane {
+	-fx-font-family: "Helvetica";
+	-fx-focus-color: #010D00; /* Quan selecciones algo, la voreta es quedara gris */
+    -fx-background-color: #F2F2F2; /* Fons beige */
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #2C2424;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: F2F2F2;
+}
+
+.dialog-pane:header .header-panel .label {
+    /*-fx-font-style: bold;*/
+    -fx-font-size: 16px;
+}
+
+.combo-box:selected {
+	-fx-background-color: #F2F2F2;
+}
+
+.combo-box .list-cell:hover {
+	-fx-background-color: #AE3A36;
+}
+
+.combo-box .list-cell:selected {
+	-fx-background-color: #AC130D;
+}

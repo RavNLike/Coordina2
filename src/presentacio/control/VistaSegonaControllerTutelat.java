@@ -21,6 +21,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,8 +77,10 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML void afegirTutelat() {
     	//Creacio del formulari de afegir 
     	Dialog<Tutelat> dialog = new Dialog<>();
+    	DialogPane dp = dialog.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     	dialog.setTitle("Afegir tutelat");
-    	dialog.setHeaderText("Dialeg per a afegir un tutelat nou. Emplene tots els camps.");
+    	dialog.setHeaderText(null);
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
@@ -260,7 +263,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
 			}
 			String minuscules = nou.toLowerCase();
 			if (tutelat.getNom().toLowerCase().contains(minuscules)
-					|| tutelat.getNif().toLowerCase().contains(minuscules)) {
+					|| tutelat.getNif().toLowerCase().contains(minuscules)
+					|| tutelat.getCognoms().toLowerCase().contains(minuscules)) {
 				return true;
 			}	
 			return false;
