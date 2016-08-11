@@ -89,7 +89,7 @@ public class VistaInicialController implements Initializable {
 			//System.out.println("Fora");
 		}
     }
-    @FXML public void apretarActes(){
+   /* @FXML public void apretarActes(){
     	DirectoryChooser chooser = new DirectoryChooser();
     	chooser.setTitle("Seleccione el directori on es guardaran les actes.");
     	chooser.setInitialDirectory(new File("/home"));
@@ -113,5 +113,5 @@ public class VistaInicialController implements Initializable {
     		al.showAndWait();
     	}
     	
-    }
+    }*/
 }

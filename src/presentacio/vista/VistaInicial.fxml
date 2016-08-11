@@ -23,7 +23,6 @@
           </Menu>
           <Menu mnemonicParsing="false" style="-fx-background-color: #2C2424;" text="Altres opcions">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#apretarActes" text="Descarregar actes" />
                   <MenuItem mnemonicParsing="false" onAction="#apretarAcreditacions" text="Descarregar acreditacions" />
               <MenuItem mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" />
                   <MenuItem mnemonicParsing="false" onAction="#apretarCarregaInicial" text="Inicialitzar sistema" />
