@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.84" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
+<SplitPane dividerPositions="0.96" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
    <items>
       <SplitPane dividerPositions="0.55" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
         <items>
@@ -68,7 +68,7 @@
             <Button fx:id="esborrarG" mnemonicParsing="false" text="Esborrar grup" GridPane.columnIndex="3" />
          </children>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="17.0" left="30.0" right="30.0" top="17.0" />
          </padding>
       </GridPane>
    </items>

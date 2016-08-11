@@ -9,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<SplitPane dividerPositions="0.84" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerProfessor">
+<SplitPane dividerPositions="0.96" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerProfessor">
    <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -57,7 +56,7 @@
             <Button fx:id="esborrarP" mnemonicParsing="false" onAction="#esborrarProfessor" text="Esborrar professor" GridPane.columnIndex="3" />
          </children>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="17.0" left="30.0" right="30.0" top="17.0" />
          </padding>
       </GridPane>
    </items>

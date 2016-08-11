@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
@@ -50,12 +51,16 @@ public class VistaSegonaControllerCarrega implements Initializable{
     	try {
     		Coordina2.getInstancia().inicialitzarSistema(rutaP.getText(), rutaAT.getText(), rutaT.getText());
     		Alert alert = new Alert(AlertType.CONFIRMATION);
+        	DialogPane dp = alert.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
 			alert.setTitle("Exit");
 			alert.setHeaderText(null);
 			alert.setContentText("La carrega inicial s'ha dut a terme amb exit");
 			alert.showAndWait();
     	} catch (Exception e){
     		Alert alert = new Alert(AlertType.ERROR);
+        	DialogPane dp = alert.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
 			alert.setTitle("Error");
 			alert.setHeaderText(null);
 			alert.setContentText("Ha fallat alguna cosa");

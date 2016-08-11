@@ -5,7 +5,7 @@
 
 .dialog-pane {
 	-fx-font-family: "Helvetica";
-	-fx-focus-color: #010D00; /* Quan selecciones algo, la voreta es quedara gris */
+	-fx-focus-color: #878787, #878787; /* Quan selecciones algo, la voreta es quedara verd fosc */
     -fx-background-color: #F2F2F2; /* Fons beige */
 }
 
@@ -22,14 +22,81 @@
     -fx-font-size: 16px;
 }
 
-.combo-box:selected {
-	-fx-background-color: #F2F2F2;
+/*
+ * BUTTONS
+ */
+
+.button {
+	/*-fx-base: #012800;*/
+    -fx-background-color: white, white, white, #878787;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;	
+}
+/*
+.button:selected {
+	-fx-background-color: transparent;
+}*/
+
+.button:hover {
+    -fx-background-color: white, white, white, #A4A4A4;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 
-.combo-box .list-cell:hover {
-	-fx-background-color: #AE3A36;
+.button:focused {
+    -fx-background-color: white, white, white, #A4A4A4;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 
-.combo-box .list-cell:selected {
-	-fx-background-color: #AC130D;
+/*
+ * TEXTFIELDS
+ */
+
+.text-field {
+    -fx-background-color: white, #A4A4A4, white, white;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+
+
+.text-field:focused {
+    -fx-background-color: white, #878787, white, white;
+    -fx-background-insets: 0 0 0 0, 0 ,0, 0;
+}
+
+/*
+ * COMBOBOXES
+ */
+
+.combo-box-base {
+    -fx-background-color: white, white, white, white;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+/*
+.combo-box-base:focused {
+	-fx-background-color: white, #878787, white, white;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-padding: 0;
+}*/
+
+.combo-box .list-cell {
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em; 
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white; /* Si poses "red, orange" es posa el marge roig i l'interior taronja */
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}    
+
+.combo-box-popup .list-cell:selected {
+	-fx-background-color: #878787;
+}
+
+.combo-box-popup .list-cell:hover {
+	-fx-background-color: #A4A4A4;
 }

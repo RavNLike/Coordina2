@@ -11,7 +11,27 @@
 	-fx-font-family: "Helvetica";
 	/*-fx-shadow-highlight-color: #28EC12;*/
 	-fx-accent: #AC130D; /* En les tableviews posa quan no esta seleccionat el color roig */
-	-fx-focus-color: #010D00; /* Quan selecciones algo, la voreta es quedara gris */
+	/*-fx-focus-color: #010D00;  Quan selecciones algo, la voreta es quedara gris */
+}
+
+/*
+ * BUTTONS
+ */
+ 
+ .button {
+	/*-fx-base: #012800;*/
+    -fx-background-color: white, white, white, #A4A4A4;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;	
+}
+
+.button:hover {
+    -fx-background-color: white, white, white, #BBBBBB;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+
+.button:focused {
+    -fx-background-color: white, white, white, #BBBBBB;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 
 /****************************************
@@ -28,8 +48,12 @@
 	-fx-border-color: #2C2424;
 }
 
-.menu-item:hover {
+.menu-item:focused {
 	-fx-background-color: #AC130D;
+}
+
+.menu-item:hover {
+	-fx-background-color: #878787;
 }
 
 .context-menu {
@@ -70,7 +94,11 @@
     -fx-background-color: #AC130D; /* Posa el fons a roig fosc */
     -fx-table-cell-border-color: transparent; /* Lleva la barra vertical */
 }
-
+/*
+.split-pane {
+	-fx-background-color: #2C2424;
+}
+*/
 /* Per a fer desapareixer la barra del splitpane */
 .split-pane *.split-pane-divider {
     -fx-padding: 0 1 0 1;

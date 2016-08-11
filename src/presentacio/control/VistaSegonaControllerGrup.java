@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -73,8 +74,10 @@ public class VistaSegonaControllerGrup implements Initializable{
     @FXML
     void afegirGrup() {
     	Dialog<Grup> dialog = new Dialog<>();
+    	DialogPane dp = dialog.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     	dialog.setTitle("Afegir grup");
-    	dialog.setHeaderText("Dialeg per a afegir un grup nou. Emplene tots els camps.");
+    	dialog.setHeaderText(null);
     	dialog.setResizable(true);
     	Label lb1 = new Label("Nom:");
     	Label lb2 = new Label("Professor:");
@@ -102,6 +105,8 @@ public class VistaSegonaControllerGrup implements Initializable{
     	grid.add(tx2, 2, 2);
     	grid.add(tx3, 2, 3);
     	grid.add(tx4, 2, 4);
+    	grid.setHgap(1);
+    	grid.setVgap(1);
     	dialog.getDialogPane().setContent(grid);
     	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -145,6 +150,8 @@ public class VistaSegonaControllerGrup implements Initializable{
 			taula.setItems(grups);
     	} else {
     		Alert al = new Alert (AlertType.ERROR);
+        	DialogPane dip = al.getDialogPane();
+        	dip.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Error!");
     		al.setHeaderText("No s'ha creat el grup");
     		al.setContentText("Revise tots els camps");
@@ -156,15 +163,19 @@ public class VistaSegonaControllerGrup implements Initializable{
     void editarGrup() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Dialog<Grup> dialog = new Dialog<>();
+        	DialogPane dp = dialog.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		Grup aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar Grup");
-        	dialog.setHeaderText("Dialeg per a editar un grup. Emplene tots els camps.");
+        	dialog.setHeaderText(null);
         	dialog.setResizable(true);
         	Label lb1 = new Label("Nom:");
         	Label lb2 = new Label("Professor:");
@@ -208,6 +219,8 @@ public class VistaSegonaControllerGrup implements Initializable{
         	grid.add(tx2, 2, 2);
         	grid.add(tx3, 2, 3);
         	grid.add(tx4, 2, 4);
+        	grid.setHgap(1);
+        	grid.setVgap(1);
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -252,6 +265,8 @@ public class VistaSegonaControllerGrup implements Initializable{
 				taula.getColumns().get(0).setVisible(true);
         	} else {
         		Alert al = new Alert (AlertType.ERROR);
+            	DialogPane dip = al.getDialogPane();
+            	dip.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
         		al.setTitle("Error!");
         		al.setHeaderText("No s'ha editat el grup");
         		al.setContentText("Revise tots els camps");
@@ -265,12 +280,16 @@ public class VistaSegonaControllerGrup implements Initializable{
     	Grup aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Esta segur que vol esborrar l'element?");
     		al.setContentText(null);

@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -62,8 +63,10 @@ public class VistaSegonaControllerProfessor  implements Initializable {
 
     @FXML void afegirProfessor() {
     	Dialog<Professor> dialog = new Dialog<>();
+    	DialogPane dp = dialog.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     	dialog.setTitle("Afegir Professor");
-    	dialog.setHeaderText("Dialeg per a afegir un professor nou. Emplene tots els camps.");
+    	dialog.setHeaderText(null);
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
@@ -82,6 +85,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     	grid.add(tx2, 2, 2);
     	grid.add(tx3, 2, 3);
     	grid.add(tx4, 2, 4);
+    	grid.setHgap(1);
+    	grid.setVgap(1);
     	dialog.getDialogPane().setContent(grid);
     	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -112,16 +117,20 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     @FXML void editarProfessor() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
-    		//construim el di�leg
+    		//construim el dialeg
     		Dialog<Professor> dialog = new Dialog<>();
+        	DialogPane dp = dialog.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		Professor aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar professor");
-        	dialog.setHeaderText("Dialeg per a editar un professor. \nPer a cancelar, prema la creu roja.");
+        	dialog.setHeaderText(null);
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -142,6 +151,8 @@ public class VistaSegonaControllerProfessor  implements Initializable {
         	grid.add(tx2, 2, 2);
         	grid.add(tx3, 2, 3);
         	grid.add(tx4, 2, 4);
+        	grid.setHgap(1);
+        	grid.setVgap(1);
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -176,12 +187,16 @@ public class VistaSegonaControllerProfessor  implements Initializable {
     @FXML void esborrarProfessor() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Esta segur que vol esborrar l'element?");
     		al.setContentText(null);

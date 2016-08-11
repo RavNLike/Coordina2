@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -68,8 +69,10 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     
     @FXML public void afegirAlumneTutor(){
     	Dialog<AlumneTutor> dialog = new Dialog<>();
-    	dialog.setTitle("Afegir Alumne Tutors");
-    	dialog.setHeaderText("Dialeg per a afegir un alumne tutor nou. Emplene tots els camps.");
+    	dialog.setTitle("Afegir Alumne Tutor");
+    	dialog.setHeaderText(null);
+    	DialogPane dp = dialog.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     	dialog.setResizable(true);
     	Label lb1 = new Label("DNI:");
     	Label lb2 = new Label("Nom:");
@@ -88,6 +91,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     	grid.add(tx2, 2, 2);
     	grid.add(tx3, 2, 3);
     	grid.add(tx4, 2, 4);
+    	grid.setHgap(1);
+    	grid.setVgap(1);
     	dialog.getDialogPane().setContent(grid);
     	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
     	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -119,15 +124,19 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void editarAlumneTutor(){
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Dialog<AlumneTutor> dialog = new Dialog<>();
+        	DialogPane dp = dialog.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		AlumneTutor aux = taula.getSelectionModel().getSelectedItem();
-        	dialog.setTitle("Afegir Alumne Tutors");
-        	dialog.setHeaderText("Dialeg per a editar un alumne tutor. Emplene tots els camps.");
+        	dialog.setTitle("Editar alumne tutor");
+        	dialog.setHeaderText(null);
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -148,6 +157,8 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
         	grid.add(tx2, 2, 2);
         	grid.add(tx3, 2, 3);
         	grid.add(tx4, 2, 4);
+        	grid.setHgap(1);
+        	grid.setVgap(1);
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -181,12 +192,16 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
     @FXML public void esborrarAlumneTutor(){
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atencio!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		al.setTitle("Atenci" + "\u00f3" + "!"); //Intent de simbols en unicode
     		al.setHeaderText("Est" + "\00e0" + " segur que vol esborrar l'element?");
     		al.setContentText(null);

@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
@@ -62,8 +63,10 @@ public class VistaSegonaControllerMail implements Initializable {
 
 		// Si no hem seleccionat cap llista de destinataris
 		if (!radioAlumnestutors.isSelected() && !radioProfessors.isSelected()) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Informació");
+			Alert alert = new Alert(AlertType.WARNING);
+	    	DialogPane dp = alert.getDialogPane();
+	    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+			alert.setTitle("Atenció!");
 			alert.setHeaderText(null);
 			alert.setContentText("No ha seleccionat destinatari");
 			alert.showAndWait();

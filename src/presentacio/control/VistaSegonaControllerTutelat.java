@@ -119,6 +119,8 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	grid.add(tx6, 2, 6);
     	grid.add(cbGrup, 2, 7);
     	grid.add(tx8, 2, 8);
+    	grid.setHgap(1);
+    	grid.setVgap(1);
     	dialog.getDialogPane().setContent(grid);
     	//Fi de la creacio del dialeg
     	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
@@ -146,15 +148,19 @@ public class VistaSegonaControllerTutelat implements Initializable {
     @FXML void editarTutelat() {
     	if(taula.getSelectionModel().getSelectedItem() == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atencio!");
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+    		al.setTitle("Atenció!");
     		al.setHeaderText("Seleccione un element a editar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Dialog<Tutelat> dialog = new Dialog<>();
+        	DialogPane dp = dialog.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
     		Tutelat aux = taula.getSelectionModel().getSelectedItem();
         	dialog.setTitle("Editar tutelat");
-        	dialog.setHeaderText("Dialeg per a editar un tutelat. \nPer a cancelar, prema la creu roja.");
+        	dialog.setHeaderText(null);
         	dialog.setResizable(true);
         	Label lb1 = new Label("DNI:");
         	Label lb2 = new Label("Nom:");
@@ -196,6 +202,9 @@ public class VistaSegonaControllerTutelat implements Initializable {
         	grid.add(tx6, 2, 6);
         	grid.add(cbGrup, 2, 7);
         	grid.add(tx8, 2, 8);
+        	grid.setHgap(1);
+        	grid.setVgap(1);
+        	//grid.setPadding(new Insets (10,10,10,10));
         	dialog.getDialogPane().setContent(grid);
         	ButtonType buttonTypeOk = new ButtonType("Ok", ButtonData.OK_DONE);
         	dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
@@ -234,14 +243,18 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	Tutelat aux = taula.getSelectionModel().getSelectedItem(); 
     	if(aux == null){
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atencio!");
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+    		al.setTitle("Atenció!");
     		al.setHeaderText("Seleccione un element a esborrar");
     		al.setContentText(null);
     		al.showAndWait();
     	} else {
     		Alert al = new Alert (AlertType.WARNING);
-    		al.setTitle("Atencio!");
-    		al.setHeaderText("Esta segur que vol esborrar l'element?");
+        	DialogPane dp = al.getDialogPane();
+        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+    		al.setTitle("Atenció!");
+    		al.setHeaderText("Està segur que vol esborrar l'element?");
     		al.setContentText(null);
     		Optional<ButtonType> result = al.showAndWait();
     		if(result.isPresent() && result.get() == ButtonType.OK){
