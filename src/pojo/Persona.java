@@ -7,12 +7,6 @@ public abstract class Persona {
 	private String correu_upv;
 	
 	//constructor
-	
-	
-	//Getters i setters
-	public String getNif() {
-		return nif;
-	}
 	public Persona(String nif, String nom, String cognoms, String correu_upv) {
 		super();
 		this.nif = nif;
@@ -20,6 +14,12 @@ public abstract class Persona {
 		this.cognoms = cognoms;
 		this.correu_upv = correu_upv;
 	}
+	
+	//Getters i setters
+	public String getNif() {
+		return nif;
+	}
+	
 	public void setNif(String nif) {
 		this.nif = nif;
 	}
@@ -55,6 +55,10 @@ public abstract class Persona {
 		return this.nif.equalsIgnoreCase(o.nif);
 	}
 	
+	/******************************************
+	 * TODO
+	 * alguns metodes per al tractament de dnis
+	 *******************************************/
 	
 	
 }
