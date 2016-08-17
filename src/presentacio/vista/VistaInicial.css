@@ -49,21 +49,94 @@
 }
 
 .menu-item:focused {
-	-fx-background-color: #AC130D;
+	-fx-background-color: #878787;
 }
 
 .menu-item:hover {
-	-fx-background-color: #878787;
+	-fx-background-color: #AC130D;
 }
 
 .context-menu {
 	-fx-background-color: #2C2424;
 }
 
+.text-field {
+	-fx-background-color: #A4A4A4, white;
+}
 
-/****************************************
- ***** Aqui comenca les tableviews ******
- ****************************************/
+.text-field:focused {
+	-fx-background-color: #BBBBBB, white;
+}
+
+.text-field:hover {
+	-fx-background-color: #BBBBBB, white;
+}
+
+.text-area {
+	-fx-background-color: #A4A4A4, white;
+}
+
+.text-area:focused {
+	-fx-background-color: #BBBBBB, white;
+}
+
+.text-area:hover {
+	-fx-background-color: #BBBBBB, white;
+}
+
+#destinataris {
+	-fx-background-color: #A54039;
+	-fx-text-fill: #FFFFFF;
+}
+
+#destinataris .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+#destinataris .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+#destinataris .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+/*
+ * RADIOBUTTON
+ */
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #000;
+    -fx-background-color: white;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+.radio-button .radio:selected {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:armed {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-padding: 6px;
+}
+
+/*
+ * TABLEVIEW
+ */
 
 .table-view{
    -fx-background-color: transparent;
@@ -94,13 +167,26 @@
     -fx-background-color: #AC130D; /* Posa el fons a roig fosc */
     -fx-table-cell-border-color: transparent; /* Lleva la barra vertical */
 }
-/*
+
+/* Lleva el marge al splitpane. Segueix quedant 1px però s'arregla posant 
+ * el marge de tableview en -1
+ */
 .split-pane {
-	-fx-background-color: #2C2424;
+	-fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
-*/
+
 /* Per a fer desapareixer la barra del splitpane */
 .split-pane *.split-pane-divider {
     -fx-padding: 0 1 0 1;
     -fx-background-color: transparent;
 }
+
+/*
+ * Per als progress bar, canviar color...
+ */
+ .progress-bar {
+ 	-fx-background-color: #A4A4A4;
+ 	-fx-accent: #AC130D;
+ }

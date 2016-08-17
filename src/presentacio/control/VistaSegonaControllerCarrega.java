@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
@@ -25,6 +27,7 @@ public class VistaSegonaControllerCarrega implements Initializable{
     @FXML private Button buscarT;
     @FXML private TextField rutaP;
     @FXML private Button buscarAT;
+	@FXML private ProgressBar pb;
 
 
     @Override
@@ -74,6 +77,22 @@ public class VistaSegonaControllerCarrega implements Initializable{
     @FXML void cancelar(ActionEvent event) {
     	VistaNavigator.loadVista(VistaNavigator.VISTAINI);
     }
+    
+    @FXML void enrere(ActionEvent event) {
+    	VistaNavigator.loadVista(VistaNavigator.VISTAINI);
+    }
+    
+    @FXML void informacio(){
+		Alert alert = new Alert(AlertType.INFORMATION);
+    	DialogPane dp = alert.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+		alert.setTitle("Informació");
+		alert.setHeaderText(null);
+		Label label = new Label("L'opció de càrrega incial serveix per a esborrar \nla base de dades i carregar les noves dades \ndes d'un fitxer .xls.");
+		label.setWrapText(true);
+		alert.getDialogPane().setContent(label);
+		alert.showAndWait();
+	}
 
 
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import bll.Coordina2;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -30,7 +29,7 @@ public class VistaSegonaControllerMail implements Initializable {
 	@FXML
 	private TextField quadreAssumpte;
 	@FXML
-	private TextArea quadreMissatge;
+	private TextArea quadreMissatge, destlist;
 	@FXML
 	private RadioButton radioAlumnestutors, radioProfessors;
 	@FXML 
@@ -39,7 +38,7 @@ public class VistaSegonaControllerMail implements Initializable {
 	private GridPane gp;
 	@FXML
 	private ProgressBar pb;
-	Task<?> copiaWorker;
+	Task<Boolean> copiaWorker;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -52,14 +51,29 @@ public class VistaSegonaControllerMail implements Initializable {
 	void enrere() {
 		VistaNavigator.loadVista(VistaNavigator.VISTAINI);
 	}
+	
+	@FXML void informacio(){
+		Alert alert = new Alert(AlertType.INFORMATION);
+    	DialogPane dp = alert.getDialogPane();
+    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+		alert.setTitle("Informació");
+		alert.setHeaderText(null);
+		/*Text text = new Text("L'opció de mailing serveix per a enviar als destinataris informació dels seus grups. Apareixeran tots els integrants del grup.");
+		text.setWrappingWidth(300);
+		alert.getDialogPane().setContent(text);*/
+		Label label = new Label("L'opció de mailing serveix per a enviar \nals destinataris informació dels seus grups. \nApareixeran tots els integrants del grup.");
+		label.setWrapText(true);
+		alert.getDialogPane().setContent(label);
+		//alert.setContentText("L'opció de mailing serveix per a enviar als destinataris informació dels seus grups. \nApareixeran tots els integrants del grup.");
+		alert.showAndWait();
+	}	
 
 	/**
 	 * Per a enviar el email
 	 * 
 	 * @param event
 	 */
-	@FXML
-	void enviar(ActionEvent event) {
+	@FXML void enviar() {
 
 		// Si no hem seleccionat cap llista de destinataris
 		if (!radioAlumnestutors.isSelected() && !radioProfessors.isSelected()) {
@@ -75,7 +89,7 @@ public class VistaSegonaControllerMail implements Initializable {
 		} else {
 			pb.setVisible(true);
 			pb.setProgress(0);
-			copiaWorker = creaWorker();
+			copiaWorker = creaWorker(); //copiaWorker guarda el valor de boolean
 			
 			/* Detalls com deshabilitar boto d'enviar i cancelar, posar cursor en espera */
 			enviarbutton.setDisable(true);
@@ -87,38 +101,89 @@ public class VistaSegonaControllerMail implements Initializable {
 			pb.progressProperty().unbind();
 			pb.progressProperty().bind(copiaWorker.progressProperty());
 			
-			
+
 			/* Llancem el thread */
 			new Thread(copiaWorker).start();
 
 			/* Si hem llançat el thread i tot ha anat be */
 			copiaWorker.setOnSucceeded((valor) -> {
+				
 				gp.getScene().setCursor(Cursor.DEFAULT);
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Confirmació");
-				alert.setHeaderText("S'ha enviat el seu missatge correctament");
-				alert.setContentText(null);
-				alert.showAndWait();
+				
+				if (copiaWorker.getValue()){
+					//System.out.println("El valor que retorna es... " + copiaWorker.getValue());
+					gp.getScene().setCursor(Cursor.DEFAULT);
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+			    	DialogPane dp = alert.getDialogPane();
+			    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+					alert.setTitle("Confirmació");
+					alert.setHeaderText("S'ha enviat el seu missatge correctament");
+					alert.setContentText(null);
+					alert.showAndWait();
+				} else {
+					gp.getScene().setCursor(Cursor.DEFAULT);
+					Alert alert = new Alert(AlertType.ERROR);
+			    	DialogPane dp = alert.getDialogPane();
+			    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+					alert.setTitle("Error");
+					alert.setHeaderText("Ha ocurrit un error");
+					alert.setContentText("Revise tots els camps.");
+					alert.showAndWait();
+				}
 				enrere();
 			});
 
 			/* Si al acabar l'execucio del thread ha hagut algun problema */
 			copiaWorker.setOnFailed((valor) -> {
+				gp.getScene().setCursor(Cursor.DEFAULT);
 				Alert alert = new Alert(AlertType.ERROR);
+		    	DialogPane dp = alert.getDialogPane();
+		    	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
 				alert.setTitle("Error");
 				alert.setHeaderText("Ha ocurrit un error");
 				alert.setContentText("Revise tots els camps.");
 				alert.showAndWait();
 				enrere();
 			});
+			
+
 		}
 	}
 
-	private Task<?> creaWorker() {
-		return new Task<Object>() {
+	@FXML void infoprofessors(){
+		if(destlist.isVisible()){
+			destlist.setVisible(false);
+			destlist.setText("");
+		} else {
+			destlist.setVisible(true);
+			ArrayList<Professor> aprof = cd2.llistarProfessors();
+			String mostrar = "DESTINATARIS: \n";
+			for (Professor p : aprof){
+				mostrar += p.getCognoms() + ", " + p.getNom() + " <" + p.getCorreu_upv() + "> \n";
+			}
+			destlist.setText(mostrar);
+		}
+	}
+	
+	@FXML void infoalumnestutors(){
+		if(destlist.isVisible()){
+			destlist.setVisible(false);
+			destlist.setText("");
+		} else {
+			destlist.setVisible(true);
+			ArrayList<AlumneTutor> atu = cd2.llistarAlumnesTutors();
+			String mostrar = "DESTINATARIS: \n";
+			for (AlumneTutor a : atu){
+				mostrar += a.getCognoms() + ", " + a.getNom() + " <" + a.getCorreu_upv() + "> \n";
+			}
+			destlist.setText(mostrar);
+		}
+	}
+	private Task<Boolean> creaWorker() {
+		return new Task<Boolean>() {
 			@Override
-			protected Object call() throws Exception {
-
+			protected Boolean call() throws Exception {
+				Boolean result = Boolean.TRUE;
 				ArrayList<AlumneTutor> llistaAT = null;
 				ArrayList<Professor> llistaP = null;
 				int numdests = 0;
@@ -143,6 +208,7 @@ public class VistaSegonaControllerMail implements Initializable {
 									+ cd2.obtindreMembresPerAlumneTutor(altutor);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(altutor, tema, cosMissatge);
+							System.out.println("Entra en el bucle de ATS, valor de resultat: " + result);
 						}
 					}
 
@@ -153,12 +219,16 @@ public class VistaSegonaControllerMail implements Initializable {
 							String cosMissatge = quadreMissatge.getText() + "\n" + cd2.obtindreLlistaPerProfessor(prof);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(prof, tema, cosMissatge);
+							System.out.println("Entra en el bucle de PROFS, valor de resultat: " + result);
 						}
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					System.out.println("Entra en el CATCH");
+					result = Boolean.FALSE;
 				}
-				return true;
+				System.out.println("Valor final de resultat: " + result);
+				return result;				
 			}
 		};
 	}

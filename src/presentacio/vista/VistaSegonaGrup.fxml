@@ -15,7 +15,7 @@
         <items>
             <AnchorPane>
                <children>
-                  <TableView fx:id="taula" prefHeight="228.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="taula" prefHeight="228.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
                     <columns>
                         <TableColumn prefWidth="75.0" text="Grup">
                            <columns>
@@ -34,7 +34,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../BackButton2.png" />
+                              <Image url="@../../../blancafletxaenrere.png" />
                            </image>
                         </ImageView>
                      </graphic>
