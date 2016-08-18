@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import dao.dto.TutelatDTO;
+import pojo.Grup;
 import pojo.Tutelat;
 
 public class TutelatDAO {
@@ -27,7 +28,7 @@ public class TutelatDAO {
 			String cog = t.getCognoms();
 			String corr = t.getCorreu_upv();
 			String corrPers = t.getCorreu_personal();
-			String grupPatu = t.getGrup_patu().getNom();
+			String grupPatu = t.getGrup_patu() != null ? t.getGrup_patu().getNom() : Grup.NO_ASSIGNAT;
 			String grupMat = t.getGrup_matricula();
 			String mobil = t.getMobil();
 

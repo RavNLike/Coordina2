@@ -16,6 +16,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import dao.ManagerDAO;
+import pojo.exceptions.SeguretatException;
 
 public class LectorRegistres {
 	
@@ -107,11 +108,10 @@ public class LectorRegistres {
 	}
 	
 	//deixa en blanc la bd, pero originalment està bloquejat
-	public boolean deixaEnBlancBD(){
+	public void deixaEnBlancBD() throws SQLException, SeguretatException{
 		if (getIntRegistre("forrellat")!=0)
-			return false;
-		
-		try{
+			throw new SeguretatException();
+
 			Connection c = ManagerDAO.getInstancia().getCon();
 			String sql1 = "UPDATE Metainfo SET inicialitzat = 0";
 			String sql2 = "DELETE FROM Tutelat"; 
@@ -126,11 +126,6 @@ public class LectorRegistres {
 			stmt.addBatch(sql5);
 			//esto retorna coses pero meh
 			stmt.executeBatch();
-			return true;
-		}catch(SQLException jahelfea){
-			jahelfea.printStackTrace();
-			return false;
-		}
 		
 	}
 	

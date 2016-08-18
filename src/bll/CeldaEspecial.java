@@ -1,4 +1,4 @@
-package proves.acreditacions;
+package bll;
 
 
 import com.itextpdf.text.Font;

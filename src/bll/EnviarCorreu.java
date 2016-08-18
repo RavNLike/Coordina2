@@ -60,9 +60,7 @@ public class EnviarCorreu {
 		return true;
 	}
 
-	/*
-	 * TODO EVITAR LA PASS EN TEXT PLA!!!!!
-	 */
+
 	private String obtindreUsuari() throws SQLException {
 		LectorRegistres instancia = LectorRegistres.getInstancia();
 		return instancia.llegirMail();

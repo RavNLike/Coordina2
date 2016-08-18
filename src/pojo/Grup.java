@@ -5,6 +5,7 @@ public class Grup {
 	private Professor professor;
 	private AlumneTutor alumne1;
 	private AlumneTutor alumne2;
+	public final static String NO_ASSIGNAT = "NO ASSIGNAT"; 
 
 	public Grup(String nom, Professor p, AlumneTutor al1) {
 		this.nom = nom;

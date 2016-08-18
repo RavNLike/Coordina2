@@ -13,6 +13,8 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import com.itextpdf.text.DocumentException;
+
 import dao.GrupDAO;
 import dao.TutelatDAO;
 import dao.TutorDAO;
@@ -27,6 +29,7 @@ import pojo.Professor;
 import pojo.Tutelat;
 import pojo.exceptions.ArgumentErroniException;
 import pojo.exceptions.InicialitzatException;
+import pojo.exceptions.SeguretatException;
 
 public class Coordina2 {
 
@@ -413,6 +416,18 @@ public class Coordina2 {
 		return llista;
 	}
 
+	public ArrayList<Grup> grupsPerProfessor(Professor prof) {
+		ArrayList<Grup> llista = new ArrayList<>();
+		String dni = prof.getNif();
+		for (Grup g : grups) {
+			if (g.getProfessor().getNif().equalsIgnoreCase(dni)) {
+				llista.add(g);
+			}
+		}
+
+		return llista;
+	}
+
 	/*****************
 	 * CARDINALITATS
 	 *****************/
@@ -448,6 +463,10 @@ public class Coordina2 {
 		EnviarCorreu env = new EnviarCorreu();
 		env.enviar(desti, tema, cosMissatge);
 	}
+
+	/************************
+	 * LLISTATS EN STRING
+	 ***********************/
 
 	/*
 	 * Donat un professor construeix un missatge amb els seus tutors i els seus
@@ -504,7 +523,7 @@ public class Coordina2 {
 	}
 
 	/*******************
-	 * Comptador de dni's
+	 * TODO COMPTADOR DE DNI: PENDENT DE SER REFORMAT
 	 * 
 	 * @throws IOException
 	 * @throws BiffException
@@ -560,6 +579,10 @@ public class Coordina2 {
 		escriureMapaActes(eixida, obtindreMapaAssistencies(entrades));
 	}
 
+	public void crearActes(String absolutePath) {
+
+	}
+
 	/****************************************
 	 * METODE PER A FER LA CARREGA INICIAL
 	 * 
@@ -592,34 +615,36 @@ public class Coordina2 {
 		CarregaInicial carrega = CarregaInicial.getInstancia();
 		carrega.inicialitzaTOT(profs, tutors, alumnes);
 		guardaEstatInicial();
-		//tanca per a que no puga tornar a carregar-se
+		// tanca per a que no puga tornar a carregar-se
 		LectorRegistres.getInstancia().marcaInicialitzat();
-		//com poden haver linies en blanc, tornem a carregar
+		// com poden haver linies en blanc, tornem a carregar
 		carregarSistema();
 	}
-	
+
 	/*************************************
-	 * M�TODE PER A CREAR LES ACREDITACIONS
+	 * METODE PER A CREAR LES ACREDITACIONS
+	 * 
+	 * @throws DocumentException
+	 * @throws IOException
 	 **************************************/
-	//TODO
-	public void crearAcreditacions(String pathdesti){
-		
-	}
-	
-	public boolean borraBD(){
-		
-		try{
-			boolean resultat = LectorRegistres.getInstancia().deixaEnBlancBD();
-			carregarSistema();
-			return resultat;
-		}catch(SQLException ex){
-			return false;
-		}
+
+	public void crearAcreditacions(String pathdesti) throws IOException, DocumentException {
+		Acreditador acre = Acreditador.getInstancia();
+		acre.acreditarProfessors(pathdesti);
+		acre.acreditarAlumnesTutors(pathdesti);
+		acre.acreditarTutelats(pathdesti);
 	}
 
-	public void crearActes(String absolutePath) {
-		// TODO Auto-generated method stub
-		
+	/************************
+	 * METODE QUE BORRA TOTA LA BASE DE DADES NECESSITE QUE EL EL REGISTRE
+	 * "FORELLAT" ES TROBE A 0 ES UN METODE NECESSARI PER A LES PROVES
+	 * 
+	 * @throws SQLException
+	 * @throws SeguretatException 
+	 ************************/
+	public void borraBD() throws SQLException, SeguretatException {
+		LectorRegistres.getInstancia().deixaEnBlancBD();
+		carregarSistema();
 	}
 
 }
