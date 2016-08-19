@@ -2,6 +2,7 @@ package presentacio.control;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import bll.Coordina2;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
+import pojo.exceptions.SeguretatException;
 
 public class VistaInicialController implements Initializable {
     @FXML private HBox boxInvisible;
@@ -68,7 +70,8 @@ public class VistaInicialController implements Initializable {
 		al.getButtonTypes().setAll(botoOk, botoCancel);
 		Optional<ButtonType> result = al.showAndWait();
 		if(result.get() == botoOk){
-			if(cd2.borraBD()){
+			try{
+				cd2.borraBD();
 				Alert al2 = new Alert (AlertType.CONFIRMATION);
 		    	DialogPane dip = al2.getDialogPane();
 		    	dip.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
@@ -76,12 +79,20 @@ public class VistaInicialController implements Initializable {
 	    		al2.setHeaderText("Base de dades esborrada correctament");
 	    		al2.setContentText(null);
 	    		al2.showAndWait();
-			} else {
+			} catch (SQLException e){
 				Alert al2 = new Alert (AlertType.ERROR);
 		    	DialogPane dip = al2.getDialogPane();
 		    	dip.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
 	    		al2.setTitle("Error");
-	    		al2.setHeaderText("Ha hagut un error inesperat");
+	    		al2.setHeaderText("Ha hagut un error amb SQL");
+	    		al2.setContentText(null);
+	    		al2.showAndWait();
+			} catch (SeguretatException e){
+				Alert al2 = new Alert (AlertType.ERROR);
+		    	DialogPane dip = al2.getDialogPane();
+		    	dip.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+	    		al2.setTitle("Error");
+	    		al2.setHeaderText("Ha hagut un error de seguretat");
 	    		al2.setContentText(null);
 	    		al2.showAndWait();
 			}

@@ -2,7 +2,7 @@
 #on es troba cada informacio en els excels de forma que no estiga
 #hardcoded en el programa
 #les linies amb # en el primer caracter son comentaris
-rutabd : coordina2016.sqlite
+rutabd : coordina2015.sqlite
 #Comptador actes
 col_prof : 9
 col_tutor1 : 7
