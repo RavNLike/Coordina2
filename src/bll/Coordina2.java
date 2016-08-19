@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import com.itextpdf.text.DocumentException;
 
@@ -456,10 +458,12 @@ public class Coordina2 {
 	 * @throws NoSuchPaddingException
 	 * @throws NoSuchAlgorithmException
 	 * @throws InvalidKeyException
+	 * @throws MessagingException 
+	 * @throws AddressException 
 	 *******************/
 	public void enviarCorreu(Persona desti, String tema, String cosMissatge)
 			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException,
-			BadPaddingException, SQLException {
+			BadPaddingException, SQLException, AddressException, MessagingException {
 		EnviarCorreu env = new EnviarCorreu();
 		env.enviar(desti, tema, cosMissatge);
 	}

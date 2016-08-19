@@ -13,6 +13,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -24,13 +25,14 @@ public class EnviarCorreu {
 
 	}
 
-	public boolean enviar(Persona desti, String tema, String text) throws SQLException, InvalidKeyException,
-			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+	public void enviar(Persona desti, String tema, String text) throws SQLException, InvalidKeyException,
+			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, AddressException, MessagingException {
 		String usuari = obtindreUsuari();
 		String pass = obtindrePass();
-		//configuracio sense canvis
-		//es necessari habilitar el permis al correu per a aplicacions poc segures
-		
+		// configuracio sense canvis
+		// es necessari habilitar el permis al correu per a aplicacions poc
+		// segures
+
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.auth", "true");
@@ -43,23 +45,15 @@ public class EnviarCorreu {
 			}
 		});
 
-		try {
+		Message missatge = new MimeMessage(session);
+		missatge.setFrom(new InternetAddress(usuari));
+		missatge.setRecipients(Message.RecipientType.TO, InternetAddress.parse(desti.getCorreu_upv()));
+		missatge.setSubject(tema);
+		missatge.setText(text);
 
-			Message missatge = new MimeMessage(session);
-			missatge.setFrom(new InternetAddress(usuari));
-			missatge.setRecipients(Message.RecipientType.TO, InternetAddress.parse(desti.getCorreu_upv()));
-			missatge.setSubject(tema);
-			missatge.setText(text);
+		Transport.send(missatge);
 
-			Transport.send(missatge);
-
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
 	}
-
 
 	private String obtindreUsuari() throws SQLException {
 		LectorRegistres instancia = LectorRegistres.getInstancia();
