@@ -110,7 +110,7 @@
  */
 
 #destinataris {
-	-fx-background-color: #1595A3;
+	-fx-background-color: #225378;
 	-fx-text-fill: #FFFFFF;
 }
 
@@ -124,6 +124,19 @@
 
 #destinataris .scroll-pane .content{
     -fx-background-color: transparent;
+}
+
+/*
+ * RUTES DE TEXTFIELDS EN CARREGA INICIAL
+ */
+ 
+ #ruta {
+	-fx-background-color: #225378;
+	-fx-text-fill: #FFFFFF;
+}
+
+#fontp {
+	-fx-text-weight: bold;
 }
 
 /*

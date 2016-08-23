@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -58,6 +59,17 @@ public class VistaSegonaControllerAlumneTutor implements Initializable {
 
     	/* Listener de la barra de filtratge */
     	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
+    	
+    	/* Tooltips */
+    	Tooltip tp1 = new Tooltip();
+    	tp1.setText("Afegir alumne tutor");
+    	afegirAT.setTooltip(tp1);
+    	Tooltip tp2 = new Tooltip();
+    	tp2.setText("Editar alumne tutor");
+    	editarAT.setTooltip(tp2);
+    	Tooltip tp3 = new Tooltip();
+    	tp3.setText("Esborrar alumne tutor");
+    	esborrarAT.setTooltip(tp3);
     	
 		/* Listeners de les opcions CRUD */
 		afegirAT.setOnAction((event) -> {afegirAlumneTutor();});

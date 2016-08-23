@@ -14,6 +14,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -21,17 +22,28 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class VistaSegonaControllerCarrega implements Initializable{
 	
 
-    @FXML private Button buscarP;
+    @FXML private Button buscarP, buscarT, buscarAT, aceptarbutton, cancelarbutton;
     @FXML private TextField rutaT;
     @FXML private TextField rutaAT;
-    @FXML private Button buscarT;
     @FXML private TextField rutaP;
-    @FXML private Button buscarAT;
 	@FXML private ProgressBar pb;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	Tooltip tp1 = new Tooltip();
+    	tp1.setText("Buscar full de càlcul");
+    	buscarP.setTooltip(tp1);
+    	buscarT.setTooltip(tp1);
+    	buscarAT.setTooltip(tp1);
+    	Tooltip tp2 = new Tooltip();
+    	tp2.setText("Inicialitzar el sistema");
+    	aceptarbutton.setTooltip(tp2);
+    	Tooltip tp3 = new Tooltip();
+    	tp3.setText("Cancelar");
+    	cancelarbutton.setTooltip(tp3);
+    	
     	buscarP.setOnAction((event) -> {rutaP.setText(seleccionarPath("Escollir fitxer de professor"));});
     	buscarAT.setOnAction((event) -> {rutaAT.setText(seleccionarPath("Escollir fitxer d'alumne tutor"));});
     	buscarT.setOnAction((event) -> {rutaT.setText(seleccionarPath("Escollir fitxer de tutelat"));});

@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import pojo.Grup;
@@ -64,6 +65,16 @@ public class VistaSegonaControllerTutelat implements Initializable {
     	taula.setItems(tutelatsObs);
     	
     	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
+    	
+    	Tooltip tp1 = new Tooltip();
+    	tp1.setText("Afegir tutelat");
+    	afegirT.setTooltip(tp1);
+    	Tooltip tp2 = new Tooltip();
+    	tp2.setText("Editar tutelat");
+    	editarT.setTooltip(tp2);
+    	Tooltip tp3 = new Tooltip();
+    	tp3.setText("Esborrar tutelat");
+    	esborrarT.setTooltip(tp3);
     	
     	afegirT.setOnAction((event) -> {afegirTutelat();});
 		editarT.setOnAction((event) -> {editarTutelat();});

@@ -20,6 +20,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import pojo.AlumneTutor;
 import pojo.Professor;
@@ -35,7 +36,7 @@ public class VistaSegonaControllerMail implements Initializable {
 	@FXML
 	private RadioButton radioAlumnestutors, radioProfessors;
 	@FXML 
-	private Button enviarbutton, cancelarbutton;
+	private Button enviarbutton, cancelarbutton, infoprofes, infoalumnestuts;
 	@FXML
 	private GridPane gp;
 	@FXML
@@ -47,6 +48,19 @@ public class VistaSegonaControllerMail implements Initializable {
 		ToggleGroup gp = new ToggleGroup();
 		radioAlumnestutors.setToggleGroup(gp);
 		radioProfessors.setToggleGroup(gp);
+
+		Tooltip tp1 = new Tooltip();
+		tp1.setText("Veure professors destinataris");
+		infoprofes.setTooltip(tp1);
+		Tooltip tp2 = new Tooltip();
+		tp2.setText("Veure alumnes tutors destinataris");
+		infoalumnestuts.setTooltip(tp2);
+		Tooltip tp3 = new Tooltip();
+		tp3.setText("Enviar");
+		enviarbutton.setTooltip(tp3);
+		Tooltip tp4 = new Tooltip();
+		tp4.setText("Cancelar");
+		cancelarbutton.setTooltip(tp4);
 	}
 
 	@FXML

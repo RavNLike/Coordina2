@@ -24,31 +24,66 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField fx:id="rutaP" GridPane.rowIndex="2" />
-      <TextField fx:id="rutaAT" GridPane.rowIndex="4" />
-      <TextField fx:id="rutaT" GridPane.rowIndex="6" />
-      <Button fx:id="buscarP" mnemonicParsing="false" text="Buscar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="buscarAT" mnemonicParsing="false" text="Buscar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button fx:id="buscarT" mnemonicParsing="false" text="Buscar" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Label text="Document font dels professors" wrapText="true" GridPane.rowIndex="1">
+      <TextField id="ruta" fx:id="rutaP" GridPane.rowIndex="2" />
+      <TextField id="ruta" fx:id="rutaAT" GridPane.rowIndex="4" />
+      <TextField id="ruta" fx:id="rutaT" GridPane.rowIndex="6" />
+      <Button fx:id="buscarP" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@file-folder.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="buscarAT" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@file-folder.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="buscarT" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@file-folder.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Label id="fontp" style="-fx-font-weight: bold;" text="Document font dels professors" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label text="Document font dels alumnes tutors" wrapText="true" GridPane.rowIndex="3">
+      <Label style="-fx-font-weight: bold;" text="Document font dels alumnes tutors" wrapText="true" GridPane.rowIndex="3">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label text="Document font dels tutelats" wrapText="true" GridPane.rowIndex="5">
+      <Label style="-fx-font-weight: bold;" text="Document font dels tutelats" wrapText="true" GridPane.rowIndex="5">
          <font>
             <Font size="16.0" />
          </font></Label>
       <HBox alignment="CENTER_RIGHT" spacing="30.0" GridPane.rowIndex="7">
          <children>
             <ProgressBar fx:id="pb" maxWidth="1.7976931348623157E308" prefWidth="500.0" progress="0.0" visible="false" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#aceptar" text="Acceptar" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+            <Button fx:id="aceptarbutton" mnemonicParsing="false" onAction="#aceptar" style="-fx-background-color: transparent;" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@basic-tick.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#enrere" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button fx:id="cancelarbutton" mnemonicParsing="false" onAction="#enrere" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@cancel-music.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <HBox>
          <children>
             <Button mnemonicParsing="false" onAction="#enrere" style="-fx-background-color: transparent;">
@@ -69,9 +104,12 @@
                </graphic>
             </Button>
          </children>
+         <GridPane.margin>
+            <Insets left="-10.0" />
+         </GridPane.margin>
       </HBox>
    </children>
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+      <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
    </padding>
 </GridPane>

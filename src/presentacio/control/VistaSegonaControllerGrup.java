@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -61,6 +62,16 @@ public class VistaSegonaControllerGrup implements Initializable{
     			newSelection) -> {plenarTaula(newSelection);});
     	
     	barraBuscadora.textProperty().addListener((ob, vell, nou) -> {filtratge(nou);});
+    	
+    	Tooltip tp1 = new Tooltip();
+    	tp1.setText("Afegir grup");
+    	afegirG.setTooltip(tp1);
+    	Tooltip tp2 = new Tooltip();
+    	tp2.setText("Editar grup");
+    	editarG.setTooltip(tp2);
+    	Tooltip tp3 = new Tooltip();
+    	tp3.setText("Esborrar grup");
+    	esborrarG.setTooltip(tp3);
     	
 		/* Listeners de les opcions CRUD */
 		afegirG.setOnAction((event) -> {afegirGrup();});
