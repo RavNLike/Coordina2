@@ -5,17 +5,23 @@
  * Blau: 1595A3
  * Blau cel: ACF0F2
  * Blanc trencat: F2FFE3
- * Taronja: EB7F00
+ * Taronja: EB7F00 -> Substituir amb gris clar
  */
 @font-face {
-	/*font-family: "Helvetica";*/
+	font-family: Helvetica;
     src: url('Helvetica.otf');
 }
 
+@font-face{
+    font-family: Helvetica-Bold;
+    src: url('Helvetica-Bold.otf');
+}
+
 .root{
-	-fx-font-family: "Helvetica";
+	-fx-font-family: 'Helvetica';
 	/*-fx-shadow-highlight-color: #28EC12;*/
-	-fx-accent: #AC130D; /* En les tableviews posa quan no esta seleccionat el color roig */
+	-fx-accent: #BBBBBB; /* En les tableviews posa quan no esta seleccionat el color roig */
+	-fx-control-inner-background-alt: -fx-control-inner-background ; /* Per a llevar alternancia entre tableviews */
 	/*-fx-focus-color: #010D00;  Quan selecciones algo, la voreta es quedara gris */
 }
 
@@ -45,26 +51,32 @@
 
 .menu .label {
       /*-fx-background-color:#2C2424;*/
-      -fx-text-fill: #D9D7C5;
+      -fx-text-fill: #F2FFE3;
       /*-fx-border-width:2;*/
     }
 .menu-item {
-	-fx-background-color: #2C2424; /* Negre - gris */
-	-fx-border-color: #2C2424;
+	-fx-background-color: #225378;
+	-fx-border-color: #225378;
 }
 
 .menu-item:focused {
-	-fx-background-color: #878787;
+	-fx-background-color: #1595A3;
 }
 
 .menu-item:hover {
-	-fx-background-color: #AC130D;
+	-fx-background-color: #1595A3;
+	-fx-text-background: #2C2424;
 }
 
 .context-menu {
-	-fx-background-color: #2C2424;
+	-fx-background-color: #225378;
+	-fx-padding: 0 0 0 0;
 }
 
+/*
+ * TEXTFIELDS
+ */
+ 
 .text-field {
 	-fx-background-color: #A4A4A4, white;
 }
@@ -77,6 +89,10 @@
 	-fx-background-color: #BBBBBB, white;
 }
 
+/*
+ * TEXTAREAS
+ */
+ 
 .text-area {
 	-fx-background-color: #A4A4A4, white;
 }
@@ -89,8 +105,12 @@
 	-fx-background-color: #BBBBBB, white;
 }
 
+/*
+ * TEXTAREA CONCRET EN MAILING
+ */
+
 #destinataris {
-	-fx-background-color: #A54039;
+	-fx-background-color: #1595A3;
 	-fx-text-fill: #FFFFFF;
 }
 
@@ -155,24 +175,31 @@
 
 /* Canvia el color de les capçaleres de columna */
 .table-view .column-header-background .label{
-    -fx-text-fill: #D9D7C5;
+    -fx-text-fill: #F2FFE3;
+    /*-fx-font-size: 10pt;*/
+    /*-fx-font-family: 'Helvetica-Bold';*/
+    /*-fx-font-weight: bold;*/
 }
 
 .table-view .filler {
-	-fx-background-color: #2C2424;
+	-fx-background-color: #225378;
 }
 
 /* Posa el color en la capçalera de la columna */
 .table-view .column-header {
-    -fx-background-color: #2C2424;
+    -fx-background-color: #225378;
 }
 
 /* Quan selecciona una fila */
 .table-row-cell:selected {
-    -fx-background-color: #AC130D; /* Posa el fons a roig fosc */
+    -fx-background-color: #BBBBBB; /* Posa el fons a taronja fosc */
     -fx-table-cell-border-color: transparent; /* Lleva la barra vertical */
 }
 
+/*
+ * SPLITPANE
+ */
+ 
 /* Lleva el marge al splitpane. Segueix quedant 1px però s'arregla posant 
  * el marge de tableview en -1
  */
@@ -188,10 +215,11 @@
     -fx-background-color: transparent;
 }
 
+
 /*
  * Per als progress bar, canviar color...
  */
  .progress-bar {
- 	-fx-background-color: #A4A4A4;
- 	-fx-accent: #AC130D;
+ 	-fx-background-color: white;
+ 	-fx-accent: #225378;
  }

@@ -42,13 +42,13 @@ public class VistaSegonaControllerGrup implements Initializable{
     @FXML private TableColumn<Grup, AlumneTutor> columnaSegonAL;
     @FXML private TableColumn<Grup, String> columnaProfessor;
     @FXML private TableView<Tutelat> taulaTutelats;
-    @FXML private TableColumn<Tutelat, String> columnaTutelats;
+    @FXML private TableColumn<Tutelat, String> columnaTutelats, dnitut, nomtut, mailtut, gruptut;
     @FXML private TextField barraBuscadora;
     @FXML private Button afegirG, editarG, esborrarG, botoenrere;
     private Coordina2 cd2 = Coordina2.getInstancia();
 	private ArrayList<Grup> grup = cd2.llistarGrups();
     
-    @Override
+    @Override	
     public void initialize(URL url, ResourceBundle rb) {
     	ObservableList<Grup> grups = FXCollections.observableArrayList(grup);
     	columnaNomGrup.setCellValueFactory(param -> new SimpleStringProperty((param.getValue()).getNom()));
@@ -334,8 +334,12 @@ public class VistaSegonaControllerGrup implements Initializable{
     		for(Tutelat t : llistapersgrup){
     			personesgrup.add(t);
     		}
-			columnaTutelats.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getNif() 
-					+ " - " + param.getValue().getCognoms() + ", "+ param.getValue().getNom()));
+			//columnaTutelats.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getNif()));
+			dnitut.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getNif()));
+			nomtut.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getCognoms() + 
+					", " + param.getValue().getNom()));
+			gruptut.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getGrup_matricula()));
+			mailtut.setCellValueFactory(param -> new ReadOnlyObjectWrapper <>(param.getValue().getCorreu_upv()));
 			taulaTutelats.setItems(personesgrup);
 		}
     }

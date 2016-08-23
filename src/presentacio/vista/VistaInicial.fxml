@@ -11,9 +11,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="base" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaInicialController">
     <children>
-      <MenuBar style="-fx-text-fill: #FFFFFF; -fx-text-background: #FFFFFF; -fx-background-color: #2C2424;" stylesheets="@VistaInicial.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar style="-fx-text-background: #F2FFE3; -fx-background-color: #225378;" stylesheets="@VistaInicial.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" style="-fx-background-color: #2C2424; -fx-background-border: #2C2424;" styleClass="VistaInicial.css" text="Llistats">
+          <Menu mnemonicParsing="false" style="-fx-background-color: #225378;" styleClass="VistaInicial.css" text="Llistats">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#apretarTutelats" styleClass="VistaInicial.css" text="Tutelats" />
                   <MenuItem mnemonicParsing="false" onAction="#apretarTutorsAlumnes" text="Alumnes Tutors" />
@@ -21,7 +21,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#apretarGrups" text="Grups" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" style="-fx-background-color: #2C2424;" text="Altres opcions">
+          <Menu mnemonicParsing="false" style="-fx-background-color: #225378;" text="Altres opcions">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#apretarAcreditacions" text="Descarregar acreditacions" />
               <MenuItem mnemonicParsing="false" onAction="#apretarMailing" text="Mailing" />
@@ -29,7 +29,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#borrarBD" text="Borrar base de dades" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" style="-fx-background-color: #2C2424;" text="Ajuda">
+          <Menu mnemonicParsing="false" style="-fx-background-color: #225378;" text="Ajuda">
             <items>
                   <MenuItem mnemonicParsing="false" text="Sobre PATU" />
               <MenuItem mnemonicParsing="false" onAction="#eixir" text="Sortir" />

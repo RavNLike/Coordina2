@@ -9,67 +9,99 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.96" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
-   <items>
-      <SplitPane dividerPositions="0.55" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-        <items>
-            <AnchorPane>
-               <children>
-                  <TableView fx:id="taula" prefHeight="228.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
-                    <columns>
-                        <TableColumn prefWidth="75.0" text="Grup">
-                           <columns>
-                            <TableColumn fx:id="columnaNomGrup" prefWidth="75.0" text="Nom grup" />
-                            <TableColumn fx:id="columnaProfessor" prefWidth="75.0" text="Professor tutor" />
-                              <TableColumn fx:id="columnaPrimerAL" prefWidth="75.0" text="1r Alumne Tutor" />
-                              <TableColumn fx:id="columnaSegonAL" prefWidth="75.0" text="2n Alumne Tutor" />
-                           </columns>
-                        </TableColumn>
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <Button fx:id="botoenrere" mnemonicParsing="false" onAction="#enrere" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../blancafletxaenrere.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </AnchorPane>
-            <TableView fx:id="taulaTutelats" layoutX="-19.0" layoutY="-43.0" prefHeight="171.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="1000.0" stylesheets="@VistaInicial.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaSegonaControllerGrup">
+  <items>
+      <AnchorPane>
+         <children>
+            <TableView fx:id="taula" prefHeight="228.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
               <columns>
-                <TableColumn fx:id="columnaTutelats" prefWidth="75.0" text="Tutelats" />
+                  <TableColumn prefWidth="75.0" text="Grup">
+                     <columns>
+                      <TableColumn fx:id="columnaNomGrup" prefWidth="75.0" text="Nom grup" />
+                      <TableColumn fx:id="columnaProfessor" prefWidth="75.0" text="Professor tutor" />
+                        <TableColumn fx:id="columnaPrimerAL" prefWidth="75.0" text="1r Alumne Tutor" />
+                        <TableColumn fx:id="columnaSegonAL" prefWidth="75.0" text="2n Alumne Tutor" />
+                     </columns>
+                  </TableColumn>
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-        </items>
-      </SplitPane>
-      <GridPane hgap="30.0" vgap="30.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextField fx:id="barraBuscadora" promptText="G01, per exemple" />
-            <Button fx:id="afegirG" mnemonicParsing="false" text="Afegir grup" GridPane.columnIndex="1" />
-            <Button fx:id="editarG" mnemonicParsing="false" text="Editar grup" GridPane.columnIndex="2" />
-            <Button fx:id="esborrarG" mnemonicParsing="false" text="Esborrar grup" GridPane.columnIndex="3" />
+            <Button fx:id="botoenrere" mnemonicParsing="false" onAction="#enrere" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../blancafletxaenrere.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
-         <padding>
-            <Insets bottom="17.0" left="30.0" right="30.0" top="17.0" />
-         </padding>
-      </GridPane>
-   </items>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <TableView fx:id="taulaTutelats" prefHeight="63.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="columnaTutelats" prefWidth="75.0" text="Tutelats">
+                     <columns>
+                        <TableColumn fx:id="dnitut" prefWidth="75.0" text="DNI" />
+                        <TableColumn fx:id="nomtut" prefWidth="75.0" text="Cognoms, nom" />
+                        <TableColumn fx:id="gruptut" prefWidth="75.0" text="Grup de matricula" />
+                        <TableColumn fx:id="mailtut" prefWidth="75.0" text="Email" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <GridPane hgap="20.0" style="-fx-background-color: white;" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+              <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="30.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="30.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="30.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="barraBuscadora" promptText="G01, per exemple" />
+                  <Button fx:id="afegirG" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="editarG" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@edit-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="esborrarG" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@remove-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </AnchorPane>
+  </items>
 </SplitPane>

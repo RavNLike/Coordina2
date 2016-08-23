@@ -74,9 +74,6 @@ public class VistaSegonaControllerCarrega implements Initializable{
     	}
 
     }
-    @FXML void cancelar(ActionEvent event) {
-    	VistaNavigator.loadVista(VistaNavigator.VISTAINI);
-    }
     
     @FXML void enrere(ActionEvent event) {
     	VistaNavigator.loadVista(VistaNavigator.VISTAINI);

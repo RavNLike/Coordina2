@@ -48,7 +48,7 @@
             <Button mnemonicParsing="false" onAction="#aceptar" text="Acceptar" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" onAction="#enrere" text="Cancelar" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <HBox>
          <children>
             <Button mnemonicParsing="false" onAction="#enrere" style="-fx-background-color: transparent;">

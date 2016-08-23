@@ -11,6 +11,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -119,6 +121,8 @@ public class VistaSegonaControllerMail implements Initializable {
 					alert.setTitle("Confirmació");
 					alert.setHeaderText("S'ha enviat el seu missatge correctament");
 					alert.setContentText(null);
+					ButtonType botoOk = new ButtonType("Ok", ButtonData.OK_DONE);
+					alert.getButtonTypes().setAll(botoOk);
 					alert.showAndWait();
 				} else {
 					gp.getScene().setCursor(Cursor.DEFAULT);
@@ -128,6 +132,8 @@ public class VistaSegonaControllerMail implements Initializable {
 					alert.setTitle("Error");
 					alert.setHeaderText("Ha ocurrit un error");
 					alert.setContentText("Revise tots els camps.");
+					ButtonType botoOk = new ButtonType("Ok", ButtonData.OK_DONE);
+					alert.getButtonTypes().setAll(botoOk);
 					alert.showAndWait();
 				}
 				enrere();

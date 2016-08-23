@@ -78,6 +78,8 @@ public class VistaInicialController implements Initializable {
 	    		al2.setTitle("Exit");
 	    		al2.setHeaderText("Base de dades esborrada correctament");
 	    		al2.setContentText(null);
+	    		ButtonType bOk = new ButtonType("Ok", ButtonData.FINISH);
+	    		al2.getButtonTypes().setAll(bOk);
 	    		al2.showAndWait();
 			} catch (SQLException e){
 				Alert al2 = new Alert (AlertType.ERROR);
@@ -86,6 +88,8 @@ public class VistaInicialController implements Initializable {
 	    		al2.setTitle("Error");
 	    		al2.setHeaderText("Ha hagut un error amb SQL");
 	    		al2.setContentText(null);
+	    		ButtonType bOk = new ButtonType("Ok", ButtonData.FINISH);
+	    		al2.getButtonTypes().setAll(bOk);
 	    		al2.showAndWait();
 			} catch (SeguretatException e){
 				Alert al2 = new Alert (AlertType.ERROR);
@@ -94,6 +98,8 @@ public class VistaInicialController implements Initializable {
 	    		al2.setTitle("Error");
 	    		al2.setHeaderText("Ha hagut un error de seguretat");
 	    		al2.setContentText(null);
+	    		ButtonType bOk = new ButtonType("Ok", ButtonData.FINISH);
+	    		al2.getButtonTypes().setAll(bOk);
 	    		al2.showAndWait();
 			}
 		} else {
