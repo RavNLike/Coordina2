@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="base" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaInicialController">
+<AnchorPane id="AnchorPane" fx:id="base" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacio.control.VistaInicialController">
     <children>
       <MenuBar style="-fx-text-background: #F2FFE3; -fx-background-color: #225378;" stylesheets="@VistaInicial.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -31,7 +32,7 @@
           </Menu>
           <Menu mnemonicParsing="false" style="-fx-background-color: #225378;" text="Ajuda">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Sobre PATU" />
+                  <MenuItem mnemonicParsing="false" text="Sobre Coordina2" />
               <MenuItem mnemonicParsing="false" onAction="#eixir" text="Sortir" />
             </items>
           </Menu>

@@ -35,17 +35,29 @@ public class VistaInicialController implements Initializable {
     @FXML public void apretarAcreditacions(){
     	DirectoryChooser chooser = new DirectoryChooser();
     	chooser.setTitle("Seleccione el directori on es guardaran les acreditacions.");
-    	chooser.setInitialDirectory(new File("/home"));
-    	File arxiu = chooser.showDialog(null);
+		chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+    	
     	try{
-    		cd2.crearAcreditacions(arxiu.getAbsolutePath());
-    		Alert al = new Alert (AlertType.CONFIRMATION);
-        	DialogPane dp = al.getDialogPane();
-        	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
-    		al.setTitle("Exit!");
-    		al.setHeaderText("Les acreditacions s'han guardat correctament");
-    		al.setContentText(null);
-    		al.showAndWait();
+    		File arxiu = chooser.showDialog(null);
+    		if (arxiu == null){
+    			Alert al = new Alert (AlertType.WARNING);
+            	DialogPane dp = al.getDialogPane();
+            	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+        		al.setTitle("Atenció");
+        		al.setHeaderText(null);
+        		al.setContentText("No s'ha seleccionat cap path");
+        		al.showAndWait();
+    		} else {
+    			cd2.crearAcreditacions(arxiu.getAbsolutePath());
+        		Alert al = new Alert (AlertType.CONFIRMATION);
+            	DialogPane dp = al.getDialogPane();
+            	dp.getStylesheets().add(getClass().getResource("dialogs.css").toExternalForm());
+        		al.setTitle("Èxit!");
+        		al.setHeaderText(null);
+        		al.setContentText("Les acreditacions s'han guardat correctament");
+        		al.showAndWait();
+    		}
+    		
     	} catch (Exception e){
     		Alert al = new Alert (AlertType.ERROR);
         	DialogPane dp = al.getDialogPane();

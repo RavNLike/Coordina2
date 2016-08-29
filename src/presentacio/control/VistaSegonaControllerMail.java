@@ -228,7 +228,7 @@ public class VistaSegonaControllerMail implements Initializable {
 									+ cd2.obtindreMembresPerAlumneTutor(altutor);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(altutor, tema, cosMissatge);
-							System.out.println("Entra en el bucle de ATS, valor de resultat: " + result);
+							//System.out.println("Entra en el bucle de ATS, valor de resultat: " + result);
 						}
 					}
 
@@ -239,7 +239,7 @@ public class VistaSegonaControllerMail implements Initializable {
 							String cosMissatge = quadreMissatge.getText() + "\n" + cd2.obtindreLlistaPerProfessor(prof);
 							updateProgress(cont, numdests);
 							cd2.enviarCorreu(prof, tema, cosMissatge);
-							System.out.println("Entra en el bucle de PROFS, valor de resultat: " + result);
+							//System.out.println("Entra en el bucle de PROFS, valor de resultat: " + result);
 						}
 					}
 				} catch (Exception e) {
