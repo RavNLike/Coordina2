@@ -25,4 +25,4 @@ ini_tutelats_grup : 5
 forrellat : 0
 #recursos
 fletxa_back : ./res/BackButton2.png
-acreditacions_img : ./etsinf.png
+acreditacions_img : ./logoetsinf.jpg

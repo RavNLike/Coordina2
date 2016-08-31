@@ -47,7 +47,7 @@ public class TutorDAO {
 
 	public ArrayList<Professor> llistarProfessors() throws SQLException {
 		ArrayList<Professor> llista = new ArrayList<>();
-		String sql = "select * from " + professor;
+		String sql = "select * from " + professor +" order by cognoms";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
@@ -62,7 +62,7 @@ public class TutorDAO {
 
 	public ArrayList<AlumneTutor> llistarAlumnesTutors() throws SQLException {
 		ArrayList<AlumneTutor> llista = new ArrayList<>();
-		String sql = "select * from " + alumneTutor;
+		String sql = "select * from " + alumneTutor + " order by cognoms";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {

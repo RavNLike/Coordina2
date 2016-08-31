@@ -112,7 +112,6 @@ public class Acreditador {
 		ArrayList<AlumneTutor> tutors = coordina2.llistarAlumnesTutors();
 
 		for (AlumneTutor tut : tutors) {
-
 			PdfPTable taulaexterior = new PdfPTable(2);
 
 			// taulaexterior.getDefaultCell().setCellEvent(new
