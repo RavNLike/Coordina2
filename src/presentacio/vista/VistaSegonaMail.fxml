@@ -37,7 +37,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@check-mark.png" />
+                        <Image url="@basic-tick.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
