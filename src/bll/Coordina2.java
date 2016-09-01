@@ -638,6 +638,18 @@ public class Coordina2 {
 		acre.acreditarAlumnesTutors(pathdesti);
 		acre.acreditarTutelats(pathdesti);
 	}
+	
+	/**********************
+	 * LA SEGUENT FUNCIO CREA UNA PÁGINA D'ACREDITACIONS (6) EN BLANC
+	 * TODO IMPLEMENTAR A LA VISTA
+	 * @throws IOException 
+	 * @throws DocumentException 
+	 **********************/
+	
+	public void crearAcreditacionsBlanc(String desti) throws DocumentException, IOException{
+		Acreditador acre = Acreditador.getInstancia();
+		acre.acreditarBlanc(desti);
+	}
 
 	/************************
 	 * METODE QUE BORRA TOTA LA BASE DE DADES NECESSITE QUE EL EL REGISTRE
