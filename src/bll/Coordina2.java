@@ -8,6 +8,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -121,6 +123,16 @@ public class Coordina2 {
 	}
 
 	public ArrayList<Professor> llistarProfessors() {
+		/*Ordena els professors primer*/
+		Collections.sort(professors, new Comparator<Professor>() {
+	        
+			@Override
+			public int compare(Professor arg0, Professor arg1) {
+				return arg0.getCognoms().compareTo(arg1.getCognoms());
+			}
+	    });
+		
+		
 		return professors;
 	}
 
@@ -176,6 +188,16 @@ public class Coordina2 {
 	}
 
 	public ArrayList<AlumneTutor> llistarAlumnesTutors() {
+		
+		/*Ordena els alumnes tutors primer*/
+		Collections.sort(alumnesTutors, new Comparator<AlumneTutor>() {
+	        
+			@Override
+			public int compare(AlumneTutor arg0, AlumneTutor arg1) {
+				return arg0.getCognoms().compareTo(arg1.getCognoms());
+			}
+	    });
+		
 		return alumnesTutors;
 	}
 
@@ -222,6 +244,15 @@ public class Coordina2 {
 	}
 
 	public ArrayList<Grup> llistarGrups() {
+		
+		/*Ordena els grups primer*/
+		Collections.sort(grups, new Comparator<Grup>() {
+	        
+			@Override
+			public int compare(Grup arg0, Grup arg1) {
+				return arg0.getNom().compareTo(arg1.getNom());
+			}
+	    });
 		return grups;
 	}
 
@@ -267,6 +298,17 @@ public class Coordina2 {
 	}
 
 	public ArrayList<Tutelat> llistarTutelats() {
+		/*Ordena els tutelats primer*/
+		Collections.sort(tutelats, new Comparator<Tutelat>() {
+	        
+			/*Ordena primer per grup de matricula i despres per nom*/
+			@Override
+			public int compare(Tutelat arg0, Tutelat arg1) {
+				return arg0.getGrup_patu().getNom().compareTo(arg1.getGrup_patu().getNom())*1000
+						+arg0.getCognoms().compareTo(arg1.getCognoms());
+			}
+	    });
+		
 		return tutelats;
 	}
 
@@ -400,7 +442,6 @@ public class Coordina2 {
 	public ArrayList<Tutelat> obtindreTutelatsPerGrup(String nomGrup) {
 		ArrayList<Tutelat> res = new ArrayList<>();
 		for (Tutelat t : tutelats) {
-			System.out.println("El grup que s'esta comparant: " + t.getGrup_patu().getNom());
 			if (t != null && t.getGrup_patu().getNom().equals(nomGrup)) {
 				res.add(t);
 			}
@@ -640,7 +681,7 @@ public class Coordina2 {
 	}
 	
 	/**********************
-	 * LA SEGUENT FUNCIO CREA UNA PÁGINA D'ACREDITACIONS (6) EN BLANC
+	 * LA SEGUENT FUNCIO CREA UNA Pï¿½GINA D'ACREDITACIONS (6) EN BLANC
 	 * TODO IMPLEMENTAR A LA VISTA
 	 * @throws IOException 
 	 * @throws DocumentException 

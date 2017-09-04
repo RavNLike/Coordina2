@@ -51,9 +51,14 @@ public class Tutelat extends Persona {
 		this.mobil = mobil;
 	}
 	
+	
+	public String info_completa(){
+		return super.getCognoms()+", "+super.getNom()+" - "+super.getNif();
+	}
+	
 	@Override
 	public String toString(){
-		return super.getCognoms()+", "+super.getNom()+" - "+super.getNif();
+		return super.getCognoms()+", "+super.getNom();
 	}
 	
 	
