@@ -52,7 +52,7 @@ public class Tutelat extends Persona {
 	}
 	
 	
-	public String info_completa(){
+	public String infoCompleta(){
 		return super.getCognoms()+", "+super.getNom()+" - "+super.getNif();
 	}
 	

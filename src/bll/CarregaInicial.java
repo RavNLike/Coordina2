@@ -187,7 +187,7 @@ public class CarregaInicial {
 		AlumneTutor tutorDefault = alumnesTutors.get(0);
 		// per a tots els grups lo mateix en ordre de deixar un estat coherent
 		for (Grup g : inst.llistarGrups()) {
-			g.setProfessor(profeDefault);
+			g.setProfessor1(profeDefault);
 			g.setAlumne1(tutorDefault);
 		}
 

@@ -282,7 +282,11 @@ public class Coordina2 {
 				if (bandera) {
 					grups.get(i).setAlumne1(g.getAlumne1());
 					grups.get(i).setAlumne2(g.getAlumne2());
-					grups.get(i).setProfessor(g.getProfessor());
+					grups.get(i).setProfessor1(g.getProfessor1());
+					//nou
+					grups.get(i).setProfessor2(g.getProfessor2());
+					grups.get(i).setAlumne3(g.getAlumne3());
+					grups.get(i).setAlumne4(g.getAlumne4());
 				}
 			}
 		}
@@ -365,12 +369,18 @@ public class Coordina2 {
 
 	public Grup dtoAgrup(GrupDTO dto) {
 		String nom = dto.getNom();
-		Professor pAux = null;
+		Professor p1 = null;
+		Professor p2 = null;
 		AlumneTutor aux1 = null;
 		AlumneTutor aux2 = null;
+		AlumneTutor aux3 = null;
+		AlumneTutor aux4 = null;
 		for (Professor p : professors) {
-			if (p.getNif().trim().equalsIgnoreCase(dto.getProfessor())) {
-				pAux = p;
+			if (p.getNif().trim().equalsIgnoreCase(dto.getProfessor1())) {
+				p1 = p;
+			}
+			if (p.getNif().trim().equalsIgnoreCase(dto.getProfessor2())) {
+				p2 = p;
 			}
 		}
 		for (AlumneTutor a : alumnesTutors) {
@@ -380,9 +390,15 @@ public class Coordina2 {
 			if (a.getNif().trim().equalsIgnoreCase(dto.getAlumne2())) {
 				aux2 = a;
 			}
+			if (a.getNif().trim().equalsIgnoreCase(dto.getAlumne3())) {
+				aux3 = a;
+			}
+			if (a.getNif().trim().equalsIgnoreCase(dto.getAlumne4())) {
+				aux4 = a;
+			}
 		}
 
-		return new Grup(nom, pAux, aux1, aux2);
+		return new Grup(nom, p1, p2, aux1, aux2, aux3, aux4);
 	}
 
 	public Tutelat dtoAtutelat(TutelatDTO dto) {
@@ -418,8 +434,11 @@ public class Coordina2 {
 		Grup aux = buscarGrup(nomGrup);
 		if (aux != null) {
 			// obtenir el professor
-			if (aux.getProfessor() != null) {
-				llista.add(aux.getProfessor());
+			if (aux.getProfessor1() != null) {
+				llista.add(aux.getProfessor1());
+			}
+			if (aux.getProfessor2() != null) {
+				llista.add(aux.getProfessor2());
 			}
 			// obtenir l'alumne 1
 			if (aux.getAlumne1() != null) {
@@ -428,6 +447,14 @@ public class Coordina2 {
 			// obtenir l'alumne 2
 			if (aux.getAlumne2() != null) {
 				llista.add(aux.getAlumne2());
+			}
+			// obtenir l'alumne 3
+			if (aux.getAlumne3() != null) {
+				llista.add(aux.getAlumne3());
+			}
+			// obtenir l'alumne 4
+			if (aux.getAlumne4() != null) {
+				llista.add(aux.getAlumne4());
 			}
 			// buscar els alumnes d'este grup
 			for (Tutelat tut : tutelats) {
@@ -452,7 +479,10 @@ public class Coordina2 {
 	public ArrayList<Grup> grupsPerAlumneTutor(AlumneTutor al) {
 		ArrayList<Grup> llista = new ArrayList<>();
 		for (Grup aux : grups) {
-			if (aux.getAlumne1().equals(al) || (aux.getAlumne2() != null && aux.getAlumne2().equals(al))) {
+			if (aux.getAlumne1().equals(al) || 
+					(aux.getAlumne2() != null && aux.getAlumne2().equals(al)) ||
+					(aux.getAlumne3() != null && aux.getAlumne3().equals(al)) ||
+					(aux.getAlumne4() != null && aux.getAlumne4().equals(al))) {
 				llista.add(aux);
 			}
 		}
@@ -463,7 +493,10 @@ public class Coordina2 {
 		ArrayList<Grup> llista = new ArrayList<>();
 		String dni = prof.getNif();
 		for (Grup g : grups) {
-			if (g.getProfessor().getNif().equalsIgnoreCase(dni)) {
+			if (g.getProfessor1().getNif().equalsIgnoreCase(dni)) {
+				llista.add(g);
+			}
+			if (g.getProfessor2() != null && g.getProfessor2().getNif().equalsIgnoreCase(dni)) {
 				llista.add(g);
 			}
 		}
@@ -520,20 +553,32 @@ public class Coordina2 {
 	public String obtindreLlistaPerProfessor(Professor profe) {
 		String res = "";
 		for (Grup aux : grups) {
-			if (aux.getProfessor().getNif().equalsIgnoreCase(profe.getNif())) {
+			// busca por profesor uno o dos si existe
+			if (aux.getProfessor1().getNif().equalsIgnoreCase(profe.getNif()) ||
+				(aux.getProfessor2() != null && aux.getProfessor2().getNif().equalsIgnoreCase(profe.getNif()))) {
 				// trobe un grup d'eixe profe
 				Grup grup = aux;
 				res += "GRUP - " + grup.getNom() + "\n";
 				res += "TUTOR(S)\n-------\n";
 				if (grup.getAlumne1() != null) {
-					res += grup.getAlumne1().toString() + "\n";
+					AlumneTutor a1 = grup.getAlumne1();
+					res += a1.getCognoms()+", "+a1.getNom()+" -- "+a1.getCorreu_upv()+ "\n";
 				}
 				if (grup.getAlumne2() != null) {
-					res += grup.getAlumne2().toString() + "\n";
+					AlumneTutor a2 = grup.getAlumne2();
+					res += a2.getCognoms()+", "+a2.getNom()+" -- "+a2.getCorreu_upv()+ "\n";
+				}
+				if (grup.getAlumne3() != null) {
+					AlumneTutor a3 = grup.getAlumne3();
+					res += a3.getCognoms()+", "+a3.getNom()+" -- "+a3.getCorreu_upv()+ "\n";
+				}
+				if (grup.getAlumne4() != null) {
+					AlumneTutor a4 = grup.getAlumne4();
+					res += a4.getCognoms()+", "+a4.getNom()+" -- "+a4.getCorreu_upv()+ "\n";
 				}
 				res += "\nTUTELATS\n-------\n";
 				for (Tutelat t : llistarTutelatsPerGrup(grup)) {
-					res += t.toString() + "\n";
+					res += t.getCognoms()+", "+t.getNom()+" -- "+t.getCorreu_upv()+ "\n";
 				}
 				res += "-------\n";
 
@@ -542,23 +587,37 @@ public class Coordina2 {
 		return res;
 	}
 
+
 	public String obtindreMembresPerAlumneTutor(AlumneTutor tut) {
 		ArrayList<Grup> llistat = grupsPerAlumneTutor(tut);
 		String res = "";
 		for (Grup aux : llistat) {
 			res += "GRUP - " + aux.getNom() + "\n------\n";
 			res += "PROFESSOR\n------\n";
-			res += aux.getProfessor().toString() + "\n";
+			res += aux.getProfessor1().infoCompleta()+ "\n";
+			if (aux.getProfessor2()!=null) {
+				res+= aux.getProfessor2().infoCompleta() + "\n";
+			}
 			res += "\nTUTOR(S)\n-------\n";
 			if (aux.getAlumne1() != null) {
-				res += aux.getAlumne1().toString() + "\n";
+				AlumneTutor a1 = aux.getAlumne1();
+				res += a1.getCognoms()+", "+a1.getNom()+" -- "+a1.getCorreu_upv()+ "\n";
 			}
 			if (aux.getAlumne2() != null) {
-				res += aux.getAlumne2().toString() + "\n";
+				AlumneTutor a2 = aux.getAlumne2();
+				res += a2.getCognoms()+", "+a2.getNom()+" -- "+a2.getCorreu_upv()+ "\n";
+			}
+			if (aux.getAlumne3() != null) {
+				AlumneTutor a3 = aux.getAlumne3();
+				res += a3.getCognoms()+", "+a3.getNom()+" -- "+a3.getCorreu_upv()+ "\n";
+			}
+			if (aux.getAlumne4() != null) {
+				AlumneTutor a4 = aux.getAlumne4();
+				res += a4.getCognoms()+", "+a4.getNom()+" -- "+a4.getCorreu_upv()+ "\n";
 			}
 			res += "\nTUTELATS\n-------\n";
 			for (Tutelat t : llistarTutelatsPerGrup(aux)) {
-				res += t.toString() + "\n";
+				res += t.getCognoms()+", "+t.getNom()+" -- "+t.getCorreu_upv()+ "\n";
 			}
 			res += "-------\n";
 
@@ -681,7 +740,7 @@ public class Coordina2 {
 	}
 	
 	/**********************
-	 * LA SEGUENT FUNCIO CREA UNA P�GINA D'ACREDITACIONS (6) EN BLANC
+	 * LA SEGUENT FUNCIO CREA UNA PAGINA D'ACREDITACIONS (6) EN BLANC
 	 * TODO IMPLEMENTAR A LA VISTA
 	 * @throws IOException 
 	 * @throws DocumentException 

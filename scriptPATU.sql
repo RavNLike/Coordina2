@@ -29,9 +29,13 @@ grup VARCHAR(3) PRIMARY KEY,
 professor VARCHAR(8) NOT NULL,
 alumne1 VARCHAR(8) NOT NULL,
 alumne2 VARCHAR(8),
+alumne3 VARCHAR(8),
+alumne4 VARCHAR(8),
 FOREIGN KEY (professor) references Professors(nif),
 FOREIGN KEY (alumne1) references Tutors(nif),
-FOREIGN KEY (alumne2) references Tutors(nif)
+FOREIGN KEY (alumne2) references Tutors(nif),
+FOREIGN KEY (alumne3) references Tutors(nif),
+FOREIGN KEY (alumne4) references Tutors(nif)
 );
 
 CREATE TABLE Metainfo(

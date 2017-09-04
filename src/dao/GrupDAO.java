@@ -23,16 +23,54 @@ public class GrupDAO {
 	 */
 	public boolean afegir(Grup g) {
 		String grup = g.getNom();
-		String profesor = g.getProfessor().getNif();
+		String profesor1 = g.getProfessor1().getNif();
 		String al1 = g.getAlumne1().getNif();
-
-		String sql;
+		
+		// professor 1
+		String sql = "Insert into Grup values('" + grup + "','" + profesor1 + "'";
+		// profesor 2 (opcional)
+		if (g.getProfessor2() != null) {
+			sql += ", '" + g.getProfessor2().getNif() + "'";
+		}else {
+			sql += ", 'null'";
+		}
+		
+		//alumne 1
+		sql += ", '" + al1 + "'";
+		// alumne 2, 3 i 4 (opcional)
+		if (g.getAlumne2() != null) {
+			sql += ", '" + g.getAlumne2().getNif() + "'";
+		}
+		else {
+			sql += ", 'null'";
+		}
+		//
+		if (g.getAlumne3() != null) {
+			sql += ", '" + g.getAlumne3().getNif() + "'";
+		}
+		else {
+			sql += ", 'null'";
+		}
+		//
+		if (g.getAlumne4() != null) {
+			sql += ", '" + g.getAlumne4().getNif() + "'";
+		}else {
+			sql += ", 'null'";
+		}
+		//fin del query
+		sql+= ")";
+		
+		
+		/*
+		 * CODI ANTIC QUAN SOLS HI HAVIA UN PROF I DOS TUTORS
+		 * 
 		if (g.getAlumne2() == null) {
 			sql = "Insert into Grup (grup, professor, alumne1) values('" + grup + "','" + profesor + "','" + al1 + "')";
 		} else {
 			String al2 = g.getAlumne2().getNif();
 			sql = "Insert into Grup values('" + grup + "','" + profesor + "','" + al1 + "','" + al2 + "')";
 		}
+		*/
 
 		try {
 			Statement stmt = c.createStatement();
@@ -52,8 +90,13 @@ public class GrupDAO {
 
 		/* UTILITZEM DTO PER A RESOLDRE DEPENDENCIES */
 		while (rs.next()) {
-			llista.add(new GrupDTO(rs.getString("grup"), rs.getString("professor"), rs.getString("alumne1"),
-					rs.getString("alumne2")));
+			llista.add(new GrupDTO(rs.getString("grup"), 
+					rs.getString("professor1"), 
+					rs.getString("professor2"), 
+					rs.getString("alumne1"),
+					rs.getString("alumne2"), 
+					rs.getString("alumne3"),
+					rs.getString("alumne4")));
 		}
 		return llista;
 
@@ -75,10 +118,51 @@ public class GrupDAO {
 	}
 
 	public boolean editar(Grup g) {
+		/*
+		 * 	CODI ANTIC
+		 * 
 		String sql = "update Grup set professor = '" + g.getProfessor().getNif() + "', " + "alumne1 = '"
 				+ g.getAlumne1().getNif() + "' "
 				+ (g.getAlumne2() == null ? "" : ", alumne2 = '" + g.getAlumne2().getNif() + "'") + " where Grup = '"
 				+ g.getNom()+"'";
+		*/
+		
+		String sql = "update Grup set professor1 = '" + g.getProfessor1().getNif() + "'";
+		// profesor 2 (opcional)
+			if (g.getProfessor2() != null) {
+				sql += ", professor2 = '" + g.getProfessor2().getNif() + "'";
+			}else {
+				sql += ", 'null'";
+			}
+			
+			//alumne 1
+			sql += ", alumne1 = '" + g.getAlumne1().getNif() + "'";
+			// alumne 2, 3 i 4 (opcional)
+			if (g.getAlumne2() != null) {
+				sql += ", alumne2 = '" + g.getAlumne2().getNif() + "'";
+			}
+			else {
+				sql += ", alumne2 = 'null'";
+			}
+			//
+			if (g.getAlumne3() != null) {
+				sql += ", alumne3 = '" + g.getAlumne3().getNif() + "'";
+			}
+			else {
+				sql += ", alumne3 = 'null'";
+			}
+			//
+			if (g.getAlumne4() != null) {
+				sql += ", alumne4 = '" + g.getAlumne4().getNif() + "'";
+			}
+			else {
+				sql += ", alumne4 = 'null'";
+			}
+			//fin del query
+			sql+= ")";	
+	
+		
+		
 		try {
 			Statement stmt = c.createStatement();
 			stmt.executeUpdate(sql);
