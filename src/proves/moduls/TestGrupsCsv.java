@@ -12,20 +12,21 @@ import pojo.Tutelat;
 
 public class TestGrupsCsv {
 
-	
+	//TODO insercio en laplicacio i ampliacio
 	public static void exportar() throws IOException {
 		/*
 		 * 1) recupere els grups
 		 * 2) per cada grup monte un csv amb les dades
 		 * del professor, els tutors i els alumnes
 		 * */
+		
 		Coordina2 bll = Coordina2.getInstancia();
 		ArrayList<Grup> grups = bll.llistarGrups();
 		for (Grup g : grups) {
 			String nom = g.getNom();
 			BufferedWriter out = new BufferedWriter(new FileWriter(nom+".csv"));
 			out.write("Professor\n");
-			Professor prof = g.getProfessor();
+			Professor prof = g.getProfessor1();
 			out.write(prof.getNif()+";"+prof.toString()+';'+prof.getCorreu_upv()+"\n");
 			out.write("Tutelats\n");
 			ArrayList <Tutelat> tuts = bll.llistarTutelatsPerGrup(g);

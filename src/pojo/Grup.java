@@ -36,7 +36,7 @@ public class Grup {
 		
 	}
 
-	
+
 	public String getNom() {
 		return nom;
 	}

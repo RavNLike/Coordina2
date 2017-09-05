@@ -132,7 +132,7 @@ public class GrupDAO {
 			if (g.getProfessor2() != null) {
 				sql += ", professor2 = '" + g.getProfessor2().getNif() + "'";
 			}else {
-				sql += ", 'null'";
+				sql += ", professor2 = 'null'";
 			}
 			
 			//alumne 1
@@ -159,9 +159,9 @@ public class GrupDAO {
 				sql += ", alumne4 = 'null'";
 			}
 			//fin del query
-			sql+= ")";	
+			//sql+= ")";	
 	
-		
+			System.out.println(sql);
 		
 		try {
 			Statement stmt = c.createStatement();
